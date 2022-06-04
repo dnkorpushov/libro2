@@ -7,6 +7,8 @@ main_module = "src/python/libro2/main.py"
 
 main_dir = os.path.dirname(main_module)
 
+
+
 PyInstaller.__main__.run([
     '-w',
     '--clean',

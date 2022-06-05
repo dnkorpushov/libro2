@@ -12,6 +12,6 @@
     <file>save_16px.png</file>
   </qresource>
   <qresource prefix="icons">
-    <file>books.ico</file>
+    <file>course_16px.png</file>
   </qresource>
 </RCC>

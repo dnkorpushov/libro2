@@ -45,7 +45,7 @@ class AddFilesDialog(QDialog, Ui_ProcessDialog):
         self.setupUi(self)
         self.setWindowTitle('Add files')
 
-        self.setWindowFlags(self.windowFlags() & ~Qt.WindowContextHelpButtonHint)
+        self.setWindowFlags(Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
         self.progressBar.setMaximum(len(files))
         self.progressBar.setMinimum(0)
@@ -59,6 +59,10 @@ class AddFilesDialog(QDialog, Ui_ProcessDialog):
 
         self.thread.started.connect(self.worker.loadFiles)
         self.thread.finished.connect(self.close)
+
+        # self.setWindowFlag(Qt.CustomizeWindowHint, True)
+        # self.setWindowFlag(Qt.WindowTitleHint, True)
+        
 
 
     def setCurrentProcess(self, index, count):

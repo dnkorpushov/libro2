@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\designer\bookinfopanel.ui'
+# Form implementation generated from reading ui file 'src\designer\bookinfopanel.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #

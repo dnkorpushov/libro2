@@ -11,6 +11,7 @@ from .renamedialog import RenameDialog
 import config
 import database
 
+settings = config.settings
 
 class MainWindow (QMainWindow, Ui_MainWindow):
 
@@ -30,24 +31,24 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.splitter.setStretchFactor(0, 0)
         self.splitter.setStretchFactor(1, 1)
        
-        if config.ui_window_x and config.ui_window_y:
-            self.move(config.ui_window_x, config.ui_window_y)
+        if settings.ui_window_x and settings.ui_window_y:
+            self.move(settings.ui_window_x, settings.ui_window_y)
 
-        if config.ui_window_height and config.ui_window_width:
-            self.resize(config.ui_window_width, config.ui_window_height)
+        if settings.ui_window_height and settings.ui_window_width:
+            self.resize(settings.ui_window_width, settings.ui_window_height)
 
-        if len(config.ui_splitter_sizes) > 0:
-            if config.ui_info_panel_visible:
+        if len(settings.ui_splitter_sizes) > 0:
+            if settings.ui_info_panel_visible:
                 self.actionViewInfo_panel.setChecked(True)
-                self.splitter.setSizes(config.ui_splitter_sizes)
+                self.splitter.setSizes(settings.ui_splitter_sizes)
             else:
                 self.actionViewInfo_panel.setChecked(False)
-                self.prevSplitterSizes = config.ui_splitter_sizes
+                self.prevSplitterSizes = settings.ui_splitter_sizes
                 self.onViewInfoPanel(False)
 
-        self.frameFilter.setVisible(config.ui_filter_panel_visible)
-        self.actionFilter_panel.setChecked(config.ui_filter_panel_visible)
-        self.isAutoApplyFilter = config.ui_auto_apply_filter
+        self.frameFilter.setVisible(settings.ui_filter_panel_visible)
+        self.actionFilter_panel.setChecked(settings.ui_filter_panel_visible)
+        self.isAutoApplyFilter = settings.ui_auto_apply_filter
         self.textFilter.setMaximumHeight(self.toolFilterButton.maximumHeight())
         self.textFilter.setMinimumHeight(self.toolFilterButton.minimumHeight())
         
@@ -81,20 +82,20 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def onAddFiles(self):
         result = QFileDialog.getOpenFileNames(self, 
                                               caption='Add files', 
-                                              directory=config.add_files_last_selected,
+                                              directory=settings.add_files_last_selected,
                                               filter='Ebook files (*.fb2 *.fb2.zip *.epub);;All files (*.*)')
         if len(result[0]) > 0:
             self.AddFiles(result[0])
             for file in result[0]:
-                (config.add_files_last_selected, _) = os.path.split(file)
+                (settings.add_files_last_selected, _) = os.path.split(file)
 
     def onAddFolder(self):
         fileList = []
         folder = QFileDialog.getExistingDirectory(self,
                                                   caption='Add folder',
-                                                  directory=config.add_folder_last_selected)
+                                                  directory=settings.add_folder_last_selected)
         if folder:
-            config.add_folder_last_selected = folder
+            settings.add_folder_last_selected = folder
             for root, dir, files in os.walk(folder):
                 for file in files:
                     fileList.append(os.path.join(root, file))
@@ -124,19 +125,24 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def stopWait(self):
         QApplication.restoreOverrideCursor()
 
+    def getSelectedBookList(self):
+        list_id = self.bookList.getSelectedId()
+        book_info_list = []
+        for id in list_id:
+            book_info = database.get_book_info(id)
+            book_info_list.append(book_info)
+        
+        return book_info_list
+
     def onBookListSelectionChanged(self):
         if self.bookInfo.isDataChanged:
             if QMessageBox.question(self, 'Libro2', 'Save changes?') == QMessageBox.Yes:
                 self.SaveMetadata()
 
-        list_id = self.bookList.getSelectedId()
-        book_info_list = []
+        book_info_list = self.getSelectedBookList()
 
-        if len(list_id) > 0:
+        if len(book_info_list) > 0:
             self.actionsSetEnabled(True)
-            for id in list_id:
-                book_info = database.get_book_info(id)
-                book_info_list.append(book_info)
             self.bookInfo.setData(book_info_list)
         else:
             self.bookInfo.clear()
@@ -182,9 +188,18 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.stopWait()
      
     def onRename(self):
-        renameDialog = RenameDialog(self)
-        if renameDialog.exec_():
-            print('Ok')
+        book_info_list = self.getSelectedBookList()
+        if len(book_info_list):
+            renameDialog = RenameDialog(self)
+            renameDialog.bookList = book_info_list
+            renameDialog.authorFormat = settings.rename_author_format
+            renameDialog.filenameFormat = settings.rename_filename_format
+
+            if renameDialog.exec_():
+                # To-do
+                settings.rename_author_format = renameDialog.authorFormat
+                settings.rename_filename_format = renameDialog.filenameFormat
+            
 
     def onToolFilterButton(self):
         actionList = {
@@ -234,17 +249,17 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.close()
 
     def exitApp(self):
-        config.ui_window_x = self.pos().x()
-        config.ui_window_y = self.pos().y()
-        config.ui_window_width = self.size().width()
-        config.ui_window_height = self.size().height()
-        config.ui_info_panel_visible = self.actionViewInfo_panel.isChecked()
-        config.ui_filter_panel_visible = self.actionFilter_panel.isChecked()
-        config.ui_auto_apply_filter = self.isAutoApplyFilter
+        settings.ui_window_x = self.pos().x()
+        settings.ui_window_y = self.pos().y()
+        settings.ui_window_width = self.size().width()
+        settings.ui_window_height = self.size().height()
+        settings.ui_info_panel_visible = self.actionViewInfo_panel.isChecked()
+        settings.ui_filter_panel_visible = self.actionFilter_panel.isChecked()
+        settings.ui_auto_apply_filter = self.isAutoApplyFilter
         if self.actionViewInfo_panel.isChecked():
-            config.ui_splitter_sizes = self.splitter.sizes()
+            settings.ui_splitter_sizes = self.splitter.sizes()
         else:
-            config.ui_splitter_sizes = self.prevSplitterSizes;
+            settings.ui_splitter_sizes = self.prevSplitterSizes;
         
         config.save()
         database.clear()

@@ -3,7 +3,7 @@ import ebookmeta
 from PyQt5.QtSql import QSqlQuery, QSqlDatabase
 from PyQt5.QtCore import QByteArray
 import query as query
-
+from types import SimpleNamespace
 
 
 db_file = os.path.join(os.path.expanduser('~'), 'libro2', 'booklist.db')
@@ -54,9 +54,6 @@ def clear():
 def add_book(file):
     meta = ebookmeta.get_metadata(file)
 
-# INSERT INTO book (title, author, author_sort, tags, tags_description, series, series_index, lang, translator, description, type, cover_image, file)
-#         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) 
-
     q = QSqlQuery(db)
     q.prepare(query.insert_book)
     q.bindValue(0, meta.title)
@@ -98,20 +95,20 @@ def delete_books(list_id):
 
 
 def update_book_info(book_rec):
-    book_id = book_rec['id']
-    filename = book_rec['file']
+    book_id = book_rec.id
+    filename = book_rec.file
 
     q = QSqlQuery(db)
     q.prepare(query.update_book)
-    q.bindValue(0, book_rec['title'])
-    q.bindValue(1, book_rec['author'])
-    q.bindValue(2, book_rec['tags'])
-    q.bindValue(3, book_rec['series'])
-    q.bindValue(4, book_rec['series_index'])
-    q.bindValue(5, book_rec['lang'])
-    q.bindValue(6, book_rec['translator'])
-    if book_rec['cover_image']:
-        q.bindValue(7, QByteArray(book_rec['cover_image']))
+    q.bindValue(0, book_rec.title)
+    q.bindValue(1, book_rec.author)
+    q.bindValue(2, book_rec.tags)
+    q.bindValue(3, book_rec.series)
+    q.bindValue(4, book_rec.series_index)
+    q.bindValue(5, book_rec.lang)
+    q.bindValue(6, book_rec.translator)
+    if book_rec.cover_image:
+        q.bindValue(7, QByteArray(book_rec.cover_image))
     else:
         q.bindValue(7, None)
     q.bindValue(8, book_id)
@@ -123,14 +120,14 @@ def update_book_info(book_rec):
         try:
             meta = ebookmeta.get_metadata(filename)
 
-            meta.title = book_rec['title']
-            meta.set_author_from_string(book_rec['author'])
-            meta.set_tag_from_string(book_rec['tags'])
-            meta.series = book_rec['series']
-            meta.series_index = book_rec['series_index']
-            meta.lang = book_rec['lang']
-            meta.set_translator_from_string(book_rec['translator'])
-            meta.cover_image_data = book_rec['cover_image']
+            meta.title = book_rec.title
+            meta.set_author_from_string(book_rec.author)
+            meta.set_tag_from_string(book_rec.tags)
+            meta.series = book_rec.series
+            meta.series_index = book_rec.series_index
+            meta.lang = book_rec.lang
+            meta.set_translator_from_string(book_rec.translator)
+            meta.cover_image_data = book_rec.cover_image
             
             ebookmeta.set_metadata(filename, meta)
   
@@ -153,24 +150,42 @@ def get_book_info(book_id):
     q = QSqlQuery(db)
     q.prepare(query.select_book)
 
-    book_rec = {}
+    book_rec = _get_book_rec()
     q.bindValue(0, book_id)
     if q.exec():
         if q.next():
-            book_rec['id'] = q.value(0)
-            book_rec['title'] = q.value(1)
-            book_rec['author'] = q.value(2)
-            book_rec['tags'] = q.value(3)
-            book_rec['tags_description']  = q.value(4)
-            book_rec['series'] = q.value(5)
-            book_rec['series_index'] = q.value(6)
-            book_rec['lang'] = q.value(7)
-            book_rec['translator'] = q.value(8)
-            book_rec['cover_image'] = q.value(9)
-            book_rec['description'] = q.value(10)
-            book_rec['file'] = q.value(11)
+            book_rec.id = q.value(0)
+            book_rec.title = q.value(1)
+            book_rec.author = q.value(2)
+            book_rec.tags = q.value(3)
+            book_rec.tags_description = q.value(4)
+            book_rec.series = q.value(5)
+            book_rec.series_index = q.value(6)
+            book_rec.lang = q.value(7)
+            book_rec.translator = q.value(8)
+            book_rec.cover_image = q.value(9)
+            book_rec.description = q.value(10)
+            book_rec.file = q.value(11)
 
     else:
         print(q.lastError().text())
 
+    return book_rec
+
+
+def _get_book_rec():
+    book_rec = SimpleNamespace(
+        id=None, 
+        title=None,
+        author=None,
+        tags=None,
+        tags_description=None,
+        series=None,
+        series_index=None,
+        lang=None,
+        translator=None,
+        cover_image=None,
+        decription=None,
+        file=None
+    )
     return book_rec

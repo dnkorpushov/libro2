@@ -60,10 +60,6 @@ class AddFilesDialog(QDialog, Ui_ProcessDialog):
         self.thread.started.connect(self.worker.loadFiles)
         self.thread.finished.connect(self.close)
 
-        # self.setWindowFlag(Qt.CustomizeWindowHint, True)
-        # self.setWindowFlag(Qt.WindowTitleHint, True)
-        
-
 
     def setCurrentProcess(self, index, count):
         self.progressLabel.setText('Add files... {0} of {1}'.format(index, count))

@@ -116,13 +116,13 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.textTranslator.init()
 
         for book_info in book_info_list:
-            self.textTitle.addUserItem(book_info['title'])
-            self.textAuthor.addUserItem(book_info['author'])
-            self.textSeries.addUserItem(book_info['series'])
-            self.textNumber.addUserItem(str(book_info['series_index']))
-            self.textTag.addUserItem(book_info['tags'])
-            self.textLang.addUserItem(book_info['lang'])
-            self.textTranslator.addUserItem(book_info['translator'])
+            self.textTitle.addUserItem(book_info.title)
+            self.textAuthor.addUserItem(book_info.author)
+            self.textSeries.addUserItem(book_info.series)
+            self.textNumber.addUserItem(str(book_info.series_index))
+            self.textTag.addUserItem(book_info.tags)
+            self.textLang.addUserItem(book_info.lang)
+            self.textTranslator.addUserItem(book_info.translator)
        
         self.textTitle.setInitialIndex()
         self.textAuthor.setInitialIndex()
@@ -148,7 +148,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.toolButton.setEnabled(True)
 
         if len(book_info_list) == 1:
-            self.cover = book_info_list[0]['cover_image']
+            self.cover = book_info_list[0].cover_image
             self.setCoverImage()
             self.labelCoverImage.setEnabled(True)
         else:
@@ -163,20 +163,20 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
     def getData(self):
 
         for bookInfo in self.bookInfoList:
-            bookInfo['title'] = self.textTitle.getUserText(bookInfo['title'])
-            bookInfo['author'] = self.textAuthor.getUserText(bookInfo['author'])
-            bookInfo['series'] = self.textSeries.getUserText(bookInfo['series'])
+            bookInfo.title = self.textTitle.getUserText(bookInfo.title)
+            bookInfo.author = self.textAuthor.getUserText(bookInfo.author)
+            bookInfo.series = self.textSeries.getUserText(bookInfo.series)
             try:
-                bookInfo['series_index'] = int(self.textNumber.getUserText(bookInfo['series_index']))
+                bookInfo.series_index = int(self.textNumber.getUserText(bookInfo.series_index))
             except:
-                bookInfo['series_index'] = None
-            bookInfo['tags'] = self.textTag.getUserText(bookInfo['tags'])
-            bookInfo['lang'] = self.textLang.getUserText(bookInfo['lang'])
-            bookInfo['translator'] = self.textTranslator.getUserText(bookInfo['translator'])
+                bookInfo.series_index = None
+            bookInfo.tags = self.textTag.getUserText(bookInfo.tags)
+            bookInfo.lang = self.textLang.getUserText(bookInfo.lang)
+            bookInfo.translator = self.textTranslator.getUserText(bookInfo.translator)
             
             
         if len(self.bookInfoList) == 1:
-            self.bookInfoList[0]['cover_image'] = self.cover
+            self.bookInfoList[0].cover_image = self.cover
 
         return self.bookInfoList
 

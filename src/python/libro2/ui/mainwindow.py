@@ -1,12 +1,16 @@
+from distutils.log import error
 import os
+import base64
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction
-from PyQt5.QtCore import Qt, QPoint
+from PyQt5.QtCore import Qt, QPoint, QByteArray
 from PyQt5.QtGui import QIcon
 
 from .mainwindow_ui import Ui_MainWindow
 from .addfilesdialog import AddFilesDialog
 from .renamedialog import RenameDialog
+from .movefilesdialog import MoveFilesDialog
+from .textviewdialog import TextViewDialog
 
 import config
 import database
@@ -46,6 +50,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 self.prevSplitterSizes = settings.ui_splitter_sizes
                 self.onViewInfoPanel(False)
 
+        
         self.frameFilter.setVisible(settings.ui_filter_panel_visible)
         self.actionFilter_panel.setChecked(settings.ui_filter_panel_visible)
         self.isAutoApplyFilter = settings.ui_auto_apply_filter
@@ -57,6 +62,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
         self.bookInfo.clear()
 
+        self.bookList.setColumnsWidth(settings.ui_columns_width)
+        self.bookList.setColumnsOrder(settings.ui_columns_order)
         self.bookList.selectionModel().selectionChanged.connect(self.onBookListSelectionChanged)
 
         self.toolBar.setIcons()
@@ -106,6 +113,10 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         loadFilesDialog = AddFilesDialog(self, files)
         loadFilesDialog.exec()
         self.bookList.updateRows()
+        errors = loadFilesDialog.getErrors()
+        if len(errors) > 0:
+            errorDialog = TextViewDialog(self, errors)
+            errorDialog.exec()
 
     def onSelectAll(self):
         self.wait()
@@ -179,13 +190,21 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def SaveMetadata(self):
         self.wait()
         book_info_list = self.bookInfo.getData()
+        errors = []
         for book_info in book_info_list:
-            database.update_book_info(book_info)
+            try:
+                database.update_book_info(book_info)
+            except Exception as e:
+                errors.append({ 'src': book_info.file, 'dest': None, 'error': str(e) })
         self.bookInfo.isDataChanged = False
         self.actionSave_metadata.setEnabled(False)
         
         self.bookList.updateRows()
         self.stopWait()
+
+        if len(errors) > 0:
+            errorDialog = TextViewDialog(self, errors)
+            errorDialog.exec()
      
     def onRename(self):
         book_info_list = self.getSelectedBookList()
@@ -194,11 +213,30 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             renameDialog.bookList = book_info_list
             renameDialog.authorFormat = settings.rename_author_format
             renameDialog.filenameFormat = settings.rename_filename_format
+            renameDialog.overwriteExistingFiles = settings.rename_overwrite
+            renameDialog.backupBeforeRename = settings.rename_backup
 
             if renameDialog.exec_():
-                # To-do
+                self.wait()
+                moveFilesDialog = MoveFilesDialog(self, 
+                                                  book_info_list, 
+                                                  renameDialog.filenameFormat, 
+                                                  renameDialog.authorFormat,
+                                                  renameDialog.backupBeforeRename,
+                                                  renameDialog.overwriteExistingFiles)
+                moveFilesDialog.exec()
+                self.bookList.updateRows()
+                self.stopWait()
+                        
                 settings.rename_author_format = renameDialog.authorFormat
                 settings.rename_filename_format = renameDialog.filenameFormat
+                settings.rename_overwrite = renameDialog.overwriteExistingFiles
+                settings.rename_backup = renameDialog.backupBeforeRename
+
+                errors = moveFilesDialog.getErrors()
+                if len(errors) > 0:
+                    errorDialog = TextViewDialog(self, errors)
+                    errorDialog.exec()
             
 
     def onToolFilterButton(self):
@@ -242,6 +280,13 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 self.textFilter.setCurrentText(self.textFilter.currentText() + ' {}:'.format(action.data()))
             self.textFilter.setFocus(True)
 
+
+    def onAbout(self):
+        QMessageBox.about(self, 'About libro2', 'Libro2')
+
+    def onAboutQt(self):
+        QMessageBox.aboutQt(self)
+
     def closeEvent(self, e):
         self.exitApp()
 
@@ -256,11 +301,13 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         settings.ui_info_panel_visible = self.actionViewInfo_panel.isChecked()
         settings.ui_filter_panel_visible = self.actionFilter_panel.isChecked()
         settings.ui_auto_apply_filter = self.isAutoApplyFilter
+        settings.ui_columns_order = self.bookList.getColumnsOrder()
+        settings.ui_columns_width = self.bookList.getColumnsWidth()
         if self.actionViewInfo_panel.isChecked():
             settings.ui_splitter_sizes = self.splitter.sizes()
         else:
             settings.ui_splitter_sizes = self.prevSplitterSizes;
-        
+
         config.save()
         database.clear()
 

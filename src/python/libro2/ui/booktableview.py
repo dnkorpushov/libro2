@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QTableView, QAbstractItemView
+from tkinter.ttk import Style
+from PyQt5.QtWidgets import QTableView, QAbstractItemView, QStyledItemDelegate, QStyleOptionViewItem, QStyle, QMenu, QAction
 from PyQt5.QtCore import Qt, QItemSelectionModel
 from PyQt5.QtGui import QFontMetrics, QPalette, QColor
 from PyQt5.QtSql import QSqlTableModel
@@ -24,6 +25,7 @@ class BookTableView(QTableView):
         self.setShowGrid(False)
         self.setAlternatingRowColors(True)
         self.horizontalHeader().setHighlightSections(False)
+        
         self.verticalHeader().hide()
 
         self.setSortingEnabled(True)
@@ -35,21 +37,37 @@ class BookTableView(QTableView):
         
         model.select()
 
-        model.setHeaderData(0, Qt.Horizontal, 'Id')
-        model.setHeaderData(1, Qt.Horizontal, 'Title')
-        model.setHeaderData(2, Qt.Horizontal, 'Author')
-        model.setHeaderData(3, Qt.Horizontal, 'Series')
-        model.setHeaderData(4, Qt.Horizontal, 'Number')
-        model.setHeaderData(5, Qt.Horizontal, 'Tags')
-        model.setHeaderData(6, Qt.Horizontal, 'Lang')
-        model.setHeaderData(7, Qt.Horizontal, 'Translator')
-        model.setHeaderData(8, Qt.Horizontal, 'Type')
-        model.setHeaderData(9, Qt.Horizontal, 'File')
+        self.headers = ['Id', 'Title', 'Author', 'Series', 'Num', 'Tags', 'Lang', 'Translator', 'Type', 'File']
+
+        for i in range(len(self.headers)):
+            model.setHeaderData(i, Qt.Horizontal, self.headers[i])
 
         self.setModel(model)
         self.hideColumn(0)
+        self.horizontalHeader().setSectionsMovable(True)
+        self.setItemDelegate(StyledItemDelegate())
 
-    
+        self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
+        self.horizontalHeader().customContextMenuRequested.connect(self.onHeaderContextMenu)
+        
+
+    def onHeaderContextMenu(self, point):
+        menu = QMenu()
+
+        for i in range(len(self.headers))[1:]:
+            item = QAction(self.headers[i], parent=menu, checkable=True, checked=not self.isColumnHidden(i))
+            item.setData(i)
+            menu.addAction(item)
+
+        action = menu.exec(self.mapToGlobal(point))
+        if action:
+            column = action.data()
+            if self.isColumnHidden(column):
+                self.showColumn(column)
+                self.setColumnWidth(column, 250)
+            else:
+                self.hideColumn(column) 
+
     def getSelectedId(self):
         list_id = []
         for row in self.selectionModel().selectedRows():
@@ -90,6 +108,35 @@ class BookTableView(QTableView):
 
         self.model().setFilter(criteria)
         self.model().select()
+
+    def getColumnsWidth(self):
+        widths = []
+        for i in range(self.horizontalHeader().count()):
+            widths.append(self.columnWidth(i))
+        return widths
+
+    def setColumnsWidth(self, widths):
+        for i in range(len(widths)):
+            self.setColumnWidth(i, widths[i])
+
+    def getColumnsOrder(self):
+        orders = []
+        for i in range(self.horizontalHeader().count()):
+            orders.append({'logical': i, 'visual': self.horizontalHeader().visualIndex(i)})
+        return orders
+
+    def setColumnsOrder(self, orders):
+        for order in orders:
+            vi = self.horizontalHeader().visualIndex(order['logical'])
+            self.horizontalHeader().moveSection(vi, order['visual'])
+
+
+class StyledItemDelegate(QStyledItemDelegate):
+    def paint(self, painter, option, index):
+        itemOption = QStyleOptionViewItem(option)
+        if itemOption.state and QStyle.State_HasFocus:
+            itemOption.state = itemOption.state & ~QStyle.State_HasFocus
+        return super(StyledItemDelegate, self).paint(painter, itemOption, index)
 
 
 class BookTableModel(QSqlTableModel):

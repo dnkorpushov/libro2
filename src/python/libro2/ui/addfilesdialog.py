@@ -14,7 +14,6 @@ class Worker(QObject):
         self.files = files
         self.isRunning = True
         self.errors = []
-        self.metadata = []
 
     def loadFiles(self):
         i = 0
@@ -22,16 +21,18 @@ class Worker(QObject):
         for file in self.files:
             if self.isRunning:
                 i += 1
-                try:
-                    meta = ebookmeta.get_metadata(file)
-                    self.metadata.append(meta)
-                    database.add_book(file)
-                    self.currentProcess.emit(i, count)
-                except Exception as e:
-                    print(e)
+                if file.lower().endswith('.fb2') or file.lower().endswith('.fb2.zip') or file.lower().endswith('.epub'):
+                    try:
+                        database.add_book(file)
+                        self.currentProcess.emit(i, count)
 
+                    except ebookmeta.UnknownFormatException:
+                        self.errors.append({'src': file, 'dest': None, 'error': 'Unknown file format.'})
+
+                    except Exception as e:
+                        self.errors.append({'src': file, 'dest': None, 'error': str(e)})
             else:
-                self.metadata.clear()
+                self.errors.append({'src': None, 'dest': None, 'error': 'User interrupt'})                
                 break
         self.finished.emit()
 
@@ -60,19 +61,15 @@ class AddFilesDialog(QDialog, Ui_ProcessDialog):
         self.thread.started.connect(self.worker.loadFiles)
         self.thread.finished.connect(self.close)
 
-
     def setCurrentProcess(self, index, count):
         self.progressLabel.setText('Add files... {0} of {1}'.format(index, count))
         self.progressBar.setValue(index)
 
-
     def cancelProcess(self):    
         self.worker.kill()
 
-
-    def getMetadata(self):
-        return self.worker.metadata
-
-
     def showEvent(self, event):
         self.thread.start()
+
+    def getErrors(self):
+        return self.worker.errors

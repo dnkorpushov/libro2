@@ -112,3 +112,9 @@ update_book_calc_values = '''
         tags_description = ?
     WHERE id = ?
 '''
+
+update_filename = '''
+    UPDATE book
+    SET file = ?
+    WHERE id = ?
+'''

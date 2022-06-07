@@ -3,7 +3,8 @@ import json
 import codecs
 from types import SimpleNamespace
 
-config_file = os.path.join(os.path.expanduser('~'), 'libro2', 'settings.json')
+config_path = os.path.join(os.path.expanduser('~'), 'libro2')
+config_file = os.path.join(config_path, 'settings.json')
 
 
 settings = SimpleNamespace(
@@ -17,8 +18,12 @@ settings = SimpleNamespace(
     ui_filter_panel_visible = True,
     ui_auto_apply_filter = True, 
     ui_splitter_sizes = [], 
+    ui_columns_width = [],
+    ui_columns_order = [],
     rename_author_format = '#l{ #f}',
-    rename_filename_format = '#author. #title'
+    rename_filename_format = '#author. #title',
+    rename_backup=True,
+    rename_overwrite=False
 )
 
 def save():

@@ -71,11 +71,12 @@ def add_book(file):
         q.bindValue(11, QByteArray(meta.cover_image_data))
     else:
         q.bindValue(11, None)
-    q.bindValue(12, meta.file)
+    q.bindValue(12, os.path.normpath(meta.file))
 
     if not q.exec_():
-        print(q.lastError().text())
         db.rollback()
+        if q.lastError().number() != 19: # Exclude UNIQUE constraint
+            raise Exception(q.lastError().text())
     else:
         db.commit()
 
@@ -93,6 +94,16 @@ def delete_books(list_id):
     
     db.commit()
 
+def update_filename(book_id, new_filename):
+    q = QSqlQuery(db)
+    q.prepare(query.update_filename)
+    q.bindValue(0, os.path.normpath(new_filename))
+    q.bindValue(1, book_id)
+    if not q.exec_():
+        print(q.lastError().text())
+        db.rollback()
+    else:
+        db.commit()
 
 def update_book_info(book_rec):
     book_id = book_rec.id

@@ -71,6 +71,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
     def clearCover(self):
         self.cover = None
         self.labelCoverImage.setText('No cover image')
+        self.labelImageInfo.setText('')
 
     def clear(self):
         self.textTitle.clear()
@@ -84,7 +85,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.labelCoverImage.clear()
         self.labelCoverImage.setText('No cover image')
         self.labelCoverImage.setEnabled(False)
-        self.labelImageInfo.setText('0x0\n0 KB')
+        self.labelImageInfo.setText('')
 
         self.textTitle.setEnabled(False)
         self.textAuthor.setEnabled(False)
@@ -152,8 +153,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             self.setCoverImage()
             self.labelCoverImage.setEnabled(True)
         else:
-            self.cover = None
-            self.labelCoverImage.setText('No cover image')
+            self.clearCover()
             self.labelCoverImage.setEnabled(False)
 
         self.isDataChanged = False

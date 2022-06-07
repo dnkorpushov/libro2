@@ -5,8 +5,7 @@ from subprocess import call
 import PyInstaller.__main__
 import os
 
-COMMANDS = {}
-
+# build.py app settings
 app_name = 'libro2'
 app_icon = {
     'win32': 'src/icon/books.ico'
@@ -14,9 +13,10 @@ app_icon = {
 main_module = "src/python/libro2/main.py"
 designer_src = 'src/designer'
 designer_dest = 'src/python/libro2/ui'
-
 main_dir = os.path.dirname(main_module)
+# end of settings 
 
+COMMANDS = {}
 
 def command(f):
     COMMANDS[f.__name__] = f

@@ -1,6 +1,12 @@
-from PyQt5.QtWidgets import QDialog
-
+import os
+import sys
+import subprocess
+from PyQt5.QtWidgets import QDialog, QMenu
+from PyQt5.QtCore import QPoint
 from .renamedialog_ui import Ui_RenameDialog
+import ebookmeta
+import codecs
+import config
 
 
 class RenameDialog(Ui_RenameDialog, QDialog):
@@ -11,6 +17,8 @@ class RenameDialog(Ui_RenameDialog, QDialog):
 
         self.textAuthorFormat.lineEdit().textChanged.connect(self.generateSample)
         self.textFilenameFormat.lineEdit().textChanged.connect(self.generateSample)
+        self.toolFilename.clicked.connect(self.onToolFilenameClick)
+        self.toolAuthor.clicked.connect(self.onToolAuthorClick)
 
     @property
     def authorFormat(self):
@@ -23,6 +31,14 @@ class RenameDialog(Ui_RenameDialog, QDialog):
     @property
     def bookList(self):
         return self._book_list
+
+    @property
+    def backupBeforeRename(self):
+        return self.checkBackup.isChecked()
+
+    @property
+    def overwriteExistingFiles(self):
+        return self.checkOverwrite.isChecked()
 
     @authorFormat.setter
     def authorFormat(self, value):
@@ -37,11 +53,85 @@ class RenameDialog(Ui_RenameDialog, QDialog):
         self.generateSample()
         self._book_list = value
 
+    @backupBeforeRename.setter
+    def backupBeforeRename(self, value):
+        self.checkBackup.setChecked(value)
+    
+    @overwriteExistingFiles.setter
+    def overwriteExistingFiles(self, value):
+        self.checkOverwrite.setChecked(value)
+
     def generateSample(self):
         for book in self._book_list:
-            self.labelSample.setText(book['title'])
+            meta = ebookmeta.get_metadata(book.file)
+            self.labelSample.setText(ebookmeta.get_filename_from_pattern(meta, self.filenameFormat, self.authorFormat, 2))
             break
 
+    def onPreviewClick(self):
+        out_str = ''
+        out_file = os.path.join(config.config_path, 'preview.txt')
+        for book in self.bookList:
+            meta = ebookmeta.get_metadata(book.file)
+            new_filename = ebookmeta.get_filename_from_pattern(meta, self.filenameFormat, self.authorFormat, 2)
+            new_file = os.path.normpath(os.path.join(os.path.dirname(meta.file), new_filename))
+            out_str +=  '"{0}" ->\n"{1}"\n\n'.format(os.path.normpath(meta.file), new_file)
+        
+        with codecs.open(out_file, 'w') as f:
+            f.write(out_str)
+
+            if sys.platform == 'win32':
+                os.startfile(out_file)
+            elif sys.platform == 'darwin':
+                subprocess.call(('open', out_file))
+            else:
+                subprocess.call(('xdg-open', out_file))
 
 
+    def onToolAuthorClick(self):
+        elements = {
+            'First name': '#f',
+            'Middle name': '#m',
+            'Last name': '#l',
+            'Fist name initial': '#fi',
+            'Middle name initial': '#mi'
+      
+        }
+        self.toolContextMenu(elements, self.textAuthorFormat, self.toolAuthor.mapToGlobal(QPoint(0, 0)))
+
+    def onToolFilenameClick(self):
+        elements = {
+            'title': '#title',
+            'series': '#series',
+            'abbrseries': '#abbrseries',
+            'ABBRseries': '#ABBRseries',
+            'number': '#number',
+            'padnumber(2)': '#padnumber',
+            'author': '#author',
+            'authors': '#authors',
+            'translator': '#translator',
+            'bookid': '#bookid'
+        }
+        self.toolContextMenu(elements, self.textFilenameFormat, self.toolFilename.mapToGlobal(QPoint(0, 0)))
+       
+    def toolContextMenu(self, elements, control, point):
+        menu = QMenu()
+        for key in elements:
+            item = menu.addAction(key)
+            item.setData(elements[key])
+        
+        action = menu.exec_(point)
+        if action:
+            element = action.data()
+            text = control.currentText()
+            if control.lineEdit().selectionStart() == -1:
+                pos = control.lineEdit().cursorPosition()
+                text = text[:pos] + element + text[pos:]
+                control.setCurrentText(text)
+                control.lineEdit().setCursorPosition(pos + len(element))
+            else:
+                start = control.lineEdit().selectionStart()
+                end = control.lineEdit().selectionEnd()
+                text = text[:start] + element + text[end:]
+                control.setCurrentText(text)
+                control.lineEdit().setCursorPosition(start + len(element))
 

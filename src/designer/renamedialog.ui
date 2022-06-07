@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>220</height>
+    <width>515</width>
+    <height>253</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -97,9 +97,55 @@
       </layout>
      </item>
      <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>5</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <widget class="QLabel" name="labelSample">
        <property name="text">
         <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>5</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBackup">
+       <property name="text">
+        <string>Backup files before rename</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkOverwrite">
+       <property name="text">
+        <string>Overwrite exsiting files</string>
        </property>
       </widget>
      </item>
@@ -175,5 +221,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>buttonPreview</sender>
+   <signal>clicked()</signal>
+   <receiver>RenameDialog</receiver>
+   <slot>onPreviewClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>58</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>109</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>onPreviewClick()</slot>
+ </slots>
 </ui>

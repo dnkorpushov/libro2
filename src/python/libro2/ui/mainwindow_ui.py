@@ -161,6 +161,10 @@ class Ui_MainWindow(object):
         self.actionAbout.setObjectName("actionAbout")
         self.actionAbout_Qt = QtWidgets.QAction(MainWindow)
         self.actionAbout_Qt.setObjectName("actionAbout_Qt")
+        self.actionViewToolbar = QtWidgets.QAction(MainWindow)
+        self.actionViewToolbar.setCheckable(True)
+        self.actionViewToolbar.setChecked(True)
+        self.actionViewToolbar.setObjectName("actionViewToolbar")
         self.menuFile.addAction(self.actionAdd_file)
         self.menuFile.addAction(self.actionAdd_folder)
         self.menuFile.addSeparator()
@@ -174,6 +178,7 @@ class Ui_MainWindow(object):
         self.menuEdit.addAction(self.actionRemove_selected_files)
         self.menuView.addAction(self.actionViewInfo_panel)
         self.menuView.addAction(self.actionFilter_panel)
+        self.menuView.addAction(self.actionViewToolbar)
         self.menuHelp.addAction(self.actionAbout)
         self.menuHelp.addAction(self.actionAbout_Qt)
         self.menubar.addAction(self.menuFile.menuAction())
@@ -201,6 +206,8 @@ class Ui_MainWindow(object):
         self.actionRename.triggered.connect(MainWindow.onRename)
         self.actionAbout_Qt.triggered.connect(MainWindow.onAboutQt)
         self.actionAbout.triggered.connect(MainWindow.onAbout)
+        self.actionViewToolbar.triggered['bool'].connect(MainWindow.onViewToolbar)
+        self.actionConvert.triggered.connect(MainWindow.onConvert)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -212,7 +219,7 @@ class Ui_MainWindow(object):
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.menuView.setTitle(_translate("MainWindow", "View"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
-        self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
+        self.toolBar.setWindowTitle(_translate("MainWindow", "Toolbar"))
         self.actionAdd_file.setText(_translate("MainWindow", "Add..."))
         self.actionAdd_file.setToolTip(_translate("MainWindow", "Add files"))
         self.actionAdd_file.setShortcut(_translate("MainWindow", "Ctrl+O"))
@@ -237,6 +244,7 @@ class Ui_MainWindow(object):
         self.actionConvert.setShortcut(_translate("MainWindow", "Ctrl+T"))
         self.actionAbout.setText(_translate("MainWindow", "About..."))
         self.actionAbout_Qt.setText(_translate("MainWindow", "About Qt..."))
+        self.actionViewToolbar.setText(_translate("MainWindow", "Toolbar"))
 from .bookinfopanel import BookInfoPanel
 from .booktableview import BookTableView
 from .maintoolbar import MainToolbar

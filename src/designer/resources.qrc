@@ -13,6 +13,7 @@
   </qresource>
   <qresource prefix="icons">
     <file>course_90px.png</file>
+    <file>course_30px.png</file>
     <file>course_16px.png</file>
   </qresource>
 </RCC>

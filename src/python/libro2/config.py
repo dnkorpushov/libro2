@@ -8,22 +8,30 @@ config_file = os.path.join(config_path, 'settings.json')
 
 
 settings = SimpleNamespace(
-    add_folder_last_selected = os.path.expanduser('~'),
-    add_files_last_selected = os.path.expanduser('~'),
-    ui_window_x = None,
-    ui_window_y = None,
-    ui_window_width = None,
-    ui_window_height = None,   
-    ui_info_panel_visible = True,
-    ui_filter_panel_visible = True,
-    ui_auto_apply_filter = True, 
-    ui_splitter_sizes = [], 
-    ui_columns_width = [],
-    ui_columns_order = [],
-    rename_author_format = '#l{ #f}',
-    rename_filename_format = '#author. #title',
+    add_folder_last_selected=os.path.expanduser('~'),
+    add_files_last_selected=os.path.expanduser('~'),
+    ui_window_x=None,
+    ui_window_y=None,
+    ui_window_width=None,
+    ui_window_height=None,   
+    ui_info_panel_visible=True,
+    ui_filter_panel_visible=True,
+    ui_toolbar_visible=True,
+    ui_auto_apply_filter=True, 
+    ui_splitter_sizes=[], 
+    ui_columns_width=[],
+    ui_columns_order=[],
+    ui_hidden_columns=[],
+    ui_hidden_columns_width=[],
+    rename_author_format='#l{ #f}',
+    rename_filename_format='#author. #title',
     rename_backup=True,
-    rename_overwrite=False
+    rename_overwrite=False,
+    convert_converter_path=None,
+    convert_converter_config=None,
+    convert_output_format = None,
+    convert_output_path=None,
+    convert_overwrite=False
 )
 
 def save():

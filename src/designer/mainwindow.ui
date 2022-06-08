@@ -226,6 +226,7 @@
     </property>
     <addaction name="actionViewInfo_panel"/>
     <addaction name="actionFilter_panel"/>
+    <addaction name="actionViewToolbar"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -254,7 +255,7 @@
     </size>
    </property>
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Toolbar</string>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
@@ -430,6 +431,17 @@
   <action name="actionAbout_Qt">
    <property name="text">
     <string>About Qt...</string>
+   </property>
+  </action>
+  <action name="actionViewToolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Toolbar</string>
    </property>
   </action>
  </widget>
@@ -650,6 +662,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionViewToolbar</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onViewToolbar(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>536</x>
+     <y>365</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionConvert</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onConvert()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>536</x>
+     <y>365</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onAddFiles()</slot>
@@ -666,5 +710,7 @@
   <slot>onRename()</slot>
   <slot>onAboutQt()</slot>
   <slot>onAbout()</slot>
+  <slot>onViewToolbar(bool)</slot>
+  <slot>onConvert()</slot>
  </slots>
 </ui>

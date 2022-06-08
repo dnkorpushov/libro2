@@ -38,6 +38,7 @@ class BookTableView(QTableView):
         model.select()
 
         self.headers = ['Id', 'Title', 'Author', 'Series', 'Num', 'Tags', 'Lang', 'Translator', 'Type', 'File']
+        self.hidden_column_width = [250] * len(self.headers)
 
         for i in range(len(self.headers)):
             model.setHeaderData(i, Qt.Horizontal, self.headers[i])
@@ -64,8 +65,10 @@ class BookTableView(QTableView):
             column = action.data()
             if self.isColumnHidden(column):
                 self.showColumn(column)
-                self.setColumnWidth(column, 250)
+                width = self.hidden_column_width[column] if self.hidden_column_width[column] > 0 else 250
+                self.setColumnWidth(column, width)
             else:
+                self.hidden_column_width[column] = self.columnWidth(column)
                 self.hideColumn(column) 
 
     def getSelectedId(self):
@@ -129,6 +132,28 @@ class BookTableView(QTableView):
         for order in orders:
             vi = self.horizontalHeader().visualIndex(order['logical'])
             self.horizontalHeader().moveSection(vi, order['visual'])
+
+    def getHiddenColumns(self):
+        hidden = []
+        for i in range(self.horizontalHeader().count()):
+            hidden.append({'column': i, 'is_hidden': self.isColumnHidden(i)})
+        return hidden
+
+    def setHiddenColumns(self, hidden):
+        if hidden:
+            for h in hidden:
+                if h['is_hidden']:
+                    self.hideColumn(h['column'])
+                else:
+                    self.showColumn(h['column'])
+
+
+    def setHiddenColumnsWidth(self, width):
+        if len(width) == len(self.hidden_column_width):
+            self.hidden_column_width = width
+
+    def getHiddenColumnsWidth(self):
+        return self.hidden_column_width
 
 
 class StyledItemDelegate(QStyledItemDelegate):

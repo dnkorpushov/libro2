@@ -11,6 +11,9 @@ from .addfilesdialog import AddFilesDialog
 from .renamedialog import RenameDialog
 from .movefilesdialog import MoveFilesDialog
 from .textviewdialog import TextViewDialog
+from .aboutdialog import AboutDialog
+from .convertdialog import ConvertDialog
+from .convertfilesdialog import ConvertFilesDialog
 
 import config
 import database
@@ -64,9 +67,12 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
         self.bookList.setColumnsWidth(settings.ui_columns_width)
         self.bookList.setColumnsOrder(settings.ui_columns_order)
+        self.bookList.setHiddenColumns(settings.ui_hidden_columns)
+        self.bookList.setHiddenColumnsWidth(settings.ui_hidden_columns_width)
         self.bookList.selectionModel().selectionChanged.connect(self.onBookListSelectionChanged)
 
         self.toolBar.setIcons()
+        self.toolBar.setVisible(settings.ui_toolbar_visible)
         self.actionsSetEnabled(False)
         self.actionSave_metadata.setEnabled(False)
         self.bookInfo.dataChanged.connect(self.OnBookInfoDataChanged)
@@ -182,6 +188,9 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.prevSplitterSizes = self.splitter.sizes()
             self.splitter.setHandleWidth(0)
             self.splitter.setSizes((0, 1))
+
+    def onViewToolbar(self, checked):
+        self.toolBar.setVisible(checked)
     
     def onSaveMetadata(self):
         if self.bookInfo.isDataChanged:
@@ -238,6 +247,34 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                     errorDialog = TextViewDialog(self, errors)
                     errorDialog.exec()
             
+    def onConvert(self):
+        convertDialog = ConvertDialog(self)
+        convertDialog.outputFormat = settings.convert_output_format
+        convertDialog.outputPath = settings.convert_output_path
+        convertDialog.overwrite = settings.convert_overwrite
+        convertDialog.converterPath = settings.convert_converter_path
+        convertDialog.converterConfig = settings.convert_converter_config
+
+        if convertDialog.exec_():
+            book_info_list = self.getSelectedBookList()
+            convertProgress = ConvertFilesDialog(self, 
+                                                 book_info_list=book_info_list,
+                                                 out_format=convertDialog.outputFormat,
+                                                 out_path=convertDialog.outputPath,
+                                                 overwrite=convertDialog.overwrite,
+                                                 converter_path=convertDialog.converterPath,
+                                                 converter_config=convertDialog.converterConfig)
+            convertProgress.exec()
+
+            if len(convertProgress.errors) > 0:
+                errorDialog = TextViewDialog(self, convertProgress.errors)
+                errorDialog.exec()
+            
+            settings.convert_output_format = convertDialog.outputFormat
+            settings.convert_output_path = convertDialog.outputPath
+            settings.convert_overwrite = convertDialog.overwrite 
+            settings.convert_converter_path = convertDialog.converterPath
+            settings.convert_converter_config = convertDialog.converterConfig
 
     def onToolFilterButton(self):
         actionList = {
@@ -282,7 +319,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
 
     def onAbout(self):
-        QMessageBox.about(self, 'About libro2', 'Libro2')
+        about = AboutDialog(self)
+        about.exec()
 
     def onAboutQt(self):
         QMessageBox.aboutQt(self)
@@ -300,9 +338,13 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         settings.ui_window_height = self.size().height()
         settings.ui_info_panel_visible = self.actionViewInfo_panel.isChecked()
         settings.ui_filter_panel_visible = self.actionFilter_panel.isChecked()
+        settings.ui_toolbar_visible = self.toolBar.isVisible()
         settings.ui_auto_apply_filter = self.isAutoApplyFilter
         settings.ui_columns_order = self.bookList.getColumnsOrder()
         settings.ui_columns_width = self.bookList.getColumnsWidth()
+        settings.ui_hidden_columns = self.bookList.getHiddenColumns()
+        settings.ui_hidden_columns_width = self.bookList.getHiddenColumnsWidth()
+
         if self.actionViewInfo_panel.isChecked():
             settings.ui_splitter_sizes = self.splitter.sizes()
         else:

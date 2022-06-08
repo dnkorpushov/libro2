@@ -1,13 +1,16 @@
 TO-DO:
-* Error handling in database methods (raise exceptions)
-* Converting feature
-* Hide columns + save hided columns in settings file
+- Russian locale
+- Error handling in database methods (raise exceptions)
 * About dialog + app version
-* build installer MS Windows
-* MacOS build
+- build installer for MS Windows
+- MacOS build?
+- Linux install??
 
 DONE:
+v1.0
 + Error handling when rename files
 + Error handling when adding files
 + Error handling when save metadata
 + Save and restore booktable columns width and columns order in settings file
++ Hide columns + save hided columns in settings file
++ Converting feature

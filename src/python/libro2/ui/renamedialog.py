@@ -1,12 +1,14 @@
 import os
 import sys
 import subprocess
+import ebookmeta
+import codecs
+
 from PyQt5.QtWidgets import QDialog, QMenu
 from PyQt5.QtCore import QPoint
 from .renamedialog_ui import Ui_RenameDialog
-import ebookmeta
-import codecs
 import config
+
 
 
 class RenameDialog(Ui_RenameDialog, QDialog):

@@ -4,8 +4,8 @@ import subprocess
 import ebookmeta
 import codecs
 
-from PyQt5.QtWidgets import QDialog, QMenu
-from PyQt5.QtCore import QPoint
+from PyQt5.QtWidgets import QDialog, QMenu, QApplication
+from PyQt5.QtCore import QPoint, Qt
 from .renamedialog_ui import Ui_RenameDialog
 import config
 
@@ -21,6 +21,7 @@ class RenameDialog(Ui_RenameDialog, QDialog):
         self.textFilenameFormat.lineEdit().textChanged.connect(self.generateSample)
         self.toolFilename.clicked.connect(self.onToolFilenameClick)
         self.toolAuthor.clicked.connect(self.onToolAuthorClick)
+        self.checkDeleteSource.stateChanged.connect(self.onDeleteSourceClick)
 
     @property
     def authorFormat(self):
@@ -41,6 +42,15 @@ class RenameDialog(Ui_RenameDialog, QDialog):
     @property
     def overwriteExistingFiles(self):
         return self.checkOverwrite.isChecked()
+
+    @property
+    def deleteSourceFiles(self):
+        return self.checkDeleteSource.isChecked()
+
+    @deleteSourceFiles.setter
+    def deleteSourceFiles(self, value):
+        self.checkDeleteSource.setChecked(value)
+        self.onDeleteSourceClick()
 
     @authorFormat.setter
     def authorFormat(self, value):
@@ -63,6 +73,12 @@ class RenameDialog(Ui_RenameDialog, QDialog):
     def overwriteExistingFiles(self, value):
         self.checkOverwrite.setChecked(value)
 
+    def onDeleteSourceClick(self):
+        if self.checkDeleteSource.isChecked():
+            self.checkBackup.setEnabled(True)
+        else: 
+            self.checkBackup.setEnabled(False)
+
     def generateSample(self):
         for book in self._book_list:
             meta = ebookmeta.get_metadata(book.file)
@@ -70,6 +86,7 @@ class RenameDialog(Ui_RenameDialog, QDialog):
             break
 
     def onPreviewClick(self):
+        QApplication.setOverrideCursor(Qt.WaitCursor)
         out_str = ''
         out_file = os.path.join(config.config_path, 'preview.txt')
         for book in self.bookList:
@@ -77,7 +94,8 @@ class RenameDialog(Ui_RenameDialog, QDialog):
             new_filename = ebookmeta.get_filename_from_pattern(meta, self.filenameFormat, self.authorFormat, 2)
             new_file = os.path.normpath(os.path.join(os.path.dirname(meta.file), new_filename))
             out_str +=  '"{0}" ->\n"{1}"\n\n'.format(os.path.normpath(meta.file), new_file)
-        
+        QApplication.restoreOverrideCursor()
+
         with codecs.open(out_file, 'w') as f:
             f.write(out_str)
 

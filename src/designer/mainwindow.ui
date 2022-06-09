@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1074</width>
-    <height>732</height>
+    <width>929</width>
+    <height>485</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -195,7 +195,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1074</width>
+     <width>929</width>
      <height>26</height>
     </rect>
    </property>
@@ -403,7 +403,7 @@
     <string>Rename selected files</string>
    </property>
    <property name="shortcut">
-    <string>F6</string>
+    <string>Ctrl+R</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>

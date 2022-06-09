@@ -222,23 +222,26 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             renameDialog.bookList = book_info_list
             renameDialog.authorFormat = settings.rename_author_format
             renameDialog.filenameFormat = settings.rename_filename_format
+            renameDialog.deleteSourceFiles = settings.rename_delete_source_files
             renameDialog.overwriteExistingFiles = settings.rename_overwrite
             renameDialog.backupBeforeRename = settings.rename_backup
 
             if renameDialog.exec_():
                 self.wait()
                 moveFilesDialog = MoveFilesDialog(self, 
-                                                  book_info_list, 
-                                                  renameDialog.filenameFormat, 
-                                                  renameDialog.authorFormat,
-                                                  renameDialog.backupBeforeRename,
-                                                  renameDialog.overwriteExistingFiles)
+                                                  book_info_list=book_info_list,
+                                                  filename_format=renameDialog.filenameFormat, 
+                                                  author_format=renameDialog.authorFormat,
+                                                  delete_src=renameDialog.deleteSourceFiles,
+                                                  backup_src=renameDialog.backupBeforeRename,
+                                                  overwrite_exists=renameDialog.overwriteExistingFiles)
                 moveFilesDialog.exec()
                 self.bookList.updateRows()
                 self.stopWait()
                         
                 settings.rename_author_format = renameDialog.authorFormat
                 settings.rename_filename_format = renameDialog.filenameFormat
+                settings.rename_delete_source_files = renameDialog.deleteSourceFiles
                 settings.rename_overwrite = renameDialog.overwriteExistingFiles
                 settings.rename_backup = renameDialog.backupBeforeRename
 

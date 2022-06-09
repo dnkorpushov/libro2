@@ -11,11 +11,12 @@ class Worker(QObject):
     currentProcess = pyqtSignal(int, int)
     finished = pyqtSignal()
 
-    def __init__(self, book_info_list, filename_format, author_format, backup_src, overwtite_exsits, parent=None):
+    def __init__(self, book_info_list, filename_format, author_format, delete_src, backup_src, overwtite_exsits, parent=None):
         super(Worker, self).__init__(parent)
         self.book_info_list = book_info_list
         self.filename_format = filename_format
         self.author_format = author_format
+        self.delete_src = delete_src
         self.backup_src = backup_src
         self.overwtite_exists = overwtite_exsits
         self.isRunning = True
@@ -35,14 +36,17 @@ class Worker(QObject):
                                                                        self.author_format, 
                                                                        padnum=2)
                     dst = os.path.normpath(os.path.join(os.path.dirname(meta.file), new_filename))
-                    if self.backup_src:
+                    if self.delete_src and self.backup_src:
                         backup = os.path.normpath(src + '.bak')
                         shutil.copy2(src, backup)
 
-                    if not os.path.exists(src) or self.overwtite_exists:
+                    if not os.path.exists(dst) or self.overwtite_exists:
                         if not os.path.exists(os.path.dirname(dst)):
                             os.makedirs(os.path.dirname(dst))
-                        shutil.move(src, dst)
+                        if self.delete_src:
+                            shutil.move(src, dst)
+                        else:
+                            shutil.copy2(src, dst)
                         database.update_filename(book.id, dst)
                     else:
                         raise Exception('Destination file already exsist.')
@@ -61,10 +65,14 @@ class Worker(QObject):
 
 
 class MoveFilesDialog(QDialog, Ui_ProcessDialog):
-    def __init__(self, parent, book_info_list, filename_format, author_format, backup_src, overwrite_exists):
+    def __init__(self, parent, book_info_list, filename_format, author_format, delete_src, backup_src, overwrite_exists):
         super(MoveFilesDialog, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowTitle('Rename files')
+        self.setWindowTitle('Rename {0} files'.format(len(book_info_list)))
+        if delete_src:
+            self.operationName = 'Move'
+        else:
+            self.operationName = 'Copy'
 
         self.setWindowFlags(Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
@@ -73,7 +81,7 @@ class MoveFilesDialog(QDialog, Ui_ProcessDialog):
         self.progressLabel.setText('')
 
         self.thread = QThread()
-        self.worker = Worker(book_info_list, filename_format, author_format, backup_src, overwrite_exists)
+        self.worker = Worker(book_info_list, filename_format, author_format, delete_src, backup_src, overwrite_exists)
         self.worker.currentProcess.connect(self.setCurrentProcess)
         self.worker.moveToThread(self.thread)
         self.worker.finished.connect(self.thread.quit)
@@ -83,7 +91,7 @@ class MoveFilesDialog(QDialog, Ui_ProcessDialog):
 
 
     def setCurrentProcess(self, index, count):
-        self.progressLabel.setText('Move files... {0} of {1}'.format(index, count))
+        self.progressLabel.setText('{0} files... {1} of {2}'.format(self.operationName, index, count))
         self.progressBar.setValue(index)
 
 

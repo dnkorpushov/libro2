@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_RenameDialog(object):
     def setupUi(self, RenameDialog):
         RenameDialog.setObjectName("RenameDialog")
-        RenameDialog.resize(515, 253)
+        RenameDialog.resize(515, 290)
         RenameDialog.setMinimumSize(QtCore.QSize(500, 220))
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(RenameDialog)
         self.verticalLayout_2.setContentsMargins(10, 10, 10, 10)
@@ -60,6 +60,9 @@ class Ui_RenameDialog(object):
         self.verticalLayout.addWidget(self.labelSample)
         spacerItem1 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout.addItem(spacerItem1)
+        self.checkDeleteSource = QtWidgets.QCheckBox(RenameDialog)
+        self.checkDeleteSource.setObjectName("checkDeleteSource")
+        self.verticalLayout.addWidget(self.checkDeleteSource)
         self.checkBackup = QtWidgets.QCheckBox(RenameDialog)
         self.checkBackup.setObjectName("checkBackup")
         self.verticalLayout.addWidget(self.checkBackup)
@@ -96,6 +99,7 @@ class Ui_RenameDialog(object):
         self.label_3.setText(_translate("RenameDialog", "Filename format:"))
         self.toolFilename.setText(_translate("RenameDialog", "..."))
         self.labelSample.setText(_translate("RenameDialog", "TextLabel"))
+        self.checkDeleteSource.setText(_translate("RenameDialog", "Delete source files"))
         self.checkBackup.setText(_translate("RenameDialog", "Backup files before rename"))
         self.checkOverwrite.setText(_translate("RenameDialog", "Overwrite exsiting files"))
         self.buttonPreview.setText(_translate("RenameDialog", "Preview"))

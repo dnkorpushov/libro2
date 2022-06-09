@@ -2,6 +2,7 @@ TO-DO:
 - Russian locale
 - Error handling in database methods (raise exceptions)
 * About dialog + app version
+- fb2converter conversion.log? 
 - build installer for MS Windows
 - MacOS build?
 - Linux install??

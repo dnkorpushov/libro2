@@ -25,6 +25,7 @@ settings = SimpleNamespace(
     ui_hidden_columns_width=[],
     rename_author_format='#l{ #f}',
     rename_filename_format='#author. #title',
+    rename_delete_source_files=False,
     rename_backup=True,
     rename_overwrite=False,
     convert_converter_path=None,
@@ -43,7 +44,10 @@ def save():
         f.write(json.dumps(settings.__dict__, sort_keys=False, indent=4))
 
 def load():
-     if os.path.exists(config_file):
+    if not os.path.exists(config_path):
+        os.makedirs(config_path)
+
+    if os.path.exists(config_file):
         with codecs.open(config_file, 'r', encoding='utf-8') as f:
             c = json.loads(f.read())
     

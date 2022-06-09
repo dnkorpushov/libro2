@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1074, 732)
+        MainWindow.resize(929, 485)
         MainWindow.setAnimated(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -97,7 +97,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.addLayout(self.verticalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1074, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 929, 26))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -238,7 +238,7 @@ class Ui_MainWindow(object):
         self.actionFilter_panel.setShortcut(_translate("MainWindow", "F3"))
         self.actionRename.setText(_translate("MainWindow", "Rename..."))
         self.actionRename.setToolTip(_translate("MainWindow", "Rename selected files"))
-        self.actionRename.setShortcut(_translate("MainWindow", "F6"))
+        self.actionRename.setShortcut(_translate("MainWindow", "Ctrl+R"))
         self.actionConvert.setText(_translate("MainWindow", "Convert..."))
         self.actionConvert.setToolTip(_translate("MainWindow", "Convert selected files"))
         self.actionConvert.setShortcut(_translate("MainWindow", "Ctrl+T"))

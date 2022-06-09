@@ -5,6 +5,8 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import Qt, QProcess, QTimer
 from .processdialog_ui import Ui_ProcessDialog
 
+import config
+
 def parse_converter_error(b):
     src = None
     dest = None
@@ -43,7 +45,7 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
     def __init__(self, parent, book_info_list, out_format, out_path, overwrite, converter_path, converter_config):
         super(ConvertFilesDialog, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowTitle('Convert files')
+        self.setWindowTitle('Convert {0} files'.format(len(book_info_list)))
 
         self.setWindowFlags(Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
@@ -88,6 +90,7 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
             if self.output_path:
                 args.append(self.output_path)
             
+            self.process.setWorkingDirectory(config.config_path)
             self.process.start(self.converter_path, args)
         else:
             self.errors.append({'src': src, 'dest': None, 'error': 'Epub files not support for conversion'})

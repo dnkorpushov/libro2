@@ -8,11 +8,11 @@ from types import SimpleNamespace
 
 db_file = os.path.join(os.path.expanduser('~'), 'libro2', 'booklist.db')
 db = QSqlDatabase.addDatabase('QSQLITE')
-db.setDatabaseName(db_file)
-db.open()
 
 
 def init():
+    db.setDatabaseName(db_file)
+    db.open()
     if not is_created():
         create()
 

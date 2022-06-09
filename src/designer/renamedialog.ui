@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>515</width>
-    <height>253</height>
+    <height>290</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -134,6 +134,13 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkDeleteSource">
+       <property name="text">
+        <string>Delete source files</string>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="checkBackup">

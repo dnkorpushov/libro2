@@ -1,6 +1,7 @@
+import os
 import sys
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QLocale, QTranslator
 from ui.mainwindow import MainWindow
 
 
@@ -9,8 +10,26 @@ def main():
     #     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
     # if hasattr(Qt, 'AA_UseHighDpiPixmaps'):
     #     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
+    
 
     app = QApplication(sys.argv)
+
+    if getattr(sys, 'frozen', False):
+        app_path = os.path.dirname(sys.executable)
+    else:
+        app_path = os.path.dirname(__file__)
+    
+    locale = QLocale.system().name()
+    app_locale = os.path.join(app_path, 'locale/libro2_' + locale + '.qm')
+    qt_locale = os.path.join(app_path, 'locale/qtbase_' + locale + '.qm')
+    
+    app_translator = QTranslator()
+    qt_translator = QTranslator()
+    app_translator.load(app_locale)
+    qt_translator.load(qt_locale)
+    app.installTranslator(app_translator)
+    app.installTranslator(qt_translator)
+
     win = MainWindow()
     win.show()
 

@@ -4,11 +4,12 @@ from lxml import etree
 
 from PyQt5.QtWidgets import QWidget, QMenu, QFileDialog
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import Qt, QPoint, QByteArray, QBuffer, QLocale, pyqtSignal
+from PyQt5.QtCore import Qt, QPoint, QByteArray, QBuffer, QLocale, pyqtSignal, QCoreApplication
 
 import ebookmeta
 from .bookinfopanel_ui import Ui_BookInfoPanel
-from .comboedit import ComboEditItemAction
+
+_t = QCoreApplication.translate
 
 class BookInfoPanel(QWidget, Ui_BookInfoPanel):
     dataChanged = pyqtSignal(bool)
@@ -44,33 +45,38 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         
     def coverContextMenu(self, point):
         menu = QMenu()
-        actionLoad = menu.addAction('Load from file...')
-        actionSave = menu.addAction('Save to file...')
-        actionClear = menu.addAction('Clear')
+        actionLoad = menu.addAction(_t('info', 'Load from file...'))
+        actionSave = menu.addAction(_t('info', 'Save to file...'))
+        actionClear = menu.addAction(_t('info', 'Clear'))
 
         action = menu.exec_(self.labelCoverImage.mapToGlobal(point))
         
         if action == actionLoad:
-            (filename, _) = QFileDialog.getOpenFileName(self, caption='Load cover from file', filter='Image file (*.jpg *.jpeg *.png)')
+            (filename, _) = QFileDialog.getOpenFileName(self, 
+                                                        caption=_t('info', 'Load cover from file'), 
+                                                        filter=_t('info', 'Image file (*.jpg *.jpeg *.png)'))
             if filename:
                 self.loadCoverFromFile(filename)
                 self.isDataChanged = True
                 self.dataChanged.emit(self.isDataChanged)
 
         elif action == actionSave:
-            (filename, _) = QFileDialog.getSaveFileName(self, caption='Save cover to file', directory='cover.jpg', filter='Image file (*.jpg)')
+            (filename, _) = QFileDialog.getSaveFileName(self, 
+                                                        caption=_t('info', 'Save cover to file'), 
+                                                        directory='cover.jpg', 
+                                                        filter=_t('info', 'Image file (*.jpg)'))
             if filename:
                 self.saveCoverToFile(filename)
 
         elif action == actionClear:
             self.labelCoverImage.clear()
             self.clearCover()
-            self.iDataChanged = True
+            self.isDataChanged = True
             self.dataChanged.emit(self.isDataChanged)
          
     def clearCover(self):
         self.cover = None
-        self.labelCoverImage.setText('No cover image')
+        self.labelCoverImage.setText(_t('info', 'No cover image'))
         self.labelImageInfo.setText('')
 
     def clear(self):
@@ -82,10 +88,8 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.textLang.clear()
         self.textTranslator.clear()
 
-        self.labelCoverImage.clear()
-        self.labelCoverImage.setText('No cover image')
+        self.clearCover()
         self.labelCoverImage.setEnabled(False)
-        self.labelImageInfo.setText('')
 
         self.textTitle.setEnabled(False)
         self.textAuthor.setEnabled(False)
@@ -231,7 +235,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         action = menu.exec_(self.toolButton.mapToGlobal(QPoint(0, 0)))
         if action:
             text = self.textTag.currentText()
-            if text in (ComboEditItemAction.Blank, ComboEditItemAction.Keep):
+            if text in (self.TextTag.Blank, self.TextTag.Keep):
                 text = action.data()
             else:
                 tags = [x.strip() for x in text.split(',')]

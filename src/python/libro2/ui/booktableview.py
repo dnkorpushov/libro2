@@ -1,10 +1,12 @@
 from tkinter.ttk import Style
-from PyQt5.QtWidgets import QTableView, QAbstractItemView, QStyledItemDelegate, QStyleOptionViewItem, QStyle, QMenu, QAction
-from PyQt5.QtCore import Qt, QItemSelectionModel
+from PyQt5.QtWidgets import QTableView, QAbstractItemView, QStyledItemDelegate, QStyleOptionViewItem, QStyle, QMenu, QAction, QApplication
+from PyQt5.QtCore import Qt, QItemSelectionModel, QCoreApplication
 from PyQt5.QtGui import QFontMetrics, QPalette, QColor
 from PyQt5.QtSql import QSqlTableModel
 
 import database
+
+_t = QCoreApplication.translate
 
 class BookTableView(QTableView):
     def __init__(self, parent):
@@ -37,7 +39,18 @@ class BookTableView(QTableView):
         
         model.select()
 
-        self.headers = ['Id', 'Title', 'Author', 'Series', 'Num', 'Tags', 'Lang', 'Translator', 'Type', 'File']
+        self.headers = [
+            'Id', 
+            _t('table','Title'), 
+            _t('table','Author'), 
+            _t('table','Series'), 
+            _t('table','Num'), 
+            _t('table','Tags'), 
+            _t('table','Lang'), 
+            _t('table','Translator'), 
+            _t('table','Type'), 
+            _t('table','File')
+        ]
         self.hidden_column_width = [250] * len(self.headers)
 
         for i in range(len(self.headers)):
@@ -154,6 +167,13 @@ class BookTableView(QTableView):
 
     def getHiddenColumnsWidth(self):
         return self.hidden_column_width
+
+    def selectAll(self):
+        QApplication.setOverrideCursor(Qt.WaitCursor)
+        while self.model().canFetchMore():
+            self.model().fetchMore()
+        QApplication.restoreOverrideCursor()
+        return super().selectAll()
 
 
 class StyledItemDelegate(QStyledItemDelegate):

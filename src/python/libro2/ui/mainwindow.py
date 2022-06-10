@@ -1,9 +1,7 @@
-from distutils.log import error
 import os
-import base64
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction
-from PyQt5.QtCore import Qt, QPoint, QByteArray
+from PyQt5.QtCore import Qt, QPoint, QCoreApplication
 from PyQt5.QtGui import QIcon
 
 from .mainwindow_ui import Ui_MainWindow
@@ -20,8 +18,9 @@ import database
 
 settings = config.settings
 
-class MainWindow (QMainWindow, Ui_MainWindow):
+_t = QCoreApplication.translate
 
+class MainWindow (QMainWindow, Ui_MainWindow):
     def __init__(self):
         config.load()
         database.init()
@@ -94,9 +93,9 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
     def onAddFiles(self):
         result = QFileDialog.getOpenFileNames(self, 
-                                              caption='Add files', 
+                                              caption=_t('main', 'Add files'), 
                                               directory=settings.add_files_last_selected,
-                                              filter='Ebook files (*.fb2 *.fb2.zip *.epub);;All files (*.*)')
+                                              filter=_t('main', 'Ebook files (*.fb2 *.fb2.zip *.epub);;All files (*.*)'))
         if len(result[0]) > 0:
             self.AddFiles(result[0])
             for file in result[0]:
@@ -105,7 +104,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def onAddFolder(self):
         fileList = []
         folder = QFileDialog.getExistingDirectory(self,
-                                                  caption='Add folder',
+                                                  caption=_t('main', 'Add folder'),
                                                   directory=settings.add_folder_last_selected)
         if folder:
             settings.add_folder_last_selected = folder
@@ -153,16 +152,17 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
     def onBookListSelectionChanged(self):
         if self.bookInfo.isDataChanged:
-            if QMessageBox.question(self, 'Libro2', 'Save changes?') == QMessageBox.Yes:
+            if QMessageBox.question(self, 'Libro2', _t('main', 'Save changes?')) == QMessageBox.Yes:
                 self.SaveMetadata()
 
         book_info_list = self.getSelectedBookList()
+
+        self.bookInfo.clear()
 
         if len(book_info_list) > 0:
             self.actionsSetEnabled(True)
             self.bookInfo.setData(book_info_list)
         else:
-            self.bookInfo.clear()
             self.actionsSetEnabled(False)
 
     def actionsSetEnabled(self, enabled):
@@ -281,14 +281,14 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
     def onToolFilterButton(self):
         actionList = {
-            'title': 'Title',
-            'author': 'Author',
-            'series': 'Series',
-            'tags': 'Tags',
-            'lang': 'Lang',
-            'translator': 'Translator',
-            'type': 'Type',
-            'file': 'File' 
+            'title': _t('main', 'Title'),
+            'author': _t('main', 'Author'),
+            'series': _t('main', 'Series'),
+            'tags': _t('main', 'Tags'),
+            'lang': _t('main', 'Lang'),
+            'translator': _t('main', 'Translator'),
+            'type': _t('main', 'Type'),
+            'file': _t('main', 'File') 
         }
         menu = QMenu()
         for key in actionList:
@@ -303,7 +303,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         actionItem.setData('OR')
 
         menu.addSeparator()
-        actionItem = QAction('Auto-apply filter', parent=menu, checkable=True, checked=self.isAutoApplyFilter)
+        actionItem = QAction(_t('main', 'Auto-apply filter'), parent=menu, checkable=True, checked=self.isAutoApplyFilter)
         actionItem.setData('AutoApplyFilter')
         menu.addAction(actionItem)
         

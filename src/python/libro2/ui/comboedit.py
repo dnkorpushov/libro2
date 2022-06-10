@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QComboBox
+from PyQt5.QtCore import QCoreApplication
 
-class ComboEditItemAction:
-    Keep = '< keep >'
-    Blank = '< blank >'
+_t = QCoreApplication.translate
+
 
 
 class ComboEdit(QComboBox):
@@ -10,11 +10,15 @@ class ComboEdit(QComboBox):
         super(ComboEdit, self).__init__(parent)
         self.setEditable(True)
 
+        self.Keep = _t('info', '< keep >')
+        self.Blank = _t('info', '< blank >')
+
     def init(self):
+       
         self.clear()
         self.setEditable(True)
-        self.addItem(ComboEditItemAction.Keep)
-        self.addItem(ComboEditItemAction.Blank)
+        self.addItem(self.Keep)
+        self.addItem(self.Blank)
 
     def addUserItem(self, text):
         if self.findText(text) == -1:
@@ -27,9 +31,9 @@ class ComboEdit(QComboBox):
             self.setCurrentIndex(0)
 
     def getUserText(self, userText):
-        if self.currentText() == ComboEditItemAction.Keep:
+        if self.currentText() == self.Keep:
             return userText
-        elif self.currentText() == ComboEditItemAction.Blank:
+        elif self.currentText() == self.Blank:
             return None
         else:
             return self.currentText()

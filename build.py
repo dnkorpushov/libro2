@@ -4,6 +4,7 @@ from glob import glob
 from subprocess import call
 import PyInstaller.__main__
 import os
+import shutil
 
 # build.py app settings
 app_name = 'libro2'
@@ -13,10 +14,21 @@ app_icon = {
 main_module = "src/python/libro2/main.py"
 designer_src = 'src/designer'
 designer_dest = 'src/python/libro2/ui'
+
+locale_src = 'src/locale'
+locale_dest = 'src/python/libro2/locale'
+
+add_data = {
+    'src/python/libro2/locale': 'locale'
+}
+
 main_dir = os.path.dirname(main_module)
 # end of settings 
 
 COMMANDS = {}
+
+# Set working dir
+os.chdir(sys.path[0]) 
 
 def command(f):
     COMMANDS[f.__name__] = f
@@ -63,21 +75,40 @@ def rc():
         call('pyrcc5  {0} -o {1}'.format(src, dest), shell=True)
 
 @command
+def locale():
+    '''
+    Compile QT locale resources
+    '''
+    for pro in glob('*.pro'):
+        call('pylupdate5 -translate-function _t {0}'.format(pro), shell=True)
+
+    for ts in glob(os.path.join(locale_src, '*.ts')):
+        dst = os.path.join(locale_dest, os.path.splitext(os.path.split(ts)[1])[0] + '.qm')
+        call('lrelease {0} -qm {1}'.format(ts, dst), shell=True)
+
+@command
 def freeze():
     '''
     Compile project to executable
     '''
     platform_app_icon = app_icon[sys.platform]
     print('Compile project to executable')
-    PyInstaller.__main__.run([
+
+    args = [
         '-w',
         '--clean',
         '-y',
         '-n', app_name,
         '--paths', main_dir,
-        '-i', platform_app_icon,
-        main_module
-])
+        '-i', platform_app_icon
+    ]
+
+    for k in add_data:
+        args.append('--add-data')
+        args.append(k + os.pathsep + add_data[k])
+    args.append(main_module)
+
+    PyInstaller.__main__.run(args)
 
 
 @command
@@ -89,6 +120,17 @@ def run():
     app_module = __import__('main')
     app_module.main()
     
+@command 
+def clean():
+    '''
+    Clean project
+    '''
+    shutil.rmtree('.qt_for_python', ignore_errors=True)
+    shutil.rmtree('build', ignore_errors=True)
+    shutil.rmtree('dist', ignore_errors=True)
+    for spec in glob('*.spec'):
+        os.remove(spec)
+
 
 if __name__ == '__main__':
     _parse_args()

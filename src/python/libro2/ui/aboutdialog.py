@@ -9,7 +9,8 @@ class AboutDialog(QDialog, Ui_AboutDialog):
         super(AboutDialog, self).__init__(parent)
         self.setupUi(self)
         self.labelName.setText('Libro2 v{0}'.format(version.version))
-
+        self.adjustSize()
+        
     def openLink(self, link):
         browser = webbrowser.get()
         browser.open_new_tab(link)

@@ -1,9 +1,10 @@
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt
+from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt, QCoreApplication
 from .processdialog_ui import Ui_ProcessDialog
 import ebookmeta
 import database
 
+_t = QCoreApplication.translate
 
 class Worker(QObject):
     currentProcess = pyqtSignal(int, int)
@@ -27,12 +28,12 @@ class Worker(QObject):
                         self.currentProcess.emit(i, count)
 
                     except ebookmeta.UnknownFormatException:
-                        self.errors.append({'src': file, 'dest': None, 'error': 'Unknown file format.'})
+                        self.errors.append({'src': file, 'dest': None, 'error': _t('add', 'Unknown file format.')})
 
                     except Exception as e:
                         self.errors.append({'src': file, 'dest': None, 'error': str(e)})
             else:
-                self.errors.append({'src': None, 'dest': None, 'error': 'User interrupt'})                
+                self.errors.append({'src': None, 'dest': None, 'error': _t('add', 'User interrupt')})                
                 break
         self.finished.emit()
 
@@ -44,7 +45,7 @@ class AddFilesDialog(QDialog, Ui_ProcessDialog):
     def __init__(self, parent, files):
         super(AddFilesDialog, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowTitle('Add files')
+        self.setWindowTitle(_t('add','Add files'))
 
         self.setWindowFlags(Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
@@ -62,7 +63,7 @@ class AddFilesDialog(QDialog, Ui_ProcessDialog):
         self.thread.finished.connect(self.close)
 
     def setCurrentProcess(self, index, count):
-        self.progressLabel.setText('Add files... {0} of {1}'.format(index, count))
+        self.progressLabel.setText(_t('add','Add files... {0} of {1}').format(index, count))
         self.progressBar.setValue(index)
 
     def cancelProcess(self):    

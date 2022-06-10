@@ -1,17 +1,23 @@
 TO-DO:
-- Russian locale
-- Error handling in database methods (raise exceptions)
-* About dialog + app version
-- fb2converter conversion.log? 
-- build installer for MS Windows
-- MacOS build?
-- Linux install??
+* Сделать нормальную обработку ошибок в database.py (raise exceptions?)
+* fb2converter conversion.log - подумать, как с ним быть (м.б удалять при запуске)? 
+* Installer for MS Windows
+* MacOS build?
+* Linux install через install.py??
 
 DONE:
+v1.2
++ Поддержка русской локали
+* Tableview "Select all". Ограничение в 256 строк, если все записи еще не отражены.
+* Если в списке есть книга без обложки, при навигации остается обложка предыдущей книги.   
+
+v1.01
+* Ошибка первого запуска программы - не создается база данных.
++ Сделано версионирование программы. Текущая версия отражается в About...
 v1.0
-+ Error handling when rename files
-+ Error handling when adding files
-+ Error handling when save metadata
-+ Save and restore booktable columns width and columns order in settings file
-+ Hide columns + save hided columns in settings file
-+ Converting feature
++ Обработка ошибок при переименовании файлов.
++ Обработка ошибок при добавлении файлов. 
++ Обработка ошибок при редактировании метаданных. 
++ Сохранение и восстановление видимости и ширины колонок Tablewview в настройках.
++ Выбор видимых колонок и смена порядка колонок в Tableview.
++ Функция конвертации через fb2converter.

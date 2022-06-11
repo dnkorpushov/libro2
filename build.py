@@ -128,9 +128,20 @@ def clean():
     shutil.rmtree('.qt_for_python', ignore_errors=True)
     shutil.rmtree('build', ignore_errors=True)
     shutil.rmtree('dist', ignore_errors=True)
+    shutil.rmtree('installer', ignore_errors=True)
     for spec in glob('*.spec'):
         os.remove(spec)
 
+@command
+def installer():
+    '''
+    Make installer for app
+    '''
+    
+    if not os.path.exists('installer'):
+        os.makedirs('installer')
+
+    call('makensis {0}.nsi'.format(app_name), shell=True)
 
 if __name__ == '__main__':
     _parse_args()

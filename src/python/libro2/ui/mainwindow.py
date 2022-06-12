@@ -1,8 +1,9 @@
 import os
+import sys
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction
 from PyQt5.QtCore import Qt, QPoint, QCoreApplication
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 
 from .mainwindow_ui import Ui_MainWindow
 from .addfilesdialog import AddFilesDialog
@@ -80,6 +81,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.actionsSetEnabled(False)
         self.actionSave_metadata.setEnabled(False)
         self.bookInfo.dataChanged.connect(self.OnBookInfoDataChanged)
+
+        self.setPlatformUI()
 
 
     def OnBookInfoDataChanged(self, dataChanged):
@@ -339,6 +342,14 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
     def onToobarVisibilityChange(self):
         self.actionViewToolbar.setChecked(self.toolBar.isVisible())
+
+
+    def setPlatformUI(self):
+        if sys.platform == 'win32':
+            font = QFont('Segoe UI', 9)
+            self.label.setFont(font)
+            self.textFilter.setFont(font)
+            self.toolFilterButton.setFont(font)
 
     def onAbout(self):
         about = AboutDialog(self)

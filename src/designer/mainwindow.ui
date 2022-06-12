@@ -139,12 +139,6 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
            <property name="editable">
             <bool>true</bool>
            </property>

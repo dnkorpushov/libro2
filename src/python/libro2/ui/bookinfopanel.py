@@ -1,9 +1,10 @@
 import os
+import sys
 
 from lxml import etree
 
 from PyQt5.QtWidgets import QWidget, QMenu, QFileDialog
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtCore import Qt, QPoint, QByteArray, QBuffer, QLocale, pyqtSignal, QCoreApplication
 
 import ebookmeta
@@ -42,6 +43,8 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.labelCoverImage.customContextMenuRequested[QPoint].connect(self.coverContextMenu)
 
         self.toolButton.clicked.connect(self.onToolButtonClick)
+
+        self.setPlatformUI()
         
     def coverContextMenu(self, point):
         menu = QMenu()
@@ -244,6 +247,28 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
                     text = ', '.join(tags)
                     
             self.textTag.setCurrentText(text)
+
+
+    def setPlatformUI(self):
+        if sys.platform == 'win32':
+            font = QFont('Segoe UI', 9)
+            self.label.setFont(font)
+            self.label_2.setFont(font)
+            self.label_3.setFont(font)
+            self.label_4.setFont(font)
+            self.label_8.setFont(font)
+            self.label_6.setFont(font)
+            self.label_7.setFont(font)
+            self.labelImageInfo.setFont(font)
+            self.textTitle.setFont(font)
+            self.textAuthor.setFont(font)
+            self.textSeries.setFont(font)
+            self.textNumber.setFont(font)
+            self.textTag.setFont(font)
+            self.toolButton.setFont(font)
+            self.textLang.setFont(font)
+            self.textTranslator.setFont(font)
+
 
     def getGenres(self, lang='ru'):
         if lang not in ['ru', 'en']:

@@ -126,12 +126,6 @@
          </property>
          <item>
           <widget class="QLabel" name="label">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
            <property name="text">
             <string>Filter:</string>
            </property>
@@ -163,14 +157,6 @@
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
-           </property>
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
            </property>
            <property name="text">
             <string>...</string>
@@ -224,9 +210,18 @@
     <property name="title">
      <string>View</string>
     </property>
+    <widget class="QMenu" name="menuToolbar_icon_size">
+     <property name="title">
+      <string>Toolbar icon size</string>
+     </property>
+     <addaction name="actionToolbarIconSmall"/>
+     <addaction name="actionToolbarIconsLarge"/>
+    </widget>
     <addaction name="actionViewInfo_panel"/>
     <addaction name="actionFilter_panel"/>
     <addaction name="actionViewToolbar"/>
+    <addaction name="separator"/>
+    <addaction name="menuToolbar_icon_size"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -442,6 +437,25 @@
    </property>
    <property name="text">
     <string>Toolbar</string>
+   </property>
+  </action>
+  <action name="actionToolbarIconSmall">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Small</string>
+   </property>
+  </action>
+  <action name="actionToolbarIconsLarge">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Large</string>
    </property>
   </action>
  </widget>
@@ -694,6 +708,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionToolbarIconSmall</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onToolbarIconSmall()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>464</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionToolbarIconsLarge</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onToolbarIconLarge()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>464</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onAddFiles()</slot>
@@ -712,5 +758,7 @@
   <slot>onAbout()</slot>
   <slot>onViewToolbar(bool)</slot>
   <slot>onConvert()</slot>
+  <slot>onToolbarIconLarge()</slot>
+  <slot>onToolbarIconSmall()</slot>
  </slots>
 </ui>

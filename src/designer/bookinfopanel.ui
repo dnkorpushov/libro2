@@ -84,49 +84,23 @@
          </property>
          <item>
           <widget class="QLabel" name="label_2">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
            <property name="text">
             <string>Title</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="ComboEdit" name="textTitle">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
-          </widget>
+          <widget class="ComboEdit" name="textTitle"/>
          </item>
          <item>
           <widget class="QLabel" name="label_3">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
            <property name="text">
             <string>Author</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="ComboEdit" name="textAuthor">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
-          </widget>
+          <widget class="ComboEdit" name="textAuthor"/>
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0">
@@ -135,12 +109,6 @@
            </property>
            <item row="0" column="2">
             <widget class="QLabel" name="label_4">
-             <property name="font">
-              <font>
-               <family>Segoe UI</family>
-               <pointsize>9</pointsize>
-              </font>
-             </property>
              <property name="text">
               <string>Number</string>
              </property>
@@ -148,47 +116,21 @@
            </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label">
-             <property name="font">
-              <font>
-               <family>Segoe UI</family>
-               <pointsize>9</pointsize>
-              </font>
-             </property>
              <property name="text">
               <string>Series</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="ComboEdit" name="textSeries">
-             <property name="font">
-              <font>
-               <family>Segoe UI</family>
-               <pointsize>9</pointsize>
-              </font>
-             </property>
-            </widget>
+            <widget class="ComboEdit" name="textSeries"/>
            </item>
            <item row="1" column="2">
-            <widget class="ComboEdit" name="textNumber">
-             <property name="font">
-              <font>
-               <family>Segoe UI</family>
-               <pointsize>9</pointsize>
-              </font>
-             </property>
-            </widget>
+            <widget class="ComboEdit" name="textNumber"/>
            </item>
           </layout>
          </item>
          <item>
           <widget class="QLabel" name="label_8">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
            <property name="text">
             <string>Tags (genres)</string>
            </property>
@@ -200,23 +142,10 @@
             <number>4</number>
            </property>
            <item>
-            <widget class="ComboEdit" name="textTag">
-             <property name="font">
-              <font>
-               <family>Segoe UI</family>
-               <pointsize>9</pointsize>
-              </font>
-             </property>
-            </widget>
+            <widget class="ComboEdit" name="textTag"/>
            </item>
            <item>
             <widget class="QToolButton" name="toolButton">
-             <property name="font">
-              <font>
-               <family>Segoe UI</family>
-               <pointsize>9</pointsize>
-              </font>
-             </property>
              <property name="toolTip">
               <string>Add fb2 genre</string>
              </property>
@@ -229,49 +158,23 @@
          </item>
          <item>
           <widget class="QLabel" name="label_6">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
            <property name="text">
             <string>Lang</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="ComboEdit" name="textLang">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
-          </widget>
+          <widget class="ComboEdit" name="textLang"/>
          </item>
          <item>
           <widget class="QLabel" name="label_7">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
            <property name="text">
             <string>Translator</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="ComboEdit" name="textTranslator">
-           <property name="font">
-            <font>
-             <family>Segoe UI</family>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
-          </widget>
+          <widget class="ComboEdit" name="textTranslator"/>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
@@ -294,7 +197,6 @@
              </property>
              <property name="font">
               <font>
-               <family>Segoe UI</family>
                <pointsize>12</pointsize>
               </font>
              </property>
@@ -320,12 +222,6 @@
            </item>
            <item>
             <widget class="QLabel" name="labelImageInfo">
-             <property name="font">
-              <font>
-               <family>Segoe UI</family>
-               <pointsize>9</pointsize>
-              </font>
-             </property>
              <property name="text">
               <string>image/jpeg
 0x0

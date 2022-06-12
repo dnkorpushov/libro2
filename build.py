@@ -9,7 +9,8 @@ import shutil
 # build.py app settings
 app_name = 'libro2'
 app_icon = {
-    'win32': 'src/icon/books.ico'
+    'win32': 'src/icon/libro2.ico',
+    'darwin': 'src/icon/libro2.icns'
 }
 main_module = "src/python/libro2/main.py"
 designer_src = 'src/designer'

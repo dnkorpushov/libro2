@@ -98,6 +98,7 @@ class RenameDialog(Ui_RenameDialog, QDialog):
 
         with codecs.open(out_file, 'w') as f:
             f.write(out_str)
+            f.close()
 
             if sys.platform == 'win32':
                 os.startfile(out_file)

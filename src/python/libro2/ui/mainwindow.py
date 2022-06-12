@@ -71,7 +71,12 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookList.selectionModel().selectionChanged.connect(self.onBookListSelectionChanged)
 
         self.toolBar.setIcons()
+        self.toolBar.visibilityChanged.connect(self.onToobarVisibilityChange)
         self.toolBar.setVisible(settings.ui_toolbar_visible)
+        if settings.ui_toolbar_icon_size == 'small':
+            self.onToolbarIconSmall()
+        else:
+            self.onToolbarIconLarge()
         self.actionsSetEnabled(False)
         self.actionSave_metadata.setEnabled(False)
         self.bookInfo.dataChanged.connect(self.OnBookInfoDataChanged)
@@ -321,6 +326,20 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.textFilter.setFocus(True)
 
 
+    def onToolbarIconLarge(self):
+        self.toolBar.setLargeIcons()
+        self.actionToolbarIconsLarge.setChecked(True)
+        self.actionToolbarIconSmall.setChecked(False)
+
+    def onToolbarIconSmall(self):
+        self.toolBar.setSmallIcons()
+        self.actionToolbarIconsLarge.setChecked(False)
+        self.actionToolbarIconSmall.setChecked(True)
+
+
+    def onToobarVisibilityChange(self):
+        self.actionViewToolbar.setChecked(self.toolBar.isVisible())
+
     def onAbout(self):
         about = AboutDialog(self)
         about.exec()
@@ -347,6 +366,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         settings.ui_columns_width = self.bookList.getColumnsWidth()
         settings.ui_hidden_columns = self.bookList.getHiddenColumns()
         settings.ui_hidden_columns_width = self.bookList.getHiddenColumnsWidth()
+        settings.ui_toolbar_icon_size = 'small' if self.actionToolbarIconSmall.isChecked() else 'large'
 
         if self.actionViewInfo_panel.isChecked():
             settings.ui_splitter_sizes = self.splitter.sizes()

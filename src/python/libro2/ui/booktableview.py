@@ -1,7 +1,7 @@
-from tkinter.ttk import Style
+import sys
 from PyQt5.QtWidgets import QTableView, QAbstractItemView, QStyledItemDelegate, QStyleOptionViewItem, QStyle, QMenu, QAction, QApplication
 from PyQt5.QtCore import Qt, QItemSelectionModel, QCoreApplication
-from PyQt5.QtGui import QFontMetrics, QPalette, QColor
+from PyQt5.QtGui import QFontMetrics, QPalette
 from PyQt5.QtSql import QSqlTableModel
 
 import database
@@ -16,9 +16,11 @@ class BookTableView(QTableView):
         fm = QFontMetrics(font)
         self.verticalHeader().setDefaultSectionSize(fm.height() + 8)
 
-        palette = self.palette()
-        palette.setColor(QPalette.Inactive, QPalette.Highlight, palette.color(QPalette.Active, QPalette.Midlight))
-        self.setPalette(palette)
+        # OS UI Hacks
+        if sys.platform == 'win32':
+            palette = self.palette()
+            palette.setColor(QPalette.Inactive, QPalette.Highlight, palette.color(QPalette.Active, QPalette.Midlight))
+            self.setPalette(palette)
         
         self.setWordWrap(False)
         self.setSelectionBehavior(QAbstractItemView.SelectRows)

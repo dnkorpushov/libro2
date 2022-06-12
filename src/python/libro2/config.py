@@ -17,6 +17,7 @@ settings = SimpleNamespace(
     ui_info_panel_visible=True,
     ui_filter_panel_visible=True,
     ui_toolbar_visible=True,
+    ui_toolbar_icon_size='large',
     ui_auto_apply_filter=True, 
     ui_splitter_sizes=[], 
     ui_columns_width=[],

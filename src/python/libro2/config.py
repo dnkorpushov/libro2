@@ -1,9 +1,15 @@
 import os
+import sys
 import json
 import codecs
 from types import SimpleNamespace
 
-config_path = os.path.join(os.path.expanduser('~'), 'libro2')
+if sys.platform == 'win32':
+    config_folder_name = 'libro2'
+else:
+    config_folder_name = '.libro2'
+
+config_path = os.path.join(os.path.expanduser('~'), config_folder_name)
 config_file = os.path.join(config_path, 'settings.json')
 
 

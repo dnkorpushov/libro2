@@ -64,7 +64,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/icons/course_30px.png</pixmap>
+        <pixmap resource="resources.qrc">:/icons/libro2_48px.png</pixmap>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

@@ -32,7 +32,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__()
         self.setupUi(self)
 
-        self.setWindowIcon(QIcon(':/icons/course_16px.png'))
+        self.setWindowIcon(QIcon(':/icons/libro2_16px.png'))
         
         self.splitter.setChildrenCollapsible(False)
         self.splitter.setStretchFactor(0, 0)

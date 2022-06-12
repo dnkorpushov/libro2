@@ -36,7 +36,7 @@ class Ui_AboutDialog(object):
         self.label.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.label.setBaseSize(QtCore.QSize(-1, 0))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(":/icons/course_30px.png"))
+        self.label.setPixmap(QtGui.QPixmap(":/icons/libro2_48px.png"))
         self.label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)

@@ -12,8 +12,8 @@
     <file>save_16px.png</file>
   </qresource>
   <qresource prefix="icons">
-    <file>course_90px.png</file>
-    <file>course_30px.png</file>
-    <file>course_16px.png</file>
+    <file>libro2_16px.png</file>
+    <file>libro2_32px.png</file>
+    <file>libro2_48px.png</file>
   </qresource>
 </RCC>

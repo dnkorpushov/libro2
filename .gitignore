@@ -1,6 +1,9 @@
+*.pyc
+*.egg-info
 dist/
 build/
 installer/
 __pycache__/
 .qt_for_python/
+.vscode/
 *.spec

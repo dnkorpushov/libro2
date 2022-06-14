@@ -142,7 +142,14 @@ def installer():
     if not os.path.exists('installer'):
         os.makedirs('installer')
 
-    call('makensis {0}.nsi'.format(app_name), shell=True)
+    if sys.platform == 'win32':
+        call('makensis {0}.nsi'.format(app_name), shell=True)
+    
+    elif sys.platform == 'darwin':
+        shutil.rmtree('./dist/libro2')
+        os.symlink('/Applications', './dist/Applications')
+        call('hdiutil create -volname libro2 -format UDZO -srcfolder ./dist ./installer/libro2.macos.dmg')
+
 
 if __name__ == '__main__':
     _parse_args()

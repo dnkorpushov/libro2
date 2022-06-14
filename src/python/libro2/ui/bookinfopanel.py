@@ -238,7 +238,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         action = menu.exec_(self.toolButton.mapToGlobal(QPoint(0, 0)))
         if action:
             text = self.textTag.currentText()
-            if text in (self.TextTag.Blank, self.TextTag.Keep):
+            if text in (self.textTag.Blank, self.textTag.Keep):
                 text = action.data()
             else:
                 tags = [x.strip() for x in text.split(',')]

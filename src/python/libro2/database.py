@@ -4,9 +4,9 @@ from PyQt5.QtSql import QSqlQuery, QSqlDatabase
 from PyQt5.QtCore import QByteArray
 import query as query
 from types import SimpleNamespace
+import config
 
-
-db_file = os.path.join(os.path.expanduser('~'), 'libro2', 'booklist.db')
+db_file = os.path.join(config.config_path, 'booklist.db')
 db = QSqlDatabase.addDatabase('QSQLITE')
 
 

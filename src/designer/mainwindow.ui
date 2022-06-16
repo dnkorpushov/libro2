@@ -155,10 +155,14 @@
            <property name="text">
             <string>...</string>
            </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/right_14px.png</normaloff>:/icons/right_14px.png</iconset>
+           </property>
            <property name="iconSize">
             <size>
-             <width>20</width>
-             <height>20</height>
+             <width>18</width>
+             <height>18</height>
             </size>
            </property>
           </widget>
@@ -221,6 +225,9 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionForum"/>
+    <addaction name="separator"/>
     <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
@@ -254,8 +261,8 @@
    </property>
    <property name="iconSize">
     <size>
-     <width>24</width>
-     <height>24</height>
+     <width>16</width>
+     <height>16</height>
     </size>
    </property>
    <property name="toolButtonStyle">
@@ -450,6 +457,16 @@
    </property>
    <property name="text">
     <string>Large</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionForum">
+   <property name="text">
+    <string>Forum</string>
    </property>
   </action>
  </widget>
@@ -734,6 +751,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionHelp</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onHelp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>464</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionForum</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onForumLink()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>464</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onAddFiles()</slot>
@@ -754,5 +803,7 @@
   <slot>onConvert()</slot>
   <slot>onToolbarIconLarge()</slot>
   <slot>onToolbarIconSmall()</slot>
+  <slot>onHelp()</slot>
+  <slot>onForumLink()</slot>
  </slots>
 </ui>

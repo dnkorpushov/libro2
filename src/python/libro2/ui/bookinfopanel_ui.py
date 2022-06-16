@@ -75,6 +75,10 @@ class Ui_BookInfoPanel(object):
         self.textTag.setObjectName("textTag")
         self.horizontalLayout_2.addWidget(self.textTag)
         self.toolButton = QtWidgets.QToolButton(self.scrollAreaWidgetContents)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/icons/right_14px.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.toolButton.setIcon(icon)
+        self.toolButton.setIconSize(QtCore.QSize(18, 18))
         self.toolButton.setObjectName("toolButton")
         self.horizontalLayout_2.addWidget(self.toolButton)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -137,3 +141,4 @@ class Ui_BookInfoPanel(object):
 "0x0\n"
 "0 KB"))
 from .comboedit import ComboEdit
+from . import resources_rc

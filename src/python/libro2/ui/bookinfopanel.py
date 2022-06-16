@@ -20,6 +20,8 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.setupUi(self)
         self.resizeEvent = self.onResize
         self.cover = None
+        self.cover_media_type = None
+        self.cover_file_name = None
         self.isDataChanged = False
         self.dataChanged.emit(self.isDataChanged)
         self.bookInfoList = []
@@ -50,8 +52,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         menu = QMenu()
         actionLoad = menu.addAction(_t('info', 'Load from file...'))
         actionSave = menu.addAction(_t('info', 'Save to file...'))
-        actionClear = menu.addAction(_t('info', 'Clear'))
-
+       
         action = menu.exec_(self.labelCoverImage.mapToGlobal(point))
         
         if action == actionLoad:
@@ -70,12 +71,6 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
                                                         filter=_t('info', 'Image file (*.jpg)'))
             if filename:
                 self.saveCoverToFile(filename)
-
-        elif action == actionClear:
-            self.labelCoverImage.clear()
-            self.clearCover()
-            self.isDataChanged = True
-            self.dataChanged.emit(self.isDataChanged)
          
     def clearCover(self):
         self.cover = None
@@ -125,12 +120,12 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
 
         for book_info in book_info_list:
             self.textTitle.addUserItem(book_info.title)
-            self.textAuthor.addUserItem(book_info.author)
+            self.textAuthor.addUserItem(book_info.authors)
             self.textSeries.addUserItem(book_info.series)
             self.textNumber.addUserItem(str(book_info.series_index))
             self.textTag.addUserItem(book_info.tags)
             self.textLang.addUserItem(book_info.lang)
-            self.textTranslator.addUserItem(book_info.translator)
+            self.textTranslator.addUserItem(book_info.translators)
        
         self.textTitle.setInitialIndex()
         self.textAuthor.setInitialIndex()
@@ -157,6 +152,9 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
 
         if len(book_info_list) == 1:
             self.cover = book_info_list[0].cover_image
+            self.cover_media_type = book_info_list[0].cover_media_type
+            self.cover_file_name = book_info_list[0].cover_file_name
+            
             self.setCoverImage()
             self.labelCoverImage.setEnabled(True)
         else:
@@ -166,12 +164,10 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.isDataChanged = False
         self.dataChanged.emit(self.isDataChanged)
 
-    
     def getData(self):
-
         for bookInfo in self.bookInfoList:
             bookInfo.title = self.textTitle.getUserText(bookInfo.title)
-            bookInfo.author = self.textAuthor.getUserText(bookInfo.author)
+            bookInfo.authors = self.textAuthor.getUserText(bookInfo.authors)
             bookInfo.series = self.textSeries.getUserText(bookInfo.series)
             try:
                 bookInfo.series_index = int(self.textNumber.getUserText(bookInfo.series_index))
@@ -179,11 +175,13 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
                 bookInfo.series_index = None
             bookInfo.tags = self.textTag.getUserText(bookInfo.tags)
             bookInfo.lang = self.textLang.getUserText(bookInfo.lang)
-            bookInfo.translator = self.textTranslator.getUserText(bookInfo.translator)
+            bookInfo.translators = self.textTranslator.getUserText(bookInfo.translators)
             
             
         if len(self.bookInfoList) == 1:
             self.bookInfoList[0].cover_image = self.cover
+            self.bookInfoList[0].cover_media_type = self.cover_media_type
+            self.bookInfoList[0].cover_file_name = self.cover_file_name
 
         return self.bookInfoList
 
@@ -197,15 +195,27 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
 
             cover_data_size = '{0} KB'.format(int(len(self.cover) / 1024))
             cover_size = '{0}x{1}'.format(pix.size().width(), pix.size().height())
-            self.labelImageInfo.setText(cover_size + '\n' + cover_data_size)
+            self.labelImageInfo.setText(self.cover_media_type + '\n' +cover_size + '\n' + cover_data_size)
 
     def loadCoverFromFile(self, filename):
+        image_format = None
+        
+        if not self.cover_media_type:
+            # Book without cover - new filename
+            self.cover_media_type = 'image/jpeg'
+            self.cover_file_name = 'cover.jpg'
+        
+        if self.cover_media_type == 'image/jpeg':
+            image_format = 'JPG'
+        elif self.cover_media_type == 'image/png':
+            image_format = 'PNG'
+
         if os.path.exists(filename):
             pixmap = QPixmap()
             if pixmap.load(filename):
                 data = QByteArray()
                 buff = QBuffer(data)
-                pixmap.save(buff, 'JPG')
+                pixmap.save(buff, image_format)
                 self.cover = bytes(buff.buffer())
                 self.setCoverImage()
 

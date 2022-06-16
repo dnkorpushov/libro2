@@ -1,120 +1,121 @@
 
 create_tables = '''
-    CREATE TABLE book (
+    CREATE TABLE books (
             id integer PRIMARY KEY AUTOINCREMENT,
             title text NOT NULL,
-            author text NOT NULL,
-            author_sort text, 
+            authors text NOT NULL,
             tags text,
             tags_description text, 
             series text,
             series_index int, 
             lang text,
-            translator text,
+            translators text,
             description text,
             type text NOT NULL,
             cover_image blob,
+            cover_media_type text,
+            cover_file_name text,
             file text NOT NULL UNIQUE
         );
 
-    CREATE VIEW book_v AS
+    CREATE VIEW books_v AS
     SELECT id,
            title,
-           author_sort as author,
+           authors,
            series,
            series_index,
            tags_description as tags,
            lang,
-           translator,
+           translators,
            type, 
            file
-    FROM book;
+    FROM books;
 
     CREATE VIRTUAL TABLE book_idx USING fts5 (
         title,
-        author, 
+        authors, 
         tags,
         tags_description,
         series,
         lang,
-        translator,
+        translators,
         type,
-        content = 'book',
+        content = 'books',
         content_rowid = 'id'
     );
 '''
 
 trigger_after_insert = '''
-    CREATE TRIGGER book_ai AFTER INSERT ON book
+    CREATE TRIGGER books_ai AFTER INSERT ON books
     BEGIN
-        INSERT INTO book_idx(rowid, title, author, tags, tags_description, series, lang, translator, type)
-            VALUES(new.id, new.title, new.author, new.tags, new.tags_description, new.series, new.lang, new.translator, new.type);
+        INSERT INTO book_idx(rowid, title, authors, tags, tags_description, series, lang, translators, type)
+            VALUES(new.id, new.title, new.authors, new.tags, new.tags_description, new.series, new.lang, new.translators, new.type);
     END;
 '''
 trigger_after_delete = '''
-    CREATE TRIGGER book_ad AFTER DELETE ON book
+    CREATE TRIGGER books_ad AFTER DELETE ON books
     BEGIN
-        INSERT INTO book_idx(book_idx, rowid, title, author, tags, tags_description, series, lang, translator, type)
-            VALUES('delete', old.id, old.title, old.author, old.tags, old.tags_description, old.series, old.lang, old.translator, old.type);
+        INSERT INTO book_idx(book_idx, rowid, title, authors, tags, tags_description, series, lang, translators, type)
+            VALUES('delete', old.id, old.title, old.authors, old.tags, old.tags_description, old.series, old.lang, old.translators, old.type);
     END;
 '''
 trigger_after_update = '''
-    CREATE TRIGGER book_au AFTER UPDATE ON book
+    CREATE TRIGGER books_au AFTER UPDATE ON books
     BEGIN
-        INSERT INTO book_idx(book_idx, rowid, title, author, tags, tags_description, series, lang, translator, type)
-            VALUES('delete', old.id, old.title, old.author, old.tags, old.tags_description, old.series, old.lang, old.translator, old.type);
-        INSERT INTO book_idx(rowid, title, author, tags, tags_description, series, lang, translator, type)
-            VALUES(new.id, new.title, new.author, new.tags, new.tags_description, new.series, new.lang, new.translator, new.type);
+        INSERT INTO book_idx(book_idx, rowid, title, authors, tags, tags_description, series, lang, translators, type)
+            VALUES('delete', old.id, old.title, old.authors, old.tags, old.tags_description, old.series, old.lang, old.translators, old.type);
+        INSERT INTO book_idx(rowid, title, authors, tags, tags_description, series, lang, translators, type)
+            VALUES(new.id, new.title, new.authors, new.tags, new.tags_description, new.series, new.lang, new.translators, new.type);
     END;
 '''
 
 
 check_db_created = '''
-    SELECT count(1) FROM sqlite_master WHERE type="table" AND name="book"
+    SELECT count(1) FROM sqlite_master WHERE type="table" AND name="books"
 '''
 
 
 clear = '''
-    DELETE FROM book
+    DELETE FROM books
 '''
 
 insert_book = '''
-    INSERT INTO book (title, author, author_sort, tags, tags_description, series, series_index, lang, translator, description, type, cover_image, file)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?) 
+    INSERT INTO books (title, authors, tags, tags_description, series, series_index, 
+                      lang, translators, description, type, cover_image, cover_media_type, 
+                      cover_file_name, file)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
 '''
 
 select_book = '''
-    SELECT id, title, author,  tags, tags_description, series, series_index, lang, translator, cover_image, description, file
-      FROM book
+    SELECT id, title, authors,  tags, tags_description, series, series_index, lang, 
+           translators, description, cover_image, cover_media_type, cover_file_name, file
+      FROM books
     WHERE id = ?
 '''
 
 delete_book = '''
-    DELETE FROM book WHERE id = ?
+    DELETE FROM books WHERE id = ?
 '''
 
 update_book = '''
-    UPDATE book 
+    UPDATE books 
     SET title = ?,
-        author = ?,
+        authors = ?,
         tags = ?,
         series = ?,
         series_index = ?,
         lang = ?,
-        translator = ?,
-        cover_image = ?
+        translators = ?,
+        cover_image = ?,
+        cover_media_type = ?,
+        cover_file_name = ?
     WHERE id = ?
 '''
 
-update_book_calc_values = '''
-    UPDATE book
-    SET author_sort = ?,
-        tags_description = ?
-    WHERE id = ?
+update_tags_description = '''
+    UPDATE books SET tags_description = ? WHERE id = ?
 '''
 
 update_filename = '''
-    UPDATE book
-    SET file = ?
-    WHERE id = ?
+    UPDATE books SET file = ? WHERE id = ?
 '''

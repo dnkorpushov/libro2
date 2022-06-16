@@ -11,6 +11,7 @@ else:
 
 config_path = os.path.join(os.path.expanduser('~'), config_folder_name)
 config_file = os.path.join(config_path, 'settings.json')
+database_name = os.path.join(config_path, 'libro2.db')
 
 
 settings = SimpleNamespace(
@@ -41,6 +42,13 @@ settings = SimpleNamespace(
     convert_output_path=None,
     convert_overwrite=False
 )
+
+
+def init():
+    if not os.path.exists(config_path):
+        os.makedirs(config_path)
+    if os.path.exists(database_name):
+        os.unlink(database_name)
 
 def save():
     (config_dir, _) = os.path.split(config_file)

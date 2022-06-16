@@ -1,8 +1,9 @@
 import os
 import sys
+import webbrowser
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction
-from PyQt5.QtCore import Qt, QPoint, QCoreApplication
+from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer
 from PyQt5.QtGui import QIcon, QFont
 
 from .mainwindow_ui import Ui_MainWindow
@@ -21,8 +22,12 @@ settings = config.settings
 
 _t = QCoreApplication.translate
 
+HELP_LINK = 'https://github.com/dnkorpushov/libro2/wiki'
+FORUM_LINK = 'https://4pda.to/forum/index.php?showtopic=947577'
+
 class MainWindow (QMainWindow, Ui_MainWindow):
     def __init__(self):
+        config.init()
         config.load()
         database.init()
 
@@ -83,7 +88,22 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookInfo.dataChanged.connect(self.OnBookInfoDataChanged)
 
         self.setPlatformUI()
+        
+        QTimer.singleShot(1, self.loadFilesFromCommandLine)
 
+    def loadFilesFromCommandLine(self):
+        files_to_load = []
+        if len(sys.argv) > 1:
+            for item in sys.argv[1:]:
+                if os.path.isdir(item):
+                    for root, dir, files in os.walk(item):
+                        for file in files:
+                            files_to_load.append(os.path.join(root, file))
+                elif os.path.isfile(item):
+                    files_to_load.append(item)
+
+        if len(files_to_load) > 0:
+            self.AddFiles(files_to_load)
 
     def OnBookInfoDataChanged(self, dataChanged):
         self.actionSave_metadata.setEnabled(dataChanged)
@@ -123,13 +143,16 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.AddFiles(fileList)
 
     def AddFiles(self, files):
-        loadFilesDialog = AddFilesDialog(self, files)
-        loadFilesDialog.exec()
-        self.bookList.updateRows()
-        errors = loadFilesDialog.getErrors()
-        if len(errors) > 0:
-            errorDialog = TextViewDialog(self, errors)
-            errorDialog.exec()
+        # Remove unsupported files from list
+        files = [file for file in files if file.lower().endswith(('.fb2', '.fb2.zip', '.epub'))]
+        if len(files) > 0:
+            loadFilesDialog = AddFilesDialog(self, files)
+            loadFilesDialog.exec()
+            self.bookList.updateRows()
+            errors = loadFilesDialog.getErrors()
+            if len(errors) > 0:
+                errorDialog = TextViewDialog(self, errors)
+                errorDialog.exec()
 
     def onSelectAll(self):
         self.wait()
@@ -290,11 +313,11 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def onToolFilterButton(self):
         actionList = {
             'title': _t('main', 'Title'),
-            'author': _t('main', 'Author'),
+            'authors': _t('main', 'Author'),
             'series': _t('main', 'Series'),
             'tags': _t('main', 'Tags'),
             'lang': _t('main', 'Lang'),
-            'translator': _t('main', 'Translator'),
+            'translators': _t('main', 'Translator'),
             'type': _t('main', 'Type'),
             'file': _t('main', 'File') 
         }
@@ -350,6 +373,14 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.label.setFont(font)
             self.textFilter.setFont(font)
             self.toolFilterButton.setFont(font)
+
+    def onHelp(self):
+        browser = webbrowser.get()
+        browser.open_new_tab(HELP_LINK)
+    
+    def onForumLink(self):
+        browser = webbrowser.get()
+        browser.open_new_tab(FORUM_LINK)
 
     def onAbout(self):
         about = AboutDialog(self)

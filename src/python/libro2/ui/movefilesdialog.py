@@ -23,6 +23,8 @@ class Worker(QObject):
         self.errors = []
 
     def moveFiles(self):
+        src = None
+        dst = None
         i = 0
         count = len(self.book_info_list)
         for book in self.book_info_list:
@@ -31,10 +33,7 @@ class Worker(QObject):
                 try:
                     src = book.file
                     meta = ebookmeta.get_metadata(src)
-                    new_filename = ebookmeta.get_filename_from_pattern(meta, 
-                                                                       self.filename_format, 
-                                                                       self.author_format, 
-                                                                       padnum=2)
+                    new_filename = meta.get_filename_by_pattern(self.filename_format, self.author_format)
                     dst = os.path.normpath(os.path.join(os.path.dirname(meta.file), new_filename))
                     if self.delete_src and self.backup_src:
                         backup = os.path.normpath(src + '.bak')

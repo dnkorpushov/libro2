@@ -1,17 +1,29 @@
 <RCC>
   <qresource prefix="toolbar">
-    <file>add_file_30px.png</file>
-    <file>add_folder_30px.png</file>
-    <file>rename_30px.png</file>
-    <file>convert_30px.png</file>
-    <file>save_30px.png</file>
-    <file>add_file_16px.png</file>
-    <file>add_folder_16px.png</file>
-    <file>convert_16px.png</file>
-    <file>rename_16px.png</file>
-    <file>save_16px.png</file>
+    <file>add_22px.png</file>
+    <file>add_22px@2x.png</file>
+    <file>add_32px.png</file>
+    <file>add_32px@2x.png</file>
+    <file>convert_22px.png</file>
+    <file>convert_22px@2x.png</file>
+    <file>convert_32px.png</file>
+    <file>convert_32px@2x.png</file>
+    <file>edit_22px.png</file>
+    <file>edit_22px@2x.png</file>
+    <file>edit_32px.png</file>
+    <file>edit_32px@2x.png</file>
+    <file>folder_22px.png</file>
+    <file>folder_22px@2x.png</file>
+    <file>folder_32px.png</file>
+    <file>folder_32px@2x.png</file>
+    <file>save_22px.png</file>
+    <file>save_22px@2x.png</file>
+    <file>save_32px.png</file>
+    <file>save_32px@2x.png</file>
   </qresource>
   <qresource prefix="icons">
+    <file>right_14px.png</file>
+    <file>right_14px@2x.png</file>
     <file>libro2_16px.png</file>
     <file>libro2_32px.png</file>
     <file>libro2_48px.png</file>

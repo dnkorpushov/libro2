@@ -35,7 +35,7 @@ class BookTableView(QTableView):
         self.setSortingEnabled(True)
 
         model = BookTableModel(db=database.db)
-        model.setTable('book_v')
+        model.setTable('books_v')
         model.setSort(1, Qt.AscendingOrder)
         self.horizontalHeader().setSortIndicator(1, Qt.AscendingOrder)
         

@@ -40,8 +40,11 @@ def _parse_args():
     subparser = parser.add_subparsers()
     for name, fn in COMMANDS.items():
         cmd_parser = subparser.add_parser(name, help=fn.__doc__)
+        if name == 'run':
+            cmd_parser.add_argument('cmd_args', nargs='*')
         cmd_parser.set_defaults(fn=fn)
 
+    
     args = parser.parse_args()
     if hasattr(args, 'fn'):
         args.fn()
@@ -118,6 +121,7 @@ def run():
     Run project
     '''
     sys.path.append(main_dir)
+    del sys.argv[1]
     app_module = __import__('main')
     app_module.main()
     

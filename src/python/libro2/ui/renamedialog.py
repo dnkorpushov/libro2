@@ -82,7 +82,7 @@ class RenameDialog(Ui_RenameDialog, QDialog):
     def generateSample(self):
         for book in self._book_list:
             meta = ebookmeta.get_metadata(book.file)
-            self.labelSample.setText(ebookmeta.get_filename_from_pattern(meta, self.filenameFormat, self.authorFormat, 2))
+            self.labelSample.setText(meta.get_filename_by_pattern(self.filenameFormat, self.authorFormat, 2))
             break
 
     def onPreviewClick(self):
@@ -91,7 +91,7 @@ class RenameDialog(Ui_RenameDialog, QDialog):
         out_file = os.path.join(config.config_path, 'preview.txt')
         for book in self.bookList:
             meta = ebookmeta.get_metadata(book.file)
-            new_filename = ebookmeta.get_filename_from_pattern(meta, self.filenameFormat, self.authorFormat, 2)
+            new_filename = meta.get_filename_by_pattern(self.filenameFormat, self.authorFormat, 2)
             new_file = os.path.normpath(os.path.join(os.path.dirname(meta.file), new_filename))
             out_str +=  '"{0}" ->\n"{1}"\n\n'.format(os.path.normpath(meta.file), new_file)
         QApplication.restoreOverrideCursor()

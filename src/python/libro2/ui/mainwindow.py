@@ -76,7 +76,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookList.setHiddenColumnsWidth(settings.ui_hidden_columns_width)
         self.bookList.selectionModel().selectionChanged.connect(self.onBookListSelectionChanged)
 
-        self.toolBar.setIcons()
         self.toolBar.visibilityChanged.connect(self.onToobarVisibilityChange)
         self.toolBar.setVisible(settings.ui_toolbar_visible)
         if settings.ui_toolbar_icon_size == 'small':
@@ -350,8 +349,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             else:
                 self.textFilter.setCurrentText(self.textFilter.currentText() + ' {}:'.format(action.data()))
             self.textFilter.setFocus(True)
-
-
+ 
     def onToolbarIconLarge(self):
         self.toolBar.setLargeIcons()
         self.actionToolbarIconsLarge.setChecked(True)
@@ -362,10 +360,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.actionToolbarIconsLarge.setChecked(False)
         self.actionToolbarIconSmall.setChecked(True)
 
-
     def onToobarVisibilityChange(self):
         self.actionViewToolbar.setChecked(self.toolBar.isVisible())
-
 
     def setPlatformUI(self):
         if sys.platform == 'win32':
@@ -373,6 +369,11 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.label.setFont(font)
             self.textFilter.setFont(font)
             self.toolFilterButton.setFont(font)
+            self.toolBar.setStyleSheet('QToolBar { border: 0px }')
+        elif sys.platform == 'darwin':
+            self.setUnifiedTitleAndToolBarOnMac(True)
+            self.toolBar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+            self.toolBar.setCenterAlign()
 
     def onHelp(self):
         browser = webbrowser.get()

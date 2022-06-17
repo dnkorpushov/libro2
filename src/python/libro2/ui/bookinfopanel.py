@@ -228,7 +228,12 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         pixmap.save(filename, 'JPG')
 
     def onResize(self, event):
-        self.labelCoverImage.setMinimumSize(self.width() - 160, int((self.width() - 160) * 1.54))
+        width = self.width() - 180
+        height = round(width * 1.54, 0)
+        
+        self.labelCoverImage.setMinimumSize(width, height)
+        self.labelCoverImage.setMaximumSize(width, height)
+       
         self.setCoverImage()
         
 

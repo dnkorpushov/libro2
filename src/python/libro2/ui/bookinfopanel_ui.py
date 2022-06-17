@@ -61,6 +61,7 @@ class Ui_BookInfoPanel(object):
         self.textSeries.setObjectName("textSeries")
         self.gridLayout.addWidget(self.textSeries, 1, 0, 1, 1)
         self.textNumber = ComboEdit(self.scrollAreaWidgetContents)
+        self.textNumber.setMinimumSize(QtCore.QSize(100, 0))
         self.textNumber.setObjectName("textNumber")
         self.gridLayout.addWidget(self.textNumber, 1, 2, 1, 1)
         self.gridLayout.setColumnStretch(0, 1)

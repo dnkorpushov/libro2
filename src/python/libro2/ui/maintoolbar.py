@@ -1,8 +1,8 @@
 import sys
 import ctypes
-from PyQt5.QtWidgets import QToolBar
+from PyQt5.QtWidgets import QToolBar, QWidget, QSizePolicy
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QSize
+from PyQt5.QtCore import QSize, Qt
 
 
 
@@ -10,16 +10,30 @@ from PyQt5.QtCore import QSize
 class MainToolbar(QToolBar):
     def __init__(self, parent):
         super(MainToolbar, self).__init__(parent)
-        self.setStyleSheet('QToolBar { border: 0px }')
-
+    
         self.iconSave = None
         self.iconAdd = None
         self.iconFolder = None
         self.iconRename = None
         self.iconConvert = None
 
-        self.setSmallIcons()
-    
+    def addSeparator(self):
+        separator = QWidget(self)
+        separator.setFixedWidth(10)
+        self.addWidget(separator)
+
+    def setCenterAlign(self):
+        spacer1 = QWidget()
+        spacer1.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        spacer2 = QWidget()
+        spacer2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+
+        for action in self.actions():
+            print(action.objectName())
+            self.insertWidget(action, spacer1)
+            break
+        self.addWidget(spacer2)
+
     def setLargeIcons(self):
         self.iconSave = QIcon(':/toolbar/save_32px.png')
         self.iconAdd = QIcon(':/toolbar/add_32px.png')

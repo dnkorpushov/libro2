@@ -40,7 +40,8 @@ settings = SimpleNamespace(
     convert_converter_config=None,
     convert_output_format = None,
     convert_output_path=None,
-    convert_overwrite=False
+    convert_overwrite=False,
+    convert_stk = False
 )
 
 

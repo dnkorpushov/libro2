@@ -278,8 +278,10 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionSave_metadata"/>
+   <addaction name="separator"/>
    <addaction name="actionAdd_file"/>
    <addaction name="actionAdd_folder"/>
+   <addaction name="separator"/>
    <addaction name="actionRename"/>
    <addaction name="actionConvert"/>
   </widget>

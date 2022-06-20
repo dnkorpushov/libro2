@@ -195,8 +195,10 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuView.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.toolBar.addAction(self.actionSave_metadata)
+        self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionAdd_file)
         self.toolBar.addAction(self.actionAdd_folder)
+        self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionRename)
         self.toolBar.addAction(self.actionConvert)
 

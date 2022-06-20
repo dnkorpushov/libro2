@@ -1,11 +1,17 @@
-
+from ast import arg
+import os
+import shutil
+import sys
 import json
-import subprocess
+import tempfile
+
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import Qt, QProcess, QTimer
+from PyQt5.QtCore import Qt, QProcess, QTimer, QCoreApplication
+
 from .processdialog_ui import Ui_ProcessDialog
 
 import config
+_t = QCoreApplication.translate
 
 def parse_converter_error(b):
     src = None
@@ -13,6 +19,7 @@ def parse_converter_error(b):
     error = None
 
     output = bytes(b).decode()
+    print(output)
     strings = output.split('\n')
 
     # fb2c output string content 4 parts: timestamp, messageType (INFO, WARN or ERROR), text message, JSON attributes
@@ -36,13 +43,14 @@ def parse_converter_error(b):
                 try:
                     error = info['error']
                 except:
-                    pass
+                    if elem[2].lower().find('kindle') >= 0:
+                        error = elem[2]
     
     return {'src': src, 'dest': dest, 'error': error}
 
 
 class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
-    def __init__(self, parent, book_info_list, out_format, out_path, overwrite, converter_path, converter_config):
+    def __init__(self, parent, book_info_list, out_format, out_path, overwrite, stk, converter_path, converter_config):
         super(ConvertFilesDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle('Convert {0} files'.format(len(book_info_list)))
@@ -53,6 +61,7 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
         self.converter_config = converter_config
         self.converter_path = converter_path
         self.overwrite = overwrite
+        self.stk = stk
         self.output_format = out_format
         self.output_path = out_path
 
@@ -60,6 +69,9 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
         self.currentIndex = 0
         self.canceled = False
         self.errors = []
+        self.src = None
+        self.dest = None
+        self.tempfile = None
 
         self.process = QProcess()
         self.process.finished.connect(self.endProcess)
@@ -75,8 +87,8 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
     def runProcess(self):
         self.setCurrentProcess(self.currentIndex + 1, self.count)
 
-        src = self.book_info_list[self.currentIndex].file
-        if src.lower().endswith('.fb2') or  src.lower().endswith('.fb2.zip'):
+        self.src = os.path.normpath(self.book_info_list[self.currentIndex].file)
+        if self.src.lower().endswith(('.fb2', '.fb2.zip')):
             args = []
             if self.converter_config:
                 args.append('--config')
@@ -86,31 +98,64 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
             args.append(self.output_format)
             if self.overwrite:
                 args.append('--ow')
-            args.append(src)
+            if self.stk and self.output_format == 'epub':
+                args.append('--stk')
+            args.append(self.src)
             if self.output_path:
                 args.append(self.output_path)
             
             self.process.setWorkingDirectory(config.config_path)
             self.process.start(self.converter_path, args)
-        else:
-            self.errors.append({'src': src, 'dest': None, 'error': 'Epub files not support for conversion'})
-            self.currentIndex += 1
-            if self.currentIndex < self.count and not self.canceled:
-                self.runProcess()
+       
+        elif self.src.lower().endswith('.epub') and self.output_format == 'mobi':
+            kindlegen = None
+            if sys.platform == 'win32':
+                kindlegen = os.path.join(os.path.dirname(self.converter_path), 'kindlegen.exe')
             else:
-                self.closeTimer.start() # Hack for close dialog in ShowEvent
-        
+                kindlegen = os.path.join(os.path.dirname(self.converter_path), 'kindlegen')
+
+            tempname = tempfile.NamedTemporaryFile(suffix='.mobi', dir=os.path.dirname(self.src))
+            self.tempfile = os.path.normpath(tempname.name)
+            self.dest = os.path.normpath(os.path.join(self.output_path, 
+                                                      os.path.splitext(os.path.basename(self.src))[0] + '.mobi'))
+            
+            if os.path.exists(self.dest) and not self.overwrite:
+                self.errors.append({'src': self.src, 'dest': None, 'error': _t('cv', 'File {0} exist').format(self.dest)})
+                self.next()
+            else:
+                self.process.start(kindlegen, [self.src, '-o', os.path.basename(self.tempfile)])
+        else:
+            self.errors.append({ 'src': self.src, 
+                                 'dest': None, 'error': 
+                                 _t('cv', 'File not support for conversion in {0} format').format(self.output_format)})
+            self.next()   
+
+    def next(self):
+        self.currentIndex += 1
+        if self.currentIndex < self.count and not self.canceled:
+            self.runProcess()
+        else:
+            self.closeTimer.start() # Hack for close dialog in ShowEvent
+             
     def onTimerClose(self):
         self.accept()
 
     def cancelProcess(self):
-        self.errors.append({'src': None, 'dest':None, 'error': 'User interrupt'})
+        self.errors.append({'src': None, 'dest':None, 'error': _t('cv', 'User interrupt')})
         self.process.kill()
         self.canceled = True
 
     def endProcess(self, exit_code, exit_status):
         std_output = self.process.readAllStandardOutput()
         err_output = self.process.readAllStandardError()
+
+        if self.tempfile and os.path.exists(self.tempfile):
+            shutil.move(self.tempfile, self.dest)
+        
+        self.tempfile = None
+        self.src = None
+        self.dest = None
+
         error = parse_converter_error(std_output + err_output)
         if error['error']:
             self.errors.append(error)
@@ -123,7 +168,7 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
             self.accept()
 
     def setCurrentProcess(self, index, count):
-        self.progressLabel.setText('Convert files... {0} of {1}'.format(index, count))
+        self.progressLabel.setText(_t('cv', 'Convert files... {0} of {1}').format(index, count))
         self.progressBar.setValue(index)
 
     def showEvent(self, event):

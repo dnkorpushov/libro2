@@ -19,7 +19,7 @@ class MainToolbar(QToolBar):
 
     def addSeparator(self):
         separator = QWidget(self)
-        separator.setFixedWidth(10)
+        separator.setFixedWidth(6)
         self.addWidget(separator)
 
     def setCenterAlign(self):
@@ -35,21 +35,21 @@ class MainToolbar(QToolBar):
         self.addWidget(spacer2)
 
     def setLargeIcons(self):
-        self.iconSave = QIcon(':/toolbar/save_32px.png')
-        self.iconAdd = QIcon(':/toolbar/add_32px.png')
-        self.iconFolder = QIcon(':/toolbar/folder_32px.png')
-        self.iconRename = QIcon(':/toolbar/edit_32px.png')
-        self.iconConvert = QIcon(':/toolbar/convert_32px.png')
+        self.iconSave = QIcon(':/toolbar/save_28px.png')
+        self.iconAdd = QIcon(':/toolbar/add_28px.png')
+        self.iconFolder = QIcon(':/toolbar/folder_28px.png')
+        self.iconRename = QIcon(':/toolbar/edit_28px.png')
+        self.iconConvert = QIcon(':/toolbar/convert_28px.png')
        
-        self.setIconSize(QSize(36, 36))
+        self.setIconSize(QSize(32, 32))
         self.setIcons()
 
     def setSmallIcons(self):
-        self.iconSave = QIcon(':/toolbar/save_22px.png')
-        self.iconAdd = QIcon(':/toolbar/add_22px.png')
-        self.iconFolder = QIcon(':/toolbar/folder_22px.png')
-        self.iconRename = QIcon(':/toolbar/edit_22px.png')
-        self.iconConvert = QIcon(':/toolbar/convert_22px.png')
+        self.iconSave = QIcon(':/toolbar/save_20px.png')
+        self.iconAdd = QIcon(':/toolbar/add_20px.png')
+        self.iconFolder = QIcon(':/toolbar/folder_20px.png')
+        self.iconRename = QIcon(':/toolbar/edit_20px.png')
+        self.iconConvert = QIcon(':/toolbar/convert_20px.png')
 
         self.setIconSize(QSize(24, 24))
         self.setIcons()

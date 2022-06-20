@@ -285,6 +285,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         convertDialog.outputFormat = settings.convert_output_format
         convertDialog.outputPath = settings.convert_output_path
         convertDialog.overwrite = settings.convert_overwrite
+        convertDialog.stk = settings.convert_stk
         convertDialog.converterPath = settings.convert_converter_path
         convertDialog.converterConfig = settings.convert_converter_config
 
@@ -295,6 +296,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                                                  out_format=convertDialog.outputFormat,
                                                  out_path=convertDialog.outputPath,
                                                  overwrite=convertDialog.overwrite,
+                                                 stk = convertDialog.stk,
                                                  converter_path=convertDialog.converterPath,
                                                  converter_config=convertDialog.converterConfig)
             convertProgress.exec()
@@ -306,6 +308,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             settings.convert_output_format = convertDialog.outputFormat
             settings.convert_output_path = convertDialog.outputPath
             settings.convert_overwrite = convertDialog.overwrite 
+            settings.convert_stk = convertDialog.stk
             settings.convert_converter_path = convertDialog.converterPath
             settings.convert_converter_config = convertDialog.converterConfig
 
@@ -372,9 +375,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.toolBar.setStyleSheet('QToolBar { border: 0px }')
         elif sys.platform == 'darwin':
             self.setUnifiedTitleAndToolBarOnMac(True)
-            self.toolBar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-            self.toolBar.setCenterAlign()
-
+            
     def onHelp(self):
         browser = webbrowser.get()
         browser.open_new_tab(HELP_LINK)

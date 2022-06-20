@@ -117,9 +117,14 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
             self.textOutputDir.setText(result)
 
     def onToolConverterPath(self):
+        if sys.platform == 'win32':
+            flt = _t('cv', 'fb2c.exe (fb2c.exe);;All files (*.*)')
+        else:
+            flt = _t('cv', 'fb2c (fb2c);;All files (*)')
+
         result = QFileDialog.getOpenFileName(self, 
                                              caption=_t('cv', 'Select fb2c executable'),
-                                             filter=_t('cv', 'Executable files (*.exe);;All files (*.*)'))
+                                             filter=flt)
         if result:
             self.textConverterPath.setText(result[0])
 

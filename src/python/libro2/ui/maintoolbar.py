@@ -1,10 +1,7 @@
 import sys
-import ctypes
 from PyQt5.QtWidgets import QToolBar, QWidget, QSizePolicy
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize, Qt
-
-
 
 
 class MainToolbar(QToolBar):
@@ -18,9 +15,10 @@ class MainToolbar(QToolBar):
         self.iconConvert = None
 
     def addSeparator(self):
-        separator = QWidget(self)
-        separator.setFixedWidth(4)
-        self.addWidget(separator)
+        if sys.platform == 'win32':
+            separator = QWidget(self)
+            separator.setFixedWidth(4)
+            self.addWidget(separator)
 
     def setCenterAlign(self):
         spacer1 = QWidget()
@@ -41,7 +39,10 @@ class MainToolbar(QToolBar):
         self.iconRename = QIcon(':/toolbar/edit_28px.png')
         self.iconConvert = QIcon(':/toolbar/convert_28px.png')
        
-        self.setIconSize(QSize(32, 32))
+        if sys.platform == 'win32':
+            self.setIconSize(QSize(32, 32))
+        else:
+            self.setIconSize(QSize(28, 28))
         self.setIcons()
 
     def setSmallIcons(self):
@@ -51,7 +52,10 @@ class MainToolbar(QToolBar):
         self.iconRename = QIcon(':/toolbar/edit_22px.png')
         self.iconConvert = QIcon(':/toolbar/convert_22px.png')
 
-        self.setIconSize(QSize(24, 24))
+        if sys.platform == 'win32':
+            self.setIconSize(QSize(24, 24))
+        else:
+            self.setIconSize(QSize(22, 22))
         self.setIcons()
 
     def setIcons(self):

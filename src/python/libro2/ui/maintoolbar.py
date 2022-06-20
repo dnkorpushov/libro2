@@ -19,7 +19,7 @@ class MainToolbar(QToolBar):
 
     def addSeparator(self):
         separator = QWidget(self)
-        separator.setFixedWidth(6)
+        separator.setFixedWidth(4)
         self.addWidget(separator)
 
     def setCenterAlign(self):
@@ -45,11 +45,11 @@ class MainToolbar(QToolBar):
         self.setIcons()
 
     def setSmallIcons(self):
-        self.iconSave = QIcon(':/toolbar/save_20px.png')
-        self.iconAdd = QIcon(':/toolbar/add_20px.png')
-        self.iconFolder = QIcon(':/toolbar/folder_20px.png')
-        self.iconRename = QIcon(':/toolbar/edit_20px.png')
-        self.iconConvert = QIcon(':/toolbar/convert_20px.png')
+        self.iconSave = QIcon(':/toolbar/save_22px.png')
+        self.iconAdd = QIcon(':/toolbar/add_22px.png')
+        self.iconFolder = QIcon(':/toolbar/folder_22px.png')
+        self.iconRename = QIcon(':/toolbar/edit_22px.png')
+        self.iconConvert = QIcon(':/toolbar/convert_22px.png')
 
         self.setIconSize(QSize(24, 24))
         self.setIcons()

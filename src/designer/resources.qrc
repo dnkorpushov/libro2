@@ -1,6 +1,10 @@
 <RCC>
   <qresource prefix="icons">
     <file>right_14px.png</file>
+    <file>collapsed_16px.png</file>
+    <file>collapsed_16px@2x.png</file>
+    <file>expanded_16px.png</file>
+    <file>expanded_16px@2x.png</file>
     <file>right_14px@2x.png</file>
     <file>libro2_16px.png</file>
     <file>libro2_32px.png</file>

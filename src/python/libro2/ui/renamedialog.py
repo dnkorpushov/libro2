@@ -121,16 +121,15 @@ class RenameDialog(Ui_RenameDialog, QDialog):
 
     def onToolFilenameClick(self):
         elements = {
-            'title': '#title',
-            'series': '#series',
-            'abbrseries': '#abbrseries',
-            'ABBRseries': '#ABBRseries',
-            'number': '#number',
-            'padnumber(2)': '#padnumber',
-            'author': '#author',
-            'authors': '#authors',
-            'translator': '#translator',
-            'bookid': '#bookid'
+            'Title': '#Title',
+            'Series': '#Series',
+            'Abbrseries': '#Abbrseries',
+            'Number': '#Number',
+            'Padnumber(2)': '#Padnumber',
+            'Author': '#Author',
+            'Authors': '#Authors',
+            'Translator': '#Translator',
+            'Bookid': '#Bookid'
         }
         self.toolContextMenu(elements, self.textFilenameFormat, self.toolFilename.mapToGlobal(QPoint(0, 0)))
        

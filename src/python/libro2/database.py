@@ -53,9 +53,10 @@ def clear():
 
 def add_book(file):
     '''
-    title, authors, tags, tags_description, series, series_index, 
-    lang, translators, description, type, cover_image, cover_media_type, 
-    cover_file_name, file
+    title, authors, tags, tags_description, series, series_index, lang, translators, description, 
+    publish_title, publish_publisher, publish_city, publish_year,
+    publish_isbn, publish_series, publish_series_index, 
+    type, cover_image, cover_media_type, cover_file_name, file
     '''
     meta = ebookmeta.get_metadata(file)
 
@@ -70,14 +71,23 @@ def add_book(file):
     q.bindValue(6, meta.lang)
     q.bindValue(7, meta.translator_list_to_string())
     q.bindValue(8, meta.description)
-    q.bindValue(9, meta.format)
+
+    q.bindValue(9, meta.publish_info.title)
+    q.bindValue(10, meta.publish_info.publisher)
+    q.bindValue(11, meta.publish_info.city)
+    q.bindValue(12, meta.publish_info.year)
+    q.bindValue(13, meta.publish_info.isbn)
+    q.bindValue(14, meta.publish_info.series)
+    q.bindValue(15, meta.publish_info.series_index)
+    
+    q.bindValue(16, meta.format)
     if meta.cover_image_data:
-        q.bindValue(10, QByteArray(meta.cover_image_data))
+        q.bindValue(17, QByteArray(meta.cover_image_data))
     else:
-        q.bindValue(11, None)
-    q.bindValue(11, meta.cover_media_type)
-    q.bindValue(11, meta.cover_media_type)
-    q.bindValue(13, os.path.normpath(meta.file))
+        q.bindValue(17, None)
+    q.bindValue(18, meta.cover_media_type)
+    q.bindValue(19, meta.cover_file_name)
+    q.bindValue(20, os.path.normpath(meta.file))
 
     if not q.exec_():
         db.rollback()
@@ -113,8 +123,10 @@ def update_filename(book_id, new_filename):
 
 def update_book_info(book_rec):
     '''
-    title = ?, authors = ?, tags = ?, series = ?, series_index = ?, lang = ?,
-    translators = ?, cover_image = ?, cover_media_type = ?, cover_file_name = ?
+    title = ?, authors = ?, tags = ?, series = ?, series_index = ?, lang = ?, translators = ?, 
+    publish_title = ?, publish_publisher = ?, publish_city = ?, publish_year = ?, publish_isbn = ?,
+    publish_series = ?, publish_series_index = ?,
+    cover_image = ?, cover_media_type = ?, cover_file_name = ?
     '''
     book_id = book_rec.id
     filename = book_rec.file
@@ -128,13 +140,22 @@ def update_book_info(book_rec):
     q.bindValue(4, book_rec.series_index)
     q.bindValue(5, book_rec.lang)
     q.bindValue(6, book_rec.translators)
+
+    q.bindValue(7, book_rec.publish_title)
+    q.bindValue(8, book_rec.publish_publisher)
+    q.bindValue(9, book_rec.publish_city)
+    q.bindValue(10, book_rec.publish_year)
+    q.bindValue(11, book_rec.publish_isbn)
+    q.bindValue(12, book_rec.publish_series)
+    q.bindValue(13, book_rec.publish_series_index)
+    
     if book_rec.cover_image:
-        q.bindValue(7, QByteArray(book_rec.cover_image))
+        q.bindValue(14, QByteArray(book_rec.cover_image))
     else:
-        q.bindValue(7, None)
-    q.bindValue(8, book_rec.cover_media_type)
-    q.bindValue(9, book_rec.cover_file_name)
-    q.bindValue(10, book_id)
+        q.bindValue(14, None)
+    q.bindValue(15, book_rec.cover_media_type)
+    q.bindValue(16, book_rec.cover_file_name)
+    q.bindValue(17, book_id)
     if not q.exec_():
         print(q.lastError().text())
         db.rollback()
@@ -150,6 +171,13 @@ def update_book_info(book_rec):
             meta.series_index = book_rec.series_index
             meta.lang = book_rec.lang
             meta.set_translator_list_from_string(book_rec.translators)
+            meta.publish_info.title = book_rec.publish_title
+            meta.publish_info.publisher = book_rec.publish_publisher
+            meta.publish_info.city = book_rec.publish_city
+            meta.publish_info.year = book_rec.publish_year
+            meta.publish_info.isbn = book_rec.publish_isbn
+            meta.publish_info.series = book_rec.publish_series
+            meta.publish_info.series_index = book_rec.publish_series_index
             meta.cover_image_data = book_rec.cover_image
             meta.cover_media_type = book_rec.cover_media_type
             meta.cover_file_name = book_rec.cover_file_name
@@ -172,8 +200,9 @@ def update_book_info(book_rec):
 
 def get_book_info(book_id):
     '''
-    id, title, authors, tags, tags_description, series, series_index, lang, 
-    translators, description, cover_image, cover_media_type, cover_file_name, file
+    id, title, authors,  tags, tags_description, series, series_index, lang, translators, description, 
+    publish_title, publish_publisher, publish_city, publish_year, publish_isbn, publish_series, publish_series_index, 
+    cover_image, cover_media_type, cover_file_name, file
     '''
     q = QSqlQuery(db)
     q.prepare(query.select_book)
@@ -192,10 +221,19 @@ def get_book_info(book_id):
             book_rec.lang = q.value(7)
             book_rec.translators = q.value(8)
             book_rec.description = q.value(9)
-            book_rec.cover_image = q.value(10)
-            book_rec.cover_media_type = q.value(11)
-            book_rec.cover_file_name = q.value(112)
-            book_rec.file = q.value(13)
+            
+            book_rec.publish_title = q.value(10)
+            book_rec.publish_publisher = q.value(11)
+            book_rec.publish_city = q.value(12)
+            book_rec.publish_year = q.value(13)
+            book_rec.publish_isbn = q.value(14)
+            book_rec.publish_series = q.value(15)
+            book_rec.publish_series_index = q.value(16)
+
+            book_rec.cover_image = q.value(17)
+            book_rec.cover_media_type = q.value(18)
+            book_rec.cover_file_name = q.value(19)
+            book_rec.file = q.value(20)
 
     else:
         print(q.lastError().text())
@@ -214,7 +252,14 @@ def _get_book_rec():
         series_index=None,
         lang=None,
         translators=None,
-        decription=None,
+        description=None,
+        publish_title=None,
+        publish_publisher=None,
+        publish_city=None,
+        publish_year=None,
+        publish_isbn=None,
+        publish_series=None,
+        publish_series_index=None,
         cover_image=None,
         cover_media_type=None,
         cover_file_name=None,

@@ -29,6 +29,7 @@ class BookTableView(QTableView):
         self.setShowGrid(False)
         self.setAlternatingRowColors(True)
         self.horizontalHeader().setHighlightSections(False)
+        self.setAcceptDrops(True)
         
         self.verticalHeader().hide()
 

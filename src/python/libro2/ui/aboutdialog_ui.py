@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_AboutDialog(object):
     def setupUi(self, AboutDialog):
         AboutDialog.setObjectName("AboutDialog")
-        AboutDialog.resize(326, 203)
+        AboutDialog.resize(336, 226)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -59,6 +59,9 @@ class Ui_AboutDialog(object):
         self.labelIconsCredits = QtWidgets.QLabel(AboutDialog)
         self.labelIconsCredits.setObjectName("labelIconsCredits")
         self.verticalLayout.addWidget(self.labelIconsCredits)
+        self.labelAppIcon = QtWidgets.QLabel(AboutDialog)
+        self.labelAppIcon.setObjectName("labelAppIcon")
+        self.verticalLayout.addWidget(self.labelAppIcon)
         self.labelRuporCredits = QtWidgets.QLabel(AboutDialog)
         self.labelRuporCredits.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.labelRuporCredits.setObjectName("labelRuporCredits")
@@ -81,6 +84,7 @@ class Ui_AboutDialog(object):
         self.labelIconsCredits.linkActivated['QString'].connect(AboutDialog.openLink)
         self.labelRuporCredits.linkActivated['QString'].connect(AboutDialog.openLink)
         self.labelNewVersion.linkActivated['QString'].connect(AboutDialog.openLink)
+        self.labelAppIcon.linkActivated['QString'].connect(AboutDialog.openLink)
         QtCore.QMetaObject.connectSlotsByName(AboutDialog)
 
     def retranslateUi(self, AboutDialog):
@@ -89,6 +93,7 @@ class Ui_AboutDialog(object):
         self.labelName.setText(_translate("AboutDialog", "Libro2 v1.0"))
         self.labelAuthor.setText(_translate("AboutDialog", "Written by dnk_dz"))
         self.labelIconsCredits.setText(_translate("AboutDialog", "<html><head/><body><p>Icons by <a href=\"https://icons8.com/\"><span style=\" text-decoration: underline; color:#0000ff;\">icons8.com</span></a></p></body></html>"))
+        self.labelAppIcon.setText(_translate("AboutDialog", "<html><head/><body><p>App icon by <a href=\"https://icon-icons.com/users/5C4aDHDZ0aEGLnypl9KyW/icon-sets/\"><span style=\" text-decoration: underline; color:#0000ff;\">Nick Frost and Greg Lapin</span></a></p></body></html>"))
         self.labelRuporCredits.setText(_translate("AboutDialog", "<html><head/><body><p>Special sanks to <a href=\"https://github.com/rupor-github\"><span style=\" text-decoration: underline; color:#0000ff;\">rupor</span></a> for <a href=\"https://github.com/rupor-github/fb2converter\"><span style=\" text-decoration: underline; color:#0000ff;\">fb2converter</span></a> and <a href=\"https://github.com/rupor-github/fb2mobi\"><span style=\" text-decoration: underline; color:#0000ff;\">fb2mobi</span></a></p></body></html>"))
         self.labelNewVersion.setText(_translate("AboutDialog", "<html><head/><body><p>Check new version <a href=\"https://github.com/dnkorpushov/libro2/releases\"><span style=\" text-decoration: underline; color:#0000ff;\">here</span></a></p></body></html>"))
 from . import resources_rc

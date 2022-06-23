@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>341</width>
-    <height>630</height>
+    <width>290</width>
+    <height>770</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -57,199 +57,427 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>341</width>
-        <height>630</height>
+        <width>290</width>
+        <height>770</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <property name="spacing">
-        <number>6</number>
-       </property>
-       <property name="leftMargin">
-        <number>6</number>
-       </property>
-       <property name="topMargin">
-        <number>6</number>
-       </property>
-       <property name="rightMargin">
-        <number>6</number>
-       </property>
-       <property name="bottomMargin">
-        <number>6</number>
-       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
         <layout class="QVBoxLayout" name="verticalLayout">
          <property name="spacing">
           <number>4</number>
          </property>
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QToolButton" name="toggleMainInfo">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QToolButton {border: none}</string>
+           </property>
            <property name="text">
-            <string>Title</string>
+            <string>Main information</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/expanded_16px.png</normaloff>:/icons/expanded_16px.png</iconset>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextBesideIcon</enum>
+           </property>
+           <property name="autoRaise">
+            <bool>false</bool>
+           </property>
+           <property name="arrowType">
+            <enum>Qt::NoArrow</enum>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="ComboEdit" name="textTitle"/>
+          <widget class="QWidget" name="widgetMain" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <property name="spacing">
+             <number>1</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>10</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Title</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="ComboEdit" name="textTitle"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Author</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="ComboEdit" name="textAuthor"/>
+            </item>
+            <item>
+             <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <item row="0" column="2">
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>Number</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Series</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="ComboEdit" name="textSeries"/>
+              </item>
+              <item row="1" column="2">
+               <widget class="ComboEdit" name="textNumber">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>Tags (genres)</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <item>
+               <widget class="ComboEdit" name="textTag"/>
+              </item>
+              <item>
+               <widget class="QToolButton" name="toolButton">
+                <property name="toolTip">
+                 <string>Add fb2 genre</string>
+                </property>
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/icons/right_14px.png</normaloff>:/icons/right_14px.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>18</width>
+                  <height>18</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Lang</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="ComboEdit" name="textLang"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>Translator</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="ComboEdit" name="textTranslator"/>
+            </item>
+           </layout>
+          </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_3">
+          <widget class="QToolButton" name="togglePublishInfo">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QToolButton { border: none }</string>
+           </property>
            <property name="text">
-            <string>Author</string>
+            <string>Publish information</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/expanded_16px.png</normaloff>:/icons/expanded_16px.png</iconset>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextBesideIcon</enum>
+           </property>
+           <property name="autoRaise">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="ComboEdit" name="textAuthor"/>
+          <widget class="QWidget" name="widgetPublishInfo" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <property name="spacing">
+             <number>1</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>10</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>Title</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="ComboEdit" name="textPublishTitle"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>Publisher</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="ComboEdit" name="textPublishPublisher"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>City</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="ComboEdit" name="textPublishCity"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>Year</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="ComboEdit" name="textPublishYear"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_12">
+              <property name="text">
+               <string>ISBN</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="ComboEdit" name="textPublishISBN"/>
+            </item>
+            <item>
+             <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0,0">
+              <property name="spacing">
+               <number>4</number>
+              </property>
+              <item row="0" column="2">
+               <widget class="QLabel" name="label_14">
+                <property name="text">
+                 <string>Number</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_15">
+                <property name="text">
+                 <string>Series</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="ComboEdit" name="textPublishSeries"/>
+              </item>
+              <item row="1" column="2">
+               <widget class="ComboEdit" name="textPublishSeriesIndex">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout" columnstretch="1,0,0">
-           <property name="spacing">
-            <number>4</number>
+          <widget class="QToolButton" name="toggleCoverInfo">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>Number</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Series</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="ComboEdit" name="textSeries"/>
-           </item>
-           <item row="1" column="2">
-            <widget class="ComboEdit" name="textNumber">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_8">
+           <property name="font">
+            <font>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QToolButton { border: none }</string>
+           </property>
            <property name="text">
-            <string>Tags (genres)</string>
+            <string>Cover</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/expanded_16px.png</normaloff>:/icons/expanded_16px.png</iconset>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextBesideIcon</enum>
            </property>
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <property name="spacing">
-            <number>4</number>
-           </property>
-           <item>
-            <widget class="ComboEdit" name="textTag"/>
-           </item>
-           <item>
-            <widget class="QToolButton" name="toolButton">
-             <property name="toolTip">
-              <string>Add fb2 genre</string>
-             </property>
-             <property name="text">
-              <string>...</string>
-             </property>
-             <property name="icon">
-              <iconset resource="resources.qrc">
-               <normaloff>:/icons/right_14px.png</normaloff>:/icons/right_14px.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>18</width>
-               <height>18</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Lang</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="ComboEdit" name="textLang"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Translator</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="ComboEdit" name="textTranslator"/>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
-           <property name="spacing">
-            <number>10</number>
-           </property>
-           <property name="sizeConstraint">
-            <enum>QLayout::SetDefaultConstraint</enum>
-           </property>
-           <property name="topMargin">
-            <number>10</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="labelCoverImage">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-              </font>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Plain</enum>
-             </property>
-             <property name="text">
-              <string>No cover image</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-             <property name="margin">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="labelImageInfo">
-             <property name="text">
-              <string>image/jpeg
+          <widget class="QWidget" name="widgetCoverInfo" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="labelCoverImage">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Plain</enum>
+                </property>
+                <property name="text">
+                 <string>No cover image</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+                <property name="margin">
+                 <number>0</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelImageInfo">
+                <property name="text">
+                 <string>image/jpeg
 0x0
 0 KB</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignHCenter|Qt::AlignTop</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
          </item>
          <item>
           <spacer name="verticalSpacer">
@@ -282,5 +510,59 @@
  <resources>
   <include location="resources.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>toggleMainInfo</sender>
+   <signal>clicked()</signal>
+   <receiver>BookInfoPanel</receiver>
+   <slot>onMainInfoToggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>170</x>
+     <y>18</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>170</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toggleCoverInfo</sender>
+   <signal>clicked()</signal>
+   <receiver>BookInfoPanel</receiver>
+   <slot>onCoverInfoToggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>577</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>144</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>togglePublishInfo</sender>
+   <signal>clicked()</signal>
+   <receiver>BookInfoPanel</receiver>
+   <slot>onPublishInfoToggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>302</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>144</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onMainInfoToggle()</slot>
+  <slot>onPublishInfoToggle()</slot>
+  <slot>onCoverInfoToggle()</slot>
+ </slots>
 </ui>

@@ -1,3 +1,4 @@
+import traceback
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt, QCoreApplication
 from .processdialog_ui import Ui_ProcessDialog
@@ -31,7 +32,8 @@ class Worker(QObject):
                         self.errors.append({'src': file, 'dest': None, 'error': _t('add', 'Unknown file format.')})
 
                     except Exception as e:
-                        self.errors.append({'src': file, 'dest': None, 'error': str(e)})
+                        trace = traceback.format_exc()
+                        self.errors.append({'src': file, 'dest': None, 'error': trace})
             else:
                 self.errors.append({'src': None, 'dest': None, 'error': _t('add', 'User interrupt')})                
                 break

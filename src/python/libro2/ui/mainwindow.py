@@ -2,8 +2,8 @@ import os
 import sys
 import webbrowser
 
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction
-from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget
+from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent
 from PyQt5.QtGui import QIcon, QFont
 
 from .mainwindow_ui import Ui_MainWindow
@@ -76,6 +76,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookList.setHiddenColumnsWidth(settings.ui_hidden_columns_width)
         self.bookList.selectionModel().selectionChanged.connect(self.onBookListSelectionChanged)
 
+        self.bookList.installEventFilter(self)
+
         self.toolBar.visibilityChanged.connect(self.onToobarVisibilityChange)
         self.toolBar.setVisible(settings.ui_toolbar_visible)
         if settings.ui_toolbar_icon_size == 'small':
@@ -87,22 +89,42 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookInfo.dataChanged.connect(self.OnBookInfoDataChanged)
 
         self.setPlatformUI()
-        
+
+        self.bookInfo.mainInfoCollapsed = settings.ui_main_info_collapsed
+        self.bookInfo.publishInfoCollapsed = settings.ui_publish_info_collapsed
+        self.bookInfo.coverInfoCollapsed = settings.ui_cover_info_collapsed
+
         QTimer.singleShot(1, self.loadFilesFromCommandLine)
 
-    def loadFilesFromCommandLine(self):
+    def eventFilter(self, source, event):
+        if source is self.bookList:
+            if event.type() == QEvent.DragEnter:
+                if event.mimeData().hasUrls():
+                    event.accept()
+                    return True
+            elif event.type() == QEvent.Drop:
+                urlList = [x.toLocalFile() for x in event.mimeData().urls()]
+                self.addFilesAndDirs(urlList)
+                event.accept()
+                return True
+        return QWidget.eventFilter(self, source, event)
+
+    def addFilesAndDirs(self, list_to_load):
         files_to_load = []
-        if len(sys.argv) > 1:
-            for item in sys.argv[1:]:
-                if os.path.isdir(item):
-                    for root, dir, files in os.walk(item):
-                        for file in files:
-                            files_to_load.append(os.path.join(root, file))
-                elif os.path.isfile(item):
-                    files_to_load.append(item)
+        for item in list_to_load:
+            if os.path.isdir(item):
+                for root, dir, files in os.walk(item):
+                    for file in files:
+                        files_to_load.append(os.path.join(root, file))
+            elif os.path.isfile(item):
+                files_to_load.append(item)
 
         if len(files_to_load) > 0:
             self.AddFiles(files_to_load)
+
+    def loadFilesFromCommandLine(self):
+        if len(sys.argv) > 1:
+            self.addFilesAndDirs(sys.argv[1:])
 
     def OnBookInfoDataChanged(self, dataChanged):
         self.actionSave_metadata.setEnabled(dataChanged)
@@ -411,6 +433,10 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         settings.ui_hidden_columns = self.bookList.getHiddenColumns()
         settings.ui_hidden_columns_width = self.bookList.getHiddenColumnsWidth()
         settings.ui_toolbar_icon_size = 'small' if self.actionToolbarIconSmall.isChecked() else 'large'
+
+        settings.ui_main_info_collapsed = self.bookInfo.mainInfoCollapsed
+        settings.ui_publish_info_collapsed = self.bookInfo.publishInfoCollapsed
+        settings.ui_cover_info_collapsed = self.bookInfo.coverInfoCollapsed
 
         if self.actionViewInfo_panel.isChecked():
             settings.ui_splitter_sizes = self.splitter.sizes()

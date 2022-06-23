@@ -15,7 +15,14 @@ create_tables = '''
             cover_image blob,
             cover_media_type text,
             cover_file_name text,
-            file text NOT NULL UNIQUE
+            file text NOT NULL UNIQUE,
+            publish_title text,
+            publish_publisher text,
+            publish_city text,
+            publish_year text,
+            publish_isbn text,
+            publish_series text,
+            publish_series_index int   
         );
 
     CREATE VIEW books_v AS
@@ -81,14 +88,20 @@ clear = '''
 
 insert_book = '''
     INSERT INTO books (title, authors, tags, tags_description, series, series_index, 
-                      lang, translators, description, type, cover_image, cover_media_type, 
+                      lang, translators, description, 
+                      publish_title, publish_publisher, publish_city, publish_year,
+                      publish_isbn, publish_series, publish_series_index, 
+                      type, cover_image, cover_media_type, 
                       cover_file_name, file)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
 '''
 
 select_book = '''
     SELECT id, title, authors,  tags, tags_description, series, series_index, lang, 
-           translators, description, cover_image, cover_media_type, cover_file_name, file
+           translators, description, 
+           publish_title, publish_publisher, publish_city, publish_year,
+           publish_isbn, publish_series, publish_series_index, 
+           cover_image, cover_media_type, cover_file_name, file
       FROM books
     WHERE id = ?
 '''
@@ -106,6 +119,13 @@ update_book = '''
         series_index = ?,
         lang = ?,
         translators = ?,
+        publish_title = ?, 
+        publish_publisher = ?,
+        publish_city = ?,
+        publish_year = ?,
+        publish_isbn = ?,
+        publish_series = ?,
+        publish_series_index = ?,
         cover_image = ?,
         cover_media_type = ?,
         cover_file_name = ?

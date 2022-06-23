@@ -19,9 +19,12 @@ def parse_converter_error(b):
     error = None
 
     output = bytes(b).decode()
-    print(output)
     strings = output.split('\n')
 
+    # check for global errors
+    for s in strings:
+        if s.find('*** ERROR ***') >= 0:
+            return {'src': src, 'dest': dest, 'error': output}
     # fb2c output string content 4 parts: timestamp, messageType (INFO, WARN or ERROR), text message, JSON attributes
 
     for s in strings:

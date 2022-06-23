@@ -1,3 +1,4 @@
+from inspect import ArgSpec
 import sys
 from argparse import ArgumentParser
 from glob import glob
@@ -150,9 +151,11 @@ def installer():
         call('makensis {0}.nsi'.format(app_name), shell=True)
     
     elif sys.platform == 'darwin':
-        shutil.rmtree('./dist/libro2')
-        os.symlink('/Applications', './dist/Applications')
-        call('hdiutil create -volname libro2 -format UDZO -srcfolder ./dist ./installer/libro2.macos.dmg')
+        shutil.rmtree('./dist/libro2', ignore_errors=True)
+        if not os.path.islink('./dist/Applications'):
+            os.symlink('/Applications', './dist/Applications')
+        args = ['create -volname libro2 -format UDZO -srcfolder ./dist ./installer/libro2.macos.dmg']
+        call('hdiutil', args=args)
 
 
 if __name__ == '__main__':

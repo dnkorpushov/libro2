@@ -77,6 +77,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookList.selectionModel().selectionChanged.connect(self.onBookListSelectionChanged)
 
         self.bookList.installEventFilter(self)
+        self.bookList.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.bookList.customContextMenuRequested.connect(self.onBookListContextMenu)
 
         self.toolBar.visibilityChanged.connect(self.onToobarVisibilityChange)
         self.toolBar.setVisible(settings.ui_toolbar_visible)
@@ -95,6 +97,16 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookInfo.coverInfoCollapsed = settings.ui_cover_info_collapsed
 
         QTimer.singleShot(1, self.loadFilesFromCommandLine)
+
+
+    def onBookListContextMenu(self, point):
+        menu = QMenu()
+        menu.addAction(self.actionRename)
+        menu.addAction(self.actionConvert)
+        menu.addSeparator()
+        menu.addAction(self.actionRemove_selected_files)
+
+        menu.exec(self.bookList.viewport().mapToGlobal(point))
 
     def eventFilter(self, source, event):
         if source is self.bookList:
@@ -272,11 +284,14 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         if len(book_info_list):
             renameDialog = RenameDialog(self)
             renameDialog.bookList = book_info_list
+            renameDialog.authorFormatList = settings.rename_author_template_list
+            renameDialog.filenameFormatList = settings.rename_filename_template_list
             renameDialog.authorFormat = settings.rename_author_format
             renameDialog.filenameFormat = settings.rename_filename_format
             renameDialog.deleteSourceFiles = settings.rename_delete_source_files
             renameDialog.overwriteExistingFiles = settings.rename_overwrite
             renameDialog.backupBeforeRename = settings.rename_backup
+            
 
             if renameDialog.exec_():
                 self.wait()
@@ -291,8 +306,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 self.bookList.updateRows()
                 self.stopWait()
                         
-                settings.rename_author_format = renameDialog.authorFormat
-                settings.rename_filename_format = renameDialog.filenameFormat
+                
                 settings.rename_delete_source_files = renameDialog.deleteSourceFiles
                 settings.rename_overwrite = renameDialog.overwriteExistingFiles
                 settings.rename_backup = renameDialog.backupBeforeRename
@@ -301,7 +315,12 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 if len(errors) > 0:
                     errorDialog = TextViewDialog(self, errors)
                     errorDialog.exec()
-            
+
+            settings.rename_author_format = renameDialog.authorFormat
+            settings.rename_filename_format = renameDialog.filenameFormat
+            settings.rename_author_template_list = renameDialog.authorFormatList
+            settings.rename_filename_template_list = renameDialog.filenameFormatList
+
     def onConvert(self):
         convertDialog = ConvertDialog(self)
         convertDialog.outputFormat = settings.convert_output_format

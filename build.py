@@ -151,11 +151,21 @@ def installer():
         call('makensis {0}.nsi'.format(app_name), shell=True)
     
     elif sys.platform == 'darwin':
-        shutil.rmtree('./dist/libro2', ignore_errors=True)
-        if not os.path.islink('./dist/Applications'):
-            os.symlink('/Applications', './dist/Applications')
-        args = ['create -volname libro2 -format UDZO -srcfolder ./dist ./installer/libro2.macos.dmg']
-        call('hdiutil', args=args)
+        src_folder = './dist'
+        dest_file = './installer/libro2.macos.dmg'
+
+        if os.path.exists(src_folder):
+            shutil.rmtree('./dist/libro2', ignore_errors=True)
+            if not os.path.islink('./dist/Applications'):
+                os.symlink('/Applications', './dist/Applications')
+            if os.path.exists(dest_file):
+                os.unlink(dest_file)
+            cmd = ['hdiutil', 'create', '-volname', 'libro2', '-format', 'UDZO', '-srcfolder',
+                src_folder, dest_file]
+            print('Run hdiutil...')
+            call(cmd)
+        else:
+            print(f'Source folder "{src_folder}" not exist. Run freeze before.')
 
 
 if __name__ == '__main__':

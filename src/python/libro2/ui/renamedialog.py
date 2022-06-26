@@ -1,15 +1,16 @@
 import os
 import sys
 import subprocess
+from tkinter.ttk import Separator
 import ebookmeta
 import codecs
 
 from PyQt5.QtWidgets import QDialog, QMenu, QApplication
-from PyQt5.QtCore import QPoint, Qt
+from PyQt5.QtCore import QPoint, Qt, QCoreApplication
 from .renamedialog_ui import Ui_RenameDialog
 import config
 
-
+_t = QCoreApplication.translate
 
 class RenameDialog(Ui_RenameDialog, QDialog):
     def __init__(self, parent):
@@ -46,6 +47,24 @@ class RenameDialog(Ui_RenameDialog, QDialog):
     @property
     def deleteSourceFiles(self):
         return self.checkDeleteSource.isChecked()
+
+    @property
+    def authorFormatList(self):
+        return [self.textAuthorFormat.itemText(i) for i in range(self.textAuthorFormat.count())]
+
+    @property 
+    def filenameFormatList(self):
+        return [self.textFilenameFormat.itemText(i) for i in range(self.textFilenameFormat.count())]
+
+    @authorFormatList.setter
+    def authorFormatList(self, values):
+        for val in values:
+            self.textAuthorFormat.addItem(val)
+
+    @filenameFormatList.setter
+    def filenameFormatList(self, values):
+        for val in values:
+            self.textFilenameFormat.addItem(val)
 
     @deleteSourceFiles.setter
     def deleteSourceFiles(self, value):
@@ -110,12 +129,11 @@ class RenameDialog(Ui_RenameDialog, QDialog):
 
     def onToolAuthorClick(self):
         elements = {
-            'First name': '#f',
-            'Middle name': '#m',
-            'Last name': '#l',
-            'Fist name initial': '#fi',
-            'Middle name initial': '#mi'
-      
+            _t('ren', 'First name'): '#f',
+            _t('ren', 'Middle name'): '#m',
+            _t('ren', 'Last name'): '#l',
+            _t('ren', 'Fist name initial'): '#fi',
+            _t('ren', 'Middle name initial'): '#mi'
         }
         self.toolContextMenu(elements, self.textAuthorFormat, self.toolAuthor.mapToGlobal(QPoint(0, 0)))
 
@@ -129,7 +147,8 @@ class RenameDialog(Ui_RenameDialog, QDialog):
             'Author': '#Author',
             'Authors': '#Authors',
             'Translator': '#Translator',
-            'Bookid': '#Bookid'
+            'Bookid': '#Bookid',
+            'Md5':  '#Md5'
         }
         self.toolContextMenu(elements, self.textFilenameFormat, self.toolFilename.mapToGlobal(QPoint(0, 0)))
        
@@ -139,19 +158,33 @@ class RenameDialog(Ui_RenameDialog, QDialog):
             item = menu.addAction(key)
             item.setData(elements[key])
         
+        menu.addSeparator()
+        item = menu.addAction(_t('ren', 'Save current template to list'))
+        item.setData('__save__')
+        item = menu.addAction(_t('ren', 'Delete current template from list'))
+        item.setData('__delete__')
         action = menu.exec_(point)
         if action:
             element = action.data()
             text = control.currentText()
-            if control.lineEdit().selectionStart() == -1:
-                pos = control.lineEdit().cursorPosition()
-                text = text[:pos] + element + text[pos:]
-                control.setCurrentText(text)
-                control.lineEdit().setCursorPosition(pos + len(element))
+            if element == '__save__':
+                if control.findText(text) == -1:
+                    control.addItem(text)
+
+            elif element == '__delete__':
+                index = control.findText(text)
+                if index > -1:
+                    control.removeItem(index)
             else:
-                start = control.lineEdit().selectionStart()
-                end = control.lineEdit().selectionEnd()
-                text = text[:start] + element + text[end:]
-                control.setCurrentText(text)
-                control.lineEdit().setCursorPosition(start + len(element))
+                if control.lineEdit().selectionStart() == -1:
+                    pos = control.lineEdit().cursorPosition()
+                    text = text[:pos] + element + text[pos:]
+                    control.setCurrentText(text)
+                    control.lineEdit().setCursorPosition(pos + len(element))
+                else:
+                    start = control.lineEdit().selectionStart()
+                    end = control.lineEdit().selectionEnd()
+                    text = text[:start] + element + text[end:]
+                    control.setCurrentText(text)
+                    control.lineEdit().setCursorPosition(start + len(element))
 

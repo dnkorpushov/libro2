@@ -501,7 +501,7 @@
     <message>
         <location filename="../python/libro2/ui/convertdialog.py" line="74"/>
         <source>Folder &quot;{0}&quot; not exsist</source>
-        <translation type="unfinished">Папка &quot;{0}&quot; не найдена</translation>
+        <translation>Папка &quot;{0}&quot; не найдена</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/convertdialog.py" line="79"/>
@@ -779,6 +779,16 @@
         <location filename="../python/libro2/ui/booktableview.py" line="55"/>
         <source>File</source>
         <translation>Файл</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/booktableview.py" line="56"/>
+        <source>Created</source>
+        <translation>Создано</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/booktableview.py" line="57"/>
+        <source>Modified</source>
+        <translation>Изменено</translation>
     </message>
 </context>
 </TS>

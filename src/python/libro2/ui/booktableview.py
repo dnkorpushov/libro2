@@ -52,7 +52,9 @@ class BookTableView(QTableView):
             _t('table','Lang'), 
             _t('table','Translator'), 
             _t('table','Type'), 
-            _t('table','File')
+            _t('table','File'),
+            _t('table', 'Created'),
+            _t('table', 'Modified'),
         ]
         self.hidden_column_width = [250] * len(self.headers)
 

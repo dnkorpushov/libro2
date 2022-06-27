@@ -22,7 +22,9 @@ create_tables = '''
             publish_year text,
             publish_isbn text,
             publish_series text,
-            publish_series_index int   
+            publish_series_index int,
+            file_created text,
+            file_modified text   
         );
 
     CREATE VIEW books_v AS
@@ -35,7 +37,9 @@ create_tables = '''
            lang,
            translators,
            type, 
-           file
+           file, 
+           file_created as created,
+           file_modified as modified
     FROM books;
 
     CREATE VIRTUAL TABLE book_idx USING fts5 (
@@ -92,8 +96,8 @@ insert_book = '''
                       publish_title, publish_publisher, publish_city, publish_year,
                       publish_isbn, publish_series, publish_series_index, 
                       type, cover_image, cover_media_type, 
-                      cover_file_name, file)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
+                      cover_file_name, file, file_created, file_modified)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) 
 '''
 
 select_book = '''
@@ -115,10 +119,12 @@ update_book = '''
     SET title = ?,
         authors = ?,
         tags = ?,
+        tags_description = ?,
         series = ?,
         series_index = ?,
         lang = ?,
         translators = ?,
+        description = ?,
         publish_title = ?, 
         publish_publisher = ?,
         publish_city = ?,
@@ -126,14 +132,14 @@ update_book = '''
         publish_isbn = ?,
         publish_series = ?,
         publish_series_index = ?,
+        type = ?,
         cover_image = ?,
         cover_media_type = ?,
-        cover_file_name = ?
+        cover_file_name = ?,
+        file = ?, 
+        file_created = ?, 
+        file_modified = ?
     WHERE id = ?
-'''
-
-update_tags_description = '''
-    UPDATE books SET tags_description = ? WHERE id = ?
 '''
 
 update_filename = '''

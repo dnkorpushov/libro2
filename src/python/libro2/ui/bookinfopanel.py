@@ -343,7 +343,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
 
     def onResize(self, event):
         width = self.width() - 180
-        height = round(width * 1.54, 0)
+        height = int(round(width * 1.54, 0))
         
         self.labelCoverImage.setMinimumSize(width, height)
         self.labelCoverImage.setMaximumSize(width, height)

@@ -147,6 +147,8 @@ class RenameDialog(Ui_RenameDialog, QDialog):
             'Author': '#Author',
             'Authors': '#Authors',
             'Translator': '#Translator',
+            'Atranslator': '#Atranslator',
+            'Atranslators': '#Atranslators',
             'Bookid': '#Bookid',
             'Md5':  '#Md5'
         }

@@ -1,4 +1,7 @@
 import sys
+import datetime
+import locale
+
 from PyQt5.QtWidgets import QTableView, QAbstractItemView, QStyledItemDelegate, QStyleOptionViewItem, QStyle, QMenu, QAction, QApplication
 from PyQt5.QtCore import Qt, QItemSelectionModel, QCoreApplication
 from PyQt5.QtGui import QFontMetrics, QPalette
@@ -11,6 +14,8 @@ _t = QCoreApplication.translate
 class BookTableView(QTableView):
     def __init__(self, parent):
         super(BookTableView, self).__init__(parent)
+
+        locale.setlocale(locale.LC_ALL, '')
 
         font = self.font()
         fm = QFontMetrics(font)
@@ -39,7 +44,7 @@ class BookTableView(QTableView):
         model.setTable('books_v')
         model.setSort(1, Qt.AscendingOrder)
         self.horizontalHeader().setSortIndicator(1, Qt.AscendingOrder)
-        
+
         model.select()
 
         self.headers = [
@@ -65,6 +70,10 @@ class BookTableView(QTableView):
         self.hideColumn(0)
         self.horizontalHeader().setSectionsMovable(True)
         self.setItemDelegate(StyledItemDelegate())
+
+        dateItemDelegate = DateItemDelegate()
+        self.setItemDelegateForColumn(10, dateItemDelegate)
+        self.setItemDelegateForColumn(11, dateItemDelegate)
 
         self.horizontalHeader().setContextMenuPolicy(Qt.CustomContextMenu)
         self.horizontalHeader().customContextMenuRequested.connect(self.onHeaderContextMenu)
@@ -189,6 +198,11 @@ class StyledItemDelegate(QStyledItemDelegate):
         return super(StyledItemDelegate, self).paint(painter, itemOption, index)
 
 
+class DateItemDelegate(StyledItemDelegate):
+    def displayText(self, value, locale):
+        return datetime.datetime.fromisoformat(value).strftime('%x %X')
+
+
 class BookTableModel(QSqlTableModel):
     def __init__(self, parent=None, db=None):
         super(BookTableModel, self).__init__(parent, db)
@@ -199,3 +213,5 @@ class BookTableModel(QSqlTableModel):
             return super(BookTableModel, self).data(index, Qt.DisplayRole)
         
         return super(BookTableModel, self).data(index, role)
+
+

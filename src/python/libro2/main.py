@@ -24,6 +24,9 @@ def main():
     app.installTranslator(app_translator)
     app.installTranslator(qt_translator)
 
+    import qdarktheme
+    # app.setStyleSheet(qdarktheme.load_stylesheet())
+
     win = MainWindow()
     win.show()
 

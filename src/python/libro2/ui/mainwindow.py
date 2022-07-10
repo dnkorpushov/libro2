@@ -416,8 +416,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.toolBar.setStyleSheet('QToolBar { border: 0px }')
         elif sys.platform == 'darwin':
             self.setUnifiedTitleAndToolBarOnMac(True)
-        else:
-            self.toolBar.setStyleSheet('QToolBar { border: 0px }')
+        # else:
+        #     self.toolBar.setStyleSheet('QToolBar { border: 0px }')
             
     def onHelp(self):
         browser = webbrowser.get()

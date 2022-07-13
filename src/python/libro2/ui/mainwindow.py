@@ -1,9 +1,10 @@
+from functools import partial
 import os
 import sys
 import webbrowser
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget
-from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent
+from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent, pyqtSlot
 from PyQt5.QtGui import QIcon, QFont
 
 from .mainwindow_ui import Ui_MainWindow
@@ -14,9 +15,11 @@ from .textviewdialog import TextViewDialog
 from .aboutdialog import AboutDialog
 from .convertdialog import ConvertDialog
 from .convertfilesdialog import ConvertFilesDialog
+from .runplugindialog import RunPluginDialog
 
 import config
 import database
+from plugin_collection import PluginCollection
 
 settings = config.settings
 
@@ -98,6 +101,50 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
         QTimer.singleShot(1, self.loadFilesFromCommandLine)
 
+        # Init plugins
+        self.pluginCollection = PluginCollection()
+        self.initPluginsMenu()
+
+
+    def runPlugin(self, action):
+        plugin = action.data()
+
+        book_info_list = self.getSelectedBookList()
+        if len(book_info_list):
+            self.wait()
+       
+            runPluginDialog = RunPluginDialog(self, plugin, book_info_list)
+            runPluginDialog.exec()
+
+            self.bookList.updateRows()
+            self.stopWait()
+
+            errors = runPluginDialog.getErrors()
+            if len(errors) > 0:
+                errorDialog = TextViewDialog(self, errors)
+                errorDialog.exec()
+                        
+    def initPluginsMenu(self):
+        for plugin in self.pluginCollection.plugins():
+            try:
+                action = self.menuTools.addAction(plugin.description())
+                action.setData(plugin)
+                action.triggered.connect(partial(self.runPlugin, action))
+            except Exception as e:
+                print(e)
+        self.menuTools.addSeparator()
+        action = self.menuTools.addAction(_t('main', 'Reload plugins'))
+        action.triggered.connect(self.reloadPlugins)
+
+        if len(self.pluginCollection.errors) > 0:
+            errorDialog = TextViewDialog(self, self.pluginCollection.errors)
+            errorDialog.exec()
+
+    def reloadPlugins(self):
+        self.menuTools.clear()
+        self.pluginCollection.reload_plugins()
+        self.initPluginsMenu()
+        
 
     def onBookListContextMenu(self, point):
         menu = QMenu()

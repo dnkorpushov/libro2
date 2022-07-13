@@ -101,6 +101,55 @@ def add_book(file):
         db.commit()
 
 
+def update_book_form_metadata(book_id, file):
+    '''
+    title, authors, tags, tags_description, series, series_index, lang, translators, description, 
+    publish_title, publish_publisher, publish_city, publish_year,
+    publish_isbn, publish_series, publish_series_index, 
+    type, cover_image, cover_media_type, cover_file_name, file, file_created, file_modified
+    '''
+    meta = ebookmeta.get_metadata(file)
+
+    q = QSqlQuery(db)
+    q.prepare(query.update_book)
+    q.bindValue(0, meta.title)
+    q.bindValue(1, meta.author_list_to_string())
+    q.bindValue(2, meta.tag_list_to_string())
+    q.bindValue(3, meta.tag_description_list_to_string())
+    q.bindValue(4, meta.series)
+    q.bindValue(5, meta.series_index)
+    q.bindValue(6, meta.lang)
+    q.bindValue(7, meta.translator_list_to_string())
+    q.bindValue(8, meta.description)
+
+    q.bindValue(9, meta.publish_info.title)
+    q.bindValue(10, meta.publish_info.publisher)
+    q.bindValue(11, meta.publish_info.city)
+    q.bindValue(12, meta.publish_info.year)
+    q.bindValue(13, meta.publish_info.isbn)
+    q.bindValue(14, meta.publish_info.series)
+    q.bindValue(15, meta.publish_info.series_index)
+    
+    q.bindValue(16, meta.format)
+    if meta.cover_image_data:
+        q.bindValue(17, QByteArray(meta.cover_image_data))
+    else:
+        q.bindValue(17, None)
+    q.bindValue(18, meta.cover_media_type)
+    q.bindValue(19, meta.cover_file_name)
+    q.bindValue(20, os.path.normpath(meta.file))
+    q.bindValue(21, meta.file_created)
+    q.bindValue(22, meta.file_modified)
+    
+    q.bindValue(23, book_id)
+
+    if not q.exec_():
+        db.rollback()
+        raise Exception(traceback.format_exc() + ':\n' + q.lastError().text())
+    else:
+        db.commit()
+
+
 def delete_books(list_id):
     q = QSqlQuery(db)
     q.prepare(query.delete_book)

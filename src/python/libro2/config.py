@@ -11,6 +11,7 @@ else:
 
 config_path = os.path.join(os.path.expanduser('~'), config_folder_name)
 config_file = os.path.join(config_path, 'settings.json')
+plugins_path = os.path.join(config_path, 'plugins')
 database_name = os.path.join(config_path, 'libro2.db')
 
 

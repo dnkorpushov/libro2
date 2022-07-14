@@ -14,9 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_BookInfoPanel(object):
     def setupUi(self, BookInfoPanel):
         BookInfoPanel.setObjectName("BookInfoPanel")
-        BookInfoPanel.resize(290, 770)
-        BookInfoPanel.setMinimumSize(QtCore.QSize(290, 0))
-        BookInfoPanel.setBaseSize(QtCore.QSize(290, 0))
+        BookInfoPanel.resize(200, 770)
+        BookInfoPanel.setMinimumSize(QtCore.QSize(200, 0))
+        BookInfoPanel.setBaseSize(QtCore.QSize(200, 0))
         BookInfoPanel.setFocusPolicy(QtCore.Qt.StrongFocus)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(BookInfoPanel)
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -27,7 +27,7 @@ class Ui_BookInfoPanel(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 290, 770))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 200, 770))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_6.setContentsMargins(4, 4, 4, 4)

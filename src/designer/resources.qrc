@@ -12,12 +12,12 @@
   </qresource>
   <qresource prefix="newPrefix"/>
   <qresource prefix="toolbar">
-    <file>edit_26px.png</file>
-    <file>convert_26px.png</file>
-    <file>save_26px.png</file>
-    <file>folder_26px.png</file>
-    <file>add_26px.png</file>
     <file>add_22px.png</file>
+    <file>_convert_22px.png</file>
+    <file>_edit_22px.png</file>
+    <file>_save_22px.png</file>
+    <file>_folder_22px.png</file>
+    <file>_add_22px.png</file>
     <file>add_22px@2x.png</file>
     <file>add_28px.png</file>
     <file>add_28px@2x.png</file>

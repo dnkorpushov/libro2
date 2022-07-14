@@ -32,23 +32,23 @@ class MainToolbar(QToolBar):
         self.addWidget(spacer2)
 
     def setLargeIcons(self):
-        save_pixmap = QPixmap(':/toolbar/save_26px.png')
+        save_pixmap = QPixmap(':/toolbar/_save_22px.png')
         self.iconSave = QIcon(save_pixmap)
         self.iconSave.addPixmap(save_pixmap, QIcon.Disabled)
 
-        add_pixmap = QPixmap(':/toolbar/add_26px.png')
+        add_pixmap = QPixmap(':/toolbar/_add_22px.png')
         self.iconAdd = QIcon(add_pixmap)
         self.iconAdd.addPixmap(add_pixmap, QIcon.Disabled)
 
-        folder_pixmap = QPixmap(':/toolbar/folder_26px.png')
+        folder_pixmap = QPixmap(':/toolbar/_folder_22px.png')
         self.iconFolder = QIcon(folder_pixmap)
         self.iconFolder.addPixmap(folder_pixmap, QIcon.Disabled)
 
-        rename_pixmap = QPixmap(':/toolbar/edit_26px.png')
+        rename_pixmap = QPixmap(':/toolbar/_edit_22px.png')
         self.iconRename = QIcon(rename_pixmap)
         self.iconRename.addPixmap(rename_pixmap, QIcon.Disabled)
 
-        convert_pixmap = QPixmap(':/toolbar/convert_26px.png')
+        convert_pixmap = QPixmap(':/toolbar/_convert_22px.png')
         self.iconConvert = QIcon(convert_pixmap)
         self.iconConvert.addPixmap(convert_pixmap, QIcon.Disabled)
        

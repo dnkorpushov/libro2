@@ -70,13 +70,13 @@
            <widget class="BookInfoPanel" name="bookInfo" native="true">
             <property name="minimumSize">
              <size>
-              <width>290</width>
+              <width>200</width>
               <height>0</height>
              </size>
             </property>
             <property name="baseSize">
              <size>
-              <width>290</width>
+              <width>200</width>
               <height>0</height>
              </size>
             </property>

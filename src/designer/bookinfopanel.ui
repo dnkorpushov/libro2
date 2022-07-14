@@ -57,8 +57,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>200</width>
-        <height>770</height>
+        <width>205</width>
+        <height>749</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -286,10 +286,10 @@
              <number>0</number>
             </property>
             <property name="rightMargin">
-             <number>0</number>
+             <number>6</number>
             </property>
             <property name="bottomMargin">
-             <number>6</number>
+             <number>10</number>
             </property>
             <item>
              <widget class="QLabel" name="label_5">

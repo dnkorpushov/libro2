@@ -53,7 +53,7 @@ class MainToolbar(QToolBar):
         self.iconConvert.addPixmap(convert_pixmap, QIcon.Disabled)
        
         if sys.platform == 'win32':
-            self.setIconSize(QSize(32, 32))
+            self.setIconSize(QSize(28, 26))
         else:
             self.setIconSize(QSize(28, 28))
         self.setIcons()

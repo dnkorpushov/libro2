@@ -2,8 +2,9 @@ import os
 import sys
 import subprocess
 import webbrowser
-from PyQt5.QtWidgets import QDialog, QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QDialog, QFileDialog, QMessageBox, QLineEdit
 from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtGui import QIcon
 from .convertdialog_ui import Ui_ConvertDialog
 
 _t = QCoreApplication.translate
@@ -13,6 +14,15 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
         super(ConvertDialog, self).__init__(parent)
         self.setupUi(self)
         self.comboFormat.currentIndexChanged.connect(self.onFormatChanged)
+
+        action = self.textOutputDir.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action.triggered.connect(self.onToolOutputDir)
+        action = self.textConverterPath.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action.triggered.connect(self.onToolConverterPath)
+        action = self.textConverterConfig.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action.triggered.connect(self.onToolConverterConfig)
+        
+        
 
     @property
     def outputFormat(self):

@@ -19,24 +19,24 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <property name="spacing">
-     <number>3</number>
+     <number>0</number>
     </property>
     <property name="leftMargin">
-     <number>3</number>
+     <number>1</number>
     </property>
     <property name="topMargin">
      <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>3</number>
+     <number>1</number>
     </property>
     <property name="bottomMargin">
-     <number>0</number>
+     <number>1</number>
     </property>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0">
       <property name="spacing">
-       <number>3</number>
+       <number>0</number>
       </property>
       <item>
        <widget class="QSplitter" name="splitter">
@@ -44,11 +44,11 @@
          <enum>Qt::Horizontal</enum>
         </property>
         <property name="handleWidth">
-         <number>3</number>
+         <number>1</number>
         </property>
         <widget class="QFrame" name="frame">
          <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Plain</enum>
@@ -89,7 +89,7 @@
         </widget>
         <widget class="BookTableView" name="bookList">
          <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Plain</enum>
@@ -103,26 +103,26 @@
       <item>
        <widget class="QFrame" name="frameFilter">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::NoFrame</enum>
         </property>
         <property name="frameShadow">
          <enum>QFrame::Plain</enum>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1,0">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
          <property name="spacing">
           <number>3</number>
          </property>
          <property name="leftMargin">
-          <number>3</number>
+          <number>150</number>
          </property>
          <property name="topMargin">
-          <number>6</number>
+          <number>12</number>
          </property>
          <property name="rightMargin">
-          <number>3</number>
+          <number>20</number>
          </property>
          <property name="bottomMargin">
-          <number>6</number>
+          <number>20</number>
          </property>
          <item>
           <widget class="QLabel" name="label">
@@ -141,29 +141,6 @@
            </property>
            <property name="editable">
             <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QToolButton" name="toolFilterButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>...</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/right_14px.png</normaloff>:/icons/right_14px.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>18</width>
-             <height>18</height>
-            </size>
            </property>
           </widget>
          </item>
@@ -242,7 +219,6 @@
    <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="MainToolbar" name="toolBar">
    <property name="minimumSize">
     <size>
@@ -284,10 +260,8 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionSave_metadata"/>
-   <addaction name="separator"/>
    <addaction name="actionAdd_file"/>
    <addaction name="actionAdd_folder"/>
-   <addaction name="separator"/>
    <addaction name="actionRename"/>
    <addaction name="actionConvert"/>
   </widget>
@@ -622,22 +596,6 @@
     <hint type="sourcelabel">
      <x>-1</x>
      <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>536</x>
-     <y>352</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>toolFilterButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onToolFilterButton()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1052</x>
-     <y>658</y>
     </hint>
     <hint type="destinationlabel">
      <x>536</x>

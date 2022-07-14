@@ -21,18 +21,11 @@ class BookTableView(QTableView):
         fm = QFontMetrics(font)
         self.verticalHeader().setDefaultSectionSize(fm.height() + 8)
 
-        # OS UI Hacks
-        if sys.platform == 'win32':
-            palette = self.palette()
-            palette.setColor(QPalette.Inactive, QPalette.Highlight, palette.color(QPalette.Active, QPalette.Midlight))
-            self.setPalette(palette)
-        
         self.setWordWrap(False)
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.setShowGrid(False)
-        self.setAlternatingRowColors(True)
         self.horizontalHeader().setHighlightSections(False)
         self.setAcceptDrops(True)
         

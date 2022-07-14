@@ -3,9 +3,9 @@ import os
 import sys
 import webbrowser
 
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget
-from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent, pyqtSlot
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget, QLineEdit
+from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent
+from PyQt5.QtGui import QIcon, QFont, QPalette, QColor
 
 from .mainwindow_ui import Ui_MainWindow
 from .addfilesdialog import AddFilesDialog
@@ -65,11 +65,14 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.frameFilter.setVisible(settings.ui_filter_panel_visible)
         self.actionFilter_panel.setChecked(settings.ui_filter_panel_visible)
         self.isAutoApplyFilter = settings.ui_auto_apply_filter
-        self.textFilter.setMaximumHeight(self.toolFilterButton.maximumHeight())
-        self.textFilter.setMinimumHeight(self.toolFilterButton.minimumHeight())
         
-        self.textFilter.lineEdit().textChanged.connect(self.setFilterOnTextChanged)
-        self.textFilter.lineEdit().returnPressed.connect(self.setFilterOnReturnPressed)
+        self.customFilterLineEdit = QLineEdit()
+        action = self.customFilterLineEdit.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action.triggered.connect(self.onToolFilterMenu)
+        self.customFilterLineEdit.textChanged.connect(self.setFilterOnTextChanged)
+        self.customFilterLineEdit.returnPressed.connect(self.setFilterOnReturnPressed)
+
+        self.textFilter.setLineEdit(self.customFilterLineEdit)
 
         self.bookInfo.clear()
 
@@ -98,6 +101,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookInfo.mainInfoCollapsed = settings.ui_main_info_collapsed
         self.bookInfo.publishInfoCollapsed = settings.ui_publish_info_collapsed
         self.bookInfo.coverInfoCollapsed = settings.ui_cover_info_collapsed
+        self.bookInfo.descriptionInfoCollapsed = settings.ui_description_info_collapsed
 
         QTimer.singleShot(1, self.loadFilesFromCommandLine)
 
@@ -400,7 +404,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             settings.convert_converter_path = convertDialog.converterPath
             settings.convert_converter_config = convertDialog.converterConfig
 
-    def onToolFilterButton(self):
+    def onToolFilterMenu(self):
         actionList = {
             'title': _t('main', 'Title'),
             'authors': _t('main', 'Author'),
@@ -428,10 +432,10 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         actionItem.setData('AutoApplyFilter')
         menu.addAction(actionItem)
         
-        menu_x = -1 * menu.sizeHint().width() + self.toolFilterButton.width()
-        menu_y = -1 * menu.sizeHint().height() + self.toolFilterButton.height()
+        menu_x = -1 * menu.sizeHint().width() + self.textFilter.width()
+        menu_y = -1 * menu.sizeHint().height() + self.textFilter.height()
         
-        action = menu.exec_(self.toolFilterButton.mapToGlobal(QPoint(menu_x , menu_y)))
+        action = menu.exec_(self.textFilter.mapToGlobal(QPoint(menu_x , menu_y)))
         if action:
             if action.data() == 'AutoApplyFilter':
                 self.isAutoApplyFilter = not self.isAutoApplyFilter
@@ -459,8 +463,10 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             font = QFont('Segoe UI', 9)
             self.label.setFont(font)
             self.textFilter.setFont(font)
-            self.toolFilterButton.setFont(font)
-            self.toolBar.setStyleSheet('QToolBar { border: 0px }')
+            self.toolBar.setStyleSheet('#toolBar { border-bottom: 1px solid #bfbfbf; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;  background-color: #f7f7f7}')
+
+            self.frameFilter.setStyleSheet('#frameFilter {border-top: 1px solid #bfbfbf;}')
+            self.splitter.setStyleSheet('QSplitter::handle { background: #bfbfbf; }')
         elif sys.platform == 'darwin':
             self.setUnifiedTitleAndToolBarOnMac(True)
         # else:
@@ -505,6 +511,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         settings.ui_main_info_collapsed = self.bookInfo.mainInfoCollapsed
         settings.ui_publish_info_collapsed = self.bookInfo.publishInfoCollapsed
         settings.ui_cover_info_collapsed = self.bookInfo.coverInfoCollapsed
+        settings.ui_description_info_collapsed = self.bookInfo.descriptionInfoCollapsed
 
         if self.actionViewInfo_panel.isChecked():
             settings.ui_splitter_sizes = self.splitter.sizes()

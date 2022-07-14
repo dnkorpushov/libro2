@@ -56,7 +56,7 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
     def __init__(self, parent, book_info_list, out_format, out_path, overwrite, stk, converter_path, converter_config):
         super(ConvertFilesDialog, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowTitle('Convert {0} files'.format(len(book_info_list)))
+        self.setWindowTitle(_t('cv', 'Convert {0} files').format(len(book_info_list)))
 
         self.setWindowFlags(Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 

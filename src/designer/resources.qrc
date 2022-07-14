@@ -1,16 +1,22 @@
 <RCC>
   <qresource prefix="icons">
-    <file>right_14px.png</file>
-    <file>collapsed_16px.png</file>
-    <file>collapsed_16px@2x.png</file>
-    <file>expanded_16px.png</file>
-    <file>expanded_16px@2x.png</file>
-    <file>right_14px@2x.png</file>
+    <file>more_24px@2x.png</file>
+    <file>more_24px.png</file>
     <file>libro2_16px.png</file>
+    <file>expanded_12px.png</file>
+    <file>collapsed_12px@2x.png</file>
+    <file>expanded_12px@2x.png</file>
+    <file>collapsed_12px.png</file>
     <file>libro2_32px.png</file>
     <file>libro2_48px.png</file>
   </qresource>
+  <qresource prefix="newPrefix"/>
   <qresource prefix="toolbar">
+    <file>edit_26px.png</file>
+    <file>convert_26px.png</file>
+    <file>save_26px.png</file>
+    <file>folder_26px.png</file>
+    <file>add_26px.png</file>
     <file>add_22px.png</file>
     <file>add_22px@2x.png</file>
     <file>add_28px.png</file>

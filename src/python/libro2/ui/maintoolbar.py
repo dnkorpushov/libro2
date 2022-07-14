@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QToolBar, QWidget, QSizePolicy
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import QSize, Qt
 
 
@@ -27,17 +27,30 @@ class MainToolbar(QToolBar):
         spacer2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
 
         for action in self.actions():
-            print(action.objectName())
             self.insertWidget(action, spacer1)
             break
         self.addWidget(spacer2)
 
     def setLargeIcons(self):
-        self.iconSave = QIcon(':/toolbar/save_28px.png')
-        self.iconAdd = QIcon(':/toolbar/add_28px.png')
-        self.iconFolder = QIcon(':/toolbar/folder_28px.png')
-        self.iconRename = QIcon(':/toolbar/edit_28px.png')
-        self.iconConvert = QIcon(':/toolbar/convert_28px.png')
+        save_pixmap = QPixmap(':/toolbar/save_26px.png')
+        self.iconSave = QIcon(save_pixmap)
+        self.iconSave.addPixmap(save_pixmap, QIcon.Disabled)
+
+        add_pixmap = QPixmap(':/toolbar/add_26px.png')
+        self.iconAdd = QIcon(add_pixmap)
+        self.iconAdd.addPixmap(add_pixmap, QIcon.Disabled)
+
+        folder_pixmap = QPixmap(':/toolbar/folder_26px.png')
+        self.iconFolder = QIcon(folder_pixmap)
+        self.iconFolder.addPixmap(folder_pixmap, QIcon.Disabled)
+
+        rename_pixmap = QPixmap(':/toolbar/edit_26px.png')
+        self.iconRename = QIcon(rename_pixmap)
+        self.iconRename.addPixmap(rename_pixmap, QIcon.Disabled)
+
+        convert_pixmap = QPixmap(':/toolbar/convert_26px.png')
+        self.iconConvert = QIcon(convert_pixmap)
+        self.iconConvert.addPixmap(convert_pixmap, QIcon.Disabled)
        
         if sys.platform == 'win32':
             self.setIconSize(QSize(32, 32))

@@ -5,8 +5,9 @@ from tkinter.ttk import Separator
 import ebookmeta
 import codecs
 
-from PyQt5.QtWidgets import QDialog, QMenu, QApplication
+from PyQt5.QtWidgets import QDialog, QMenu, QApplication, QLineEdit
 from PyQt5.QtCore import QPoint, Qt, QCoreApplication
+from PyQt5.QtGui import QIcon
 from .renamedialog_ui import Ui_RenameDialog
 import config
 
@@ -18,10 +19,19 @@ class RenameDialog(Ui_RenameDialog, QDialog):
         self.setupUi(self)
         self._book_list = []
 
+        self.customAuthorFormatLineEdit = QLineEdit()
+        action = self.customAuthorFormatLineEdit.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action.triggered.connect(self.onToolAuthorClick)
+        self.textAuthorFormat.setLineEdit(self.customAuthorFormatLineEdit)
+
+        self.customFilenameFormatLineEdit = QLineEdit()
+        action = self.customFilenameFormatLineEdit.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action.triggered.connect(self.onToolFilenameClick)
+        self.textFilenameFormat.setLineEdit(self.customFilenameFormatLineEdit)
+
         self.textAuthorFormat.lineEdit().textChanged.connect(self.generateSample)
         self.textFilenameFormat.lineEdit().textChanged.connect(self.generateSample)
-        self.toolFilename.clicked.connect(self.onToolFilenameClick)
-        self.toolAuthor.clicked.connect(self.onToolAuthorClick)
+        
         self.checkDeleteSource.stateChanged.connect(self.onDeleteSourceClick)
 
     @property
@@ -135,7 +145,8 @@ class RenameDialog(Ui_RenameDialog, QDialog):
             _t('ren', 'Fist name initial'): '#fi',
             _t('ren', 'Middle name initial'): '#mi'
         }
-        self.toolContextMenu(elements, self.textAuthorFormat, self.toolAuthor.mapToGlobal(QPoint(0, 0)))
+        self.toolContextMenu(elements, self.textAuthorFormat, 
+                             self.customAuthorFormatLineEdit.mapToGlobal(QPoint(self.customAuthorFormatLineEdit.width(), 0)))
 
     def onToolFilenameClick(self):
         elements = {
@@ -152,7 +163,8 @@ class RenameDialog(Ui_RenameDialog, QDialog):
             'Bookid': '#Bookid',
             'Md5':  '#Md5'
         }
-        self.toolContextMenu(elements, self.textFilenameFormat, self.toolFilename.mapToGlobal(QPoint(0, 0)))
+        self.toolContextMenu(elements, self.textFilenameFormat, 
+                             self.customFilenameFormatLineEdit.mapToGlobal(QPoint(self.customFilenameFormatLineEdit.width(), 0)))
        
     def toolContextMenu(self, elements, control, point):
         menu = QMenu()

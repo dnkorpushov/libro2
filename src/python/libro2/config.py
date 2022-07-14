@@ -35,6 +35,7 @@ settings = SimpleNamespace(
     ui_main_info_collapsed = False,
     ui_publish_info_collapsed = True,
     ui_cover_info_collapsed = False,
+    ui_description_info_collapsed = False,
     rename_author_format='#l{ #f}',
     rename_filename_format='#Author. #Title',
     rename_delete_source_files=False,

@@ -3,8 +3,8 @@ import sys
 
 from lxml import etree
 
-from PyQt5.QtWidgets import QWidget, QMenu, QFileDialog
-from PyQt5.QtGui import QPixmap, QFont, QIcon
+from PyQt5.QtWidgets import QWidget, QMenu, QFileDialog, QLineEdit
+from PyQt5.QtGui import QPixmap, QFont, QIcon, QPalette, QColor
 from PyQt5.QtCore import Qt, QPoint, QByteArray, QBuffer, QLocale, pyqtSignal, QCoreApplication
 
 import ebookmeta
@@ -27,33 +27,46 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
     def coverInfoCollapsed(self):
         return not self.widgetCoverInfo.isVisible()
 
+    @property
+    def descriptionInfoCollapsed(self):
+        return not self.widgetDescriptionInfo.isVisible()
+
     @mainInfoCollapsed.setter
     def mainInfoCollapsed(self, value):
         if value:
             self.widgetMain.setVisible(False)
-            self.toggleMainInfo.setIcon(QIcon(':/icons/collapsed_16px.png'))
+            self.toggleMainInfo.setIcon(QIcon(':/icons/collapsed_12px.png'))
         else:
             self.widgetMain.setVisible(True)
-            self.toggleMainInfo.setIcon(QIcon(':/icons/expanded_16px.png'))
+            self.toggleMainInfo.setIcon(QIcon(':/icons/expanded_12px.png'))
 
 
     @publishInfoCollapsed.setter
     def publishInfoCollapsed(self, value):
         if value:
             self.widgetPublishInfo.setVisible(False)
-            self.togglePublishInfo.setIcon(QIcon(':/icons/collapsed_16px.png'))
+            self.togglePublishInfo.setIcon(QIcon(':/icons/collapsed_12px.png'))
         else:
             self.widgetPublishInfo.setVisible(True)
-            self.togglePublishInfo.setIcon(QIcon(':/icons/expanded_16px.png'))        
+            self.togglePublishInfo.setIcon(QIcon(':/icons/expanded_12px.png'))        
     
     @coverInfoCollapsed.setter
     def coverInfoCollapsed(self, value):
         if value:
             self.widgetCoverInfo.setVisible(False)
-            self.toggleCoverInfo.setIcon(QIcon(':/icons/collapsed_16px.png'))
+            self.toggleCoverInfo.setIcon(QIcon(':/icons/collapsed_12px.png'))
         else:
             self.widgetCoverInfo.setVisible(True)
-            self.toggleCoverInfo.setIcon(QIcon(':/icons/expanded_16px.png'))
+            self.toggleCoverInfo.setIcon(QIcon(':/icons/expanded_12px.png'))
+
+    @descriptionInfoCollapsed.setter
+    def descriptionInfoCollapsed(self, value):
+        if value:
+            self.widgetDescriptionInfo.setVisible(False)
+            self.toggleDescription.setIcon(QIcon(':/icons/collapsed_12px.png'))
+        else:
+            self.widgetDescriptionInfo.setVisible(True)
+            self.toggleDescription.setIcon(QIcon(':/icons/expanded_12px.png'))       
 
     def __init__(self, parent):
         super(BookInfoPanel, self).__init__(parent)
@@ -65,6 +78,12 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.isDataChanged = False
         self.dataChanged.emit(self.isDataChanged)
         self.bookInfoList = []
+
+        self.customTagLineEdit = QLineEdit()
+        self.addTagAction = self.customTagLineEdit.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        self.addTagAction.setToolTip(_t('info', 'Add fb2 genre'))
+        self.addTagAction.triggered.connect(self.onAddTagActionClick)
+        self.textTag.setLineEdit(self.customTagLineEdit)
 
         self.textTitle.editTextChanged.connect(self.textChanged)
         self.textTitle.currentIndexChanged.connect(self.textChanged)
@@ -98,14 +117,13 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.labelCoverImage.setContextMenuPolicy(Qt.CustomContextMenu)
         self.labelCoverImage.customContextMenuRequested[QPoint].connect(self.coverContextMenu)
 
-        self.toolButton.clicked.connect(self.onToolButtonClick)
-
         self.setPlatformUI()
 
-        head_style = 'QToolButton {border: 0px; background-color: #cdcdcd; padding: 4px; }'
+        head_style = 'QToolButton {border: 0px; padding: 2px; color: #1e395b; }'
         self.toggleCoverInfo.setStyleSheet(head_style)
         self.toggleMainInfo.setStyleSheet(head_style)
         self.togglePublishInfo.setStyleSheet(head_style)
+        self.toggleDescription.setStyleSheet(head_style)
         
     def coverContextMenu(self, point):
         menu = QMenu()
@@ -162,7 +180,6 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.textTag.setEnabled(False)
         self.textLang.setEnabled(False)
         self.textTranslator.setEnabled(False)
-        self.toolButton.setEnabled(False)
         self.textPublishTitle.setEnabled(False)
         self.textPublishPublisher.setEnabled(False)
         self.textPublishCity.setEnabled(False)
@@ -249,7 +266,6 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.textTag.setEnabled(True)
         self.textLang.setEnabled(True)
         self.textTranslator.setEnabled(True)
-        self.toolButton.setEnabled(True)
         self.textPublishTitle.setEnabled(True)
         self.textPublishPublisher.setEnabled(True)
         self.textPublishCity.setEnabled(True)
@@ -262,12 +278,16 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             self.cover = book_info_list[0].cover_image
             self.cover_media_type = book_info_list[0].cover_media_type
             self.cover_file_name = book_info_list[0].cover_file_name
+            self.textDescription.setText(book_info_list[0].description.strip())
             
             self.setCoverImage()
             self.labelCoverImage.setEnabled(True)
         else:
             self.clearCover()
             self.labelCoverImage.setEnabled(False)
+            self.textDescription.setText('')
+
+        
 
         self.isDataChanged = False
         self.dataChanged.emit(self.isDataChanged)
@@ -342,7 +362,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         pixmap.save(filename, 'JPG')
 
     def onResize(self, event):
-        width = self.width() - 180
+        width = int(round(self.width() * 0.55))
         height = int(round(width * 1.54, 0))
         
         self.labelCoverImage.setMinimumSize(width, height)
@@ -351,7 +371,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.setCoverImage()
         
 
-    def onToolButtonClick(self):
+    def onAddTagActionClick(self):
         menuData = self.getGenres(QLocale.system().name()[:2])
 
         menu = QMenu()
@@ -364,7 +384,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             submenus.append(submenu)
             menu.addMenu(submenu)
 
-        action = menu.exec_(self.toolButton.mapToGlobal(QPoint(0, 0)))
+        action = menu.exec_(self.customTagLineEdit.mapToGlobal(QPoint(self.customTagLineEdit.width(), 0)))
         if action:
             text = self.textTag.currentText()
             if text in (self.textTag.Blank, self.textTag.Keep):
@@ -381,7 +401,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
     def setPlatformUI(self):
         if sys.platform == 'win32':
             font = QFont('Segoe UI', 9)
-            font_bold = QFont('Segoe UI', 9, weight=700)
+            font_bold = QFont('Segoe UI', 9)
             self.label.setFont(font)
             self.label_2.setFont(font)
             self.label_3.setFont(font)
@@ -395,7 +415,6 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             self.textSeries.setFont(font)
             self.textNumber.setFont(font)
             self.textTag.setFont(font)
-            self.toolButton.setFont(font)
             self.textLang.setFont(font)
             self.textTranslator.setFont(font)
             self.toggleMainInfo.setFont(font_bold)
@@ -415,6 +434,10 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             self.textPublishISBN.setFont(font)
             self.textPublishSeries.setFont(font)
             self.textPublishSeriesIndex.setFont(font)
+
+            self.toggleDescription.setFont(font_bold)
+            self.textDescription.setFont(font)  
+
 
     def getGenres(self, lang='ru'):
         if lang not in ['ru', 'en']:
@@ -445,24 +468,32 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
     def onMainInfoToggle(self):
         if self.widgetMain.isVisible():
             self.widgetMain.setVisible(False)
-            self.toggleMainInfo.setIcon(QIcon(':/icons/collapsed_16px.png'))
+            self.toggleMainInfo.setIcon(QIcon(':/icons/collapsed_12px.png'))
         else:
             self.widgetMain.setVisible(True)
-            self.toggleMainInfo.setIcon(QIcon(':/icons/expanded_16px.png'))
+            self.toggleMainInfo.setIcon(QIcon(':/icons/expanded_12px.png'))
 
     def onPublishInfoToggle(self):
         if self.widgetPublishInfo.isVisible():
             self.widgetPublishInfo.setVisible(False)
-            self.togglePublishInfo.setIcon(QIcon(':/icons/collapsed_16px.png'))
+            self.togglePublishInfo.setIcon(QIcon(':/icons/collapsed_12px.png'))
         else:
             self.widgetPublishInfo.setVisible(True)
-            self.togglePublishInfo.setIcon(QIcon(':/icons/expanded_16px.png'))
+            self.togglePublishInfo.setIcon(QIcon(':/icons/expanded_12px.png'))
             
     def onCoverInfoToggle(self):
         if self.widgetCoverInfo.isVisible():
             self.widgetCoverInfo.setVisible(False)
-            self.toggleCoverInfo.setIcon(QIcon(':/icons/collapsed_16px.png'))
+            self.toggleCoverInfo.setIcon(QIcon(':/icons/collapsed_12px.png'))
         else:
             self.widgetCoverInfo.setVisible(True)
-            self.toggleCoverInfo.setIcon(QIcon(':/icons/expanded_16px.png'))
+            self.toggleCoverInfo.setIcon(QIcon(':/icons/expanded_12px.png'))
 
+
+    def onDescriptionInfoToggle(self):
+        if self.widgetDescriptionInfo.isVisible():
+            self.widgetDescriptionInfo.setVisible(False)
+            self.toggleDescription.setIcon(QIcon(':/icons/collapsed_12px.png'))
+        else:
+            self.widgetDescriptionInfo.setVisible(True)
+            self.toggleDescription.setIcon(QIcon(':/icons/expanded_12px.png'))

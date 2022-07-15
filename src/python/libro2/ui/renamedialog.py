@@ -20,12 +20,12 @@ class RenameDialog(Ui_RenameDialog, QDialog):
         self._book_list = []
 
         self.customAuthorFormatLineEdit = QLineEdit()
-        action = self.customAuthorFormatLineEdit.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action = self.customAuthorFormatLineEdit.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
         action.triggered.connect(self.onToolAuthorClick)
         self.textAuthorFormat.setLineEdit(self.customAuthorFormatLineEdit)
 
         self.customFilenameFormatLineEdit = QLineEdit()
-        action = self.customFilenameFormatLineEdit.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action = self.customFilenameFormatLineEdit.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
         action.triggered.connect(self.onToolFilenameClick)
         self.textFilenameFormat.setLineEdit(self.customFilenameFormatLineEdit)
 

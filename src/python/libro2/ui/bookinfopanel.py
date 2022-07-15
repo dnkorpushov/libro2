@@ -4,7 +4,7 @@ import sys
 from lxml import etree
 
 from PyQt5.QtWidgets import QWidget, QMenu, QFileDialog, QLineEdit
-from PyQt5.QtGui import QPixmap, QFont, QIcon, QPalette, QColor
+from PyQt5.QtGui import QPixmap, QFont, QIcon
 from PyQt5.QtCore import Qt, QPoint, QByteArray, QBuffer, QLocale, pyqtSignal, QCoreApplication
 
 import ebookmeta
@@ -80,7 +80,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.bookInfoList = []
 
         self.customTagLineEdit = QLineEdit()
-        self.addTagAction = self.customTagLineEdit.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        self.addTagAction = self.customTagLineEdit.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
         self.addTagAction.setToolTip(_t('info', 'Add fb2 genre'))
         self.addTagAction.triggered.connect(self.onAddTagActionClick)
         self.textTag.setLineEdit(self.customTagLineEdit)
@@ -119,7 +119,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
 
         self.setPlatformUI()
 
-        head_style = 'QToolButton {border: 0px; padding: 2px; color: #1e395b; }'
+        head_style = 'QToolButton {border: 0px; padding: 2px; color: #444444; }' # #1e395b
         self.toggleCoverInfo.setStyleSheet(head_style)
         self.toggleMainInfo.setStyleSheet(head_style)
         self.togglePublishInfo.setStyleSheet(head_style)
@@ -401,7 +401,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
     def setPlatformUI(self):
         if sys.platform == 'win32':
             font = QFont('Segoe UI', 9)
-            font_bold = QFont('Segoe UI', 9)
+            font_bold = QFont('Segoe UI', 9, weight=700)
             self.label.setFont(font)
             self.label_2.setFont(font)
             self.label_3.setFont(font)
@@ -411,12 +411,19 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             self.label_7.setFont(font)
             self.labelImageInfo.setFont(font)
             self.textTitle.setFont(font)
+            self.textTitle.lineEdit().setFont(font)
             self.textAuthor.setFont(font)
+            self.textAuthor.lineEdit().setFont(font)
             self.textSeries.setFont(font)
+            self.textSeries.lineEdit().setFont(font)
             self.textNumber.setFont(font)
+            self.textNumber.lineEdit().setFont(font)
             self.textTag.setFont(font)
+            self.textTag.lineEdit().setFont(font)
             self.textLang.setFont(font)
+            self.textLang.lineEdit().setFont(font)
             self.textTranslator.setFont(font)
+            self.textTranslator.lineEdit().setFont(font)
             self.toggleMainInfo.setFont(font_bold)
             self.togglePublishInfo.setFont(font_bold)
             self.toggleCoverInfo.setFont(font_bold)
@@ -428,12 +435,19 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             self.label_15.setFont(font)
             self.label_14.setFont(font)
             self.textPublishTitle.setFont(font)
+            self.textPublishTitle.lineEdit().setFont(font)
             self.textPublishPublisher.setFont(font)
+            self.textPublishPublisher.lineEdit().setFont(font)
             self.textPublishCity.setFont(font)
+            self.textPublishCity.lineEdit().setFont(font)
             self.textPublishYear.setFont(font)
+            self.textPublishYear.lineEdit().setFont(font)
             self.textPublishISBN.setFont(font)
+            self.textPublishISBN.lineEdit().setFont(font)
             self.textPublishSeries.setFont(font)
+            self.textPublishSeries.lineEdit().setFont(font)
             self.textPublishSeriesIndex.setFont(font)
+            self.textPublishSeriesIndex.lineEdit().setFont(font)
 
             self.toggleDescription.setFont(font_bold)
             self.textDescription.setFont(font)  

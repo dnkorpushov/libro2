@@ -15,11 +15,11 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
         self.setupUi(self)
         self.comboFormat.currentIndexChanged.connect(self.onFormatChanged)
 
-        action = self.textOutputDir.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action = self.textOutputDir.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
         action.triggered.connect(self.onToolOutputDir)
-        action = self.textConverterPath.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action = self.textConverterPath.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
         action.triggered.connect(self.onToolConverterPath)
-        action = self.textConverterConfig.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action = self.textConverterConfig.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
         action.triggered.connect(self.onToolConverterConfig)
         
         

@@ -23,6 +23,7 @@ class Ui_AboutDialog(object):
         AboutDialog.setMinimumSize(QtCore.QSize(0, 0))
         AboutDialog.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.verticalLayout = QtWidgets.QVBoxLayout(AboutDialog)
+        self.verticalLayout.setContentsMargins(12, 12, 12, 12)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")

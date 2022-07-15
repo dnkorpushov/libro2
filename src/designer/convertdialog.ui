@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="spacing">
-    <number>10</number>
+    <number>12</number>
    </property>
    <property name="leftMargin">
     <number>10</number>
@@ -24,15 +24,15 @@
     <number>10</number>
    </property>
    <property name="rightMargin">
-    <number>10</number>
+    <number>12</number>
    </property>
    <property name="bottomMargin">
-    <number>10</number>
+    <number>12</number>
    </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">

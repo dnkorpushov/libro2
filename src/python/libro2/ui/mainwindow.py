@@ -5,7 +5,7 @@ import webbrowser
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget, QLineEdit
 from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent
-from PyQt5.QtGui import QIcon, QFont, QPalette, QColor
+from PyQt5.QtGui import QIcon, QFont, QColor, QPalette
 
 from .mainwindow_ui import Ui_MainWindow
 from .addfilesdialog import AddFilesDialog
@@ -67,7 +67,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.isAutoApplyFilter = settings.ui_auto_apply_filter
         
         self.customFilterLineEdit = QLineEdit()
-        action = self.customFilterLineEdit.addAction(QIcon(':/icons/more_24px.png'), QLineEdit.TrailingPosition)
+        action = self.customFilterLineEdit.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
         action.triggered.connect(self.onToolFilterMenu)
         self.customFilterLineEdit.textChanged.connect(self.setFilterOnTextChanged)
         self.customFilterLineEdit.returnPressed.connect(self.setFilterOnReturnPressed)

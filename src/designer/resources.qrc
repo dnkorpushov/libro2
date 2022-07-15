@@ -1,8 +1,8 @@
 <RCC>
   <qresource prefix="icons">
-    <file>more_24px@2x.png</file>
-    <file>more_24px.png</file>
     <file>libro2_16px.png</file>
+    <file>more_20px@2x.png</file>
+    <file>more_20px.png</file>
     <file>expanded_12px.png</file>
     <file>collapsed_12px@2x.png</file>
     <file>expanded_12px@2x.png</file>
@@ -12,30 +12,20 @@
   </qresource>
   <qresource prefix="newPrefix"/>
   <qresource prefix="toolbar">
+    <file>edit_26px.png</file>
+    <file>convert_26px.png</file>
+    <file>save_26px.png</file>
+    <file>folder_26px.png</file>
+    <file>add_26px.png</file>
     <file>add_22px.png</file>
-    <file>_convert_22px.png</file>
-    <file>_edit_22px.png</file>
-    <file>_save_22px.png</file>
-    <file>_folder_22px.png</file>
-    <file>_add_22px.png</file>
     <file>add_22px@2x.png</file>
-    <file>add_28px.png</file>
-    <file>add_28px@2x.png</file>
     <file>convert_22px.png</file>
     <file>convert_22px@2x.png</file>
-    <file>convert_28px.png</file>
-    <file>convert_28px@2x.png</file>
     <file>edit_22px.png</file>
     <file>edit_22px@2x.png</file>
-    <file>edit_28px.png</file>
-    <file>edit_28px@2x.png</file>
     <file>folder_22px.png</file>
     <file>folder_22px@2x.png</file>
-    <file>folder_28px.png</file>
-    <file>folder_28px@2x.png</file>
     <file>save_22px.png</file>
     <file>save_22px@2x.png</file>
-    <file>save_28px.png</file>
-    <file>save_28px@2x.png</file>
   </qresource>
 </RCC>

@@ -17,7 +17,7 @@ class Ui_RenameDialog(object):
         RenameDialog.resize(515, 290)
         RenameDialog.setMinimumSize(QtCore.QSize(500, 220))
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(RenameDialog)
-        self.verticalLayout_2.setContentsMargins(10, 10, 10, 10)
+        self.verticalLayout_2.setContentsMargins(12, 12, 12, 12)
         self.verticalLayout_2.setSpacing(3)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.verticalLayout = QtWidgets.QVBoxLayout()

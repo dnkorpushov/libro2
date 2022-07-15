@@ -14,9 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ViewTextDialog(object):
     def setupUi(self, ViewTextDialog):
         ViewTextDialog.setObjectName("ViewTextDialog")
-        ViewTextDialog.resize(646, 386)
+        ViewTextDialog.resize(625, 386)
         self.verticalLayout = QtWidgets.QVBoxLayout(ViewTextDialog)
-        self.verticalLayout.setContentsMargins(10, 10, 10, 10)
+        self.verticalLayout.setContentsMargins(12, 12, 12, 12)
         self.verticalLayout.setSpacing(10)
         self.verticalLayout.setObjectName("verticalLayout")
         self.textEdit = QtWidgets.QTextEdit(ViewTextDialog)

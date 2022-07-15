@@ -119,7 +119,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
 
         self.setPlatformUI()
 
-        head_style = 'QToolButton {border: 0px; padding: 2px; color: #444444; }' # #1e395b
+        head_style = 'QToolButton {border: 0px; padding: 2px; color: #1E395B; }' # #1e395b
         self.toggleCoverInfo.setStyleSheet(head_style)
         self.toggleMainInfo.setStyleSheet(head_style)
         self.togglePublishInfo.setStyleSheet(head_style)
@@ -401,7 +401,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
     def setPlatformUI(self):
         if sys.platform == 'win32':
             font = QFont('Segoe UI', 9)
-            font_bold = QFont('Segoe UI', 9, weight=700)
+            font_bold = QFont('Segoe UI', 9)
             self.label.setFont(font)
             self.label_2.setFont(font)
             self.label_3.setFont(font)

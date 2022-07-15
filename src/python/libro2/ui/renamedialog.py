@@ -1,7 +1,6 @@
 import os
 import sys
 import subprocess
-from tkinter.ttk import Separator
 import ebookmeta
 import codecs
 

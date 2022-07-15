@@ -1,4 +1,3 @@
-from cgitb import text
 from PyQt5.QtWidgets import QDialog
 
 from .textviewdialog_ui import Ui_ViewTextDialog

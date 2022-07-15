@@ -37,11 +37,11 @@ class MainToolbar(QToolBar):
         self.addWidget(spacer2)
 
     def setLargeIcons(self):
-        self.savePixmap = QPixmap(':/toolbar/save_26px.png')
-        self.addPixmap = QPixmap(':/toolbar/add_26px.png')
-        self.folderPixmap = QPixmap(':/toolbar/folder_26px.png')
-        self.renamePixmap = QPixmap(':/toolbar/edit_26px.png')
-        self.convertPixmap = QPixmap(':/toolbar/convert_26px.png')
+        self.savePixmap = QPixmap(':/toolbar/save_28px.png')
+        self.addPixmap = QPixmap(':/toolbar/add_28px.png')
+        self.folderPixmap = QPixmap(':/toolbar/folder_28px.png')
+        self.renamePixmap = QPixmap(':/toolbar/edit_28px.png')
+        self.convertPixmap = QPixmap(':/toolbar/convert_28px.png')
        
         if sys.platform == 'win32':
             self.setIconSize(QSize(36, 36))

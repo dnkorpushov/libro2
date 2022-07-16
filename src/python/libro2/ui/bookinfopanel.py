@@ -287,8 +287,6 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             self.labelCoverImage.setEnabled(False)
             self.textDescription.setText('')
 
-        
-
         self.isDataChanged = False
         self.dataChanged.emit(self.isDataChanged)
 
@@ -450,7 +448,16 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             self.textPublishSeriesIndex.lineEdit().setFont(font)
 
             self.toggleDescription.setFont(font_bold)
-            self.textDescription.setFont(font)  
+            self.textDescription.setFont(font)
+        elif sys.platform == 'darwin':
+            font = self.toggleMainInfo.font()
+            font.setPointSize(12)
+            self.toggleMainInfo.setFont(font)
+            self.togglePublishInfo.setFont(font)
+            self.toggleCoverInfo.setFont(font)
+            self.toggleDescription.setFont(font)
+        else:
+            pass
 
 
     def getGenres(self, lang='ru'):

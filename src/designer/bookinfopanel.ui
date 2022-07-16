@@ -47,6 +47,12 @@
    </property>
    <item>
     <widget class="QScrollArea" name="scrollArea">
+     <property name="minimumSize">
+      <size>
+       <width>200</width>
+       <height>0</height>
+      </size>
+     </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
@@ -61,7 +67,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>205</width>
+        <width>210</width>
         <height>749</height>
        </rect>
       </property>
@@ -123,6 +129,12 @@
          </item>
          <item>
           <widget class="QWidget" name="widgetMain" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <property name="spacing">
              <number>0</number>
@@ -279,6 +291,12 @@
          </item>
          <item>
           <widget class="QWidget" name="widgetPublishInfo" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <property name="spacing">
              <number>0</number>
@@ -413,6 +431,12 @@
          </item>
          <item>
           <widget class="QWidget" name="widgetCoverInfo" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <property name="spacing">
              <number>0</number>
@@ -515,6 +539,12 @@
          </item>
          <item>
           <widget class="QWidget" name="widgetDescriptionInfo" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
             <property name="spacing">
              <number>0</number>

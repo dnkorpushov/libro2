@@ -469,6 +469,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.splitter.setStyleSheet('QSplitter::handle { background: #bfbfbf; }')
         elif sys.platform == 'darwin':
             self.setUnifiedTitleAndToolBarOnMac(True)
+            self.frameFilter.setStyleSheet('#frameFilter {border-top: 1px solid #bfbfbf;}')
+            self.splitter.setStyleSheet('QSplitter::handle { background: #bfbfbf; }')
         # else:
         #     self.toolBar.setStyleSheet('QToolBar { border: 0px }')
             

@@ -521,7 +521,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             settings.ui_splitter_sizes = self.prevSplitterSizes;
 
         config.save()
-        database.clear()
+        database.close()
+        config.delete_temp_dir()
 
 
 

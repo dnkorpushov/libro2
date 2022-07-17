@@ -2,6 +2,8 @@ import os
 import sys
 import json
 import codecs
+import tempfile
+import shutil
 from types import SimpleNamespace
 
 if sys.platform == 'win32':
@@ -9,10 +11,11 @@ if sys.platform == 'win32':
 else:
     config_folder_name = '.libro2'
 
+temp_dir = tempfile.mkdtemp(prefix='libro2_')
 config_path = os.path.join(os.path.expanduser('~'), config_folder_name)
 config_file = os.path.join(config_path, 'settings.json')
 plugins_path = os.path.join(config_path, 'plugins')
-database_name = os.path.join(config_path, 'libro2.db')
+database_name = os.path.join(temp_dir, 'libro2.db')
 
 
 settings = SimpleNamespace(
@@ -53,6 +56,7 @@ settings = SimpleNamespace(
 
 
 def init():
+
     if not os.path.exists(config_path):
         os.makedirs(config_path)
     if os.path.exists(database_name):
@@ -76,4 +80,11 @@ def load():
     
         for key in c:
             settings.__dict__[key] = c[key]
+
+
+def delete_temp_dir():
+    if os.path.exists(temp_dir):
+        shutil.rmtree(temp_dir)
+
+        
 

@@ -91,7 +91,7 @@ class Ui_BookInfoPanel(object):
         self.gridLayout.addWidget(self.textSeries, 1, 0, 1, 1)
         self.textNumber = ComboEdit(self.widgetMain)
         self.textNumber.setMinimumSize(QtCore.QSize(20, 0))
-        self.textNumber.setMaximumSize(QtCore.QSize(80, 16777215))
+        self.textNumber.setMaximumSize(QtCore.QSize(100, 16777215))
         self.textNumber.setBaseSize(QtCore.QSize(40, 0))
         self.textNumber.setObjectName("textNumber")
         self.gridLayout.addWidget(self.textNumber, 1, 2, 1, 1)

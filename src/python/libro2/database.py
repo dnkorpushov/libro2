@@ -52,6 +52,9 @@ def clear():
     else:
         db.commit()
 
+def close():
+    db.close()
+
 def add_book(file):
     '''
     title, authors, tags, tags_description, series, series_index, lang, translators, description, 

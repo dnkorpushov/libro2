@@ -7,6 +7,19 @@ import PyInstaller.__main__
 import os
 import shutil
 
+from importlib_metadata import version
+
+desktop_entry = '''
+[Desktop Entry]
+Name=Libro2
+Version=v1
+Icon={0}
+X-Icon-Path={1}
+Exec={2}
+Terminal=false
+Type=Application
+'''
+
 # build.py app settings
 app_name = 'libro2'
 app_icon = {
@@ -167,6 +180,25 @@ def installer():
         else:
             print(f'Source folder "{src_folder}" not exist. Run freeze before.')
 
+
+@command
+def install():
+    if sys.platform == 'linux':
+        user_dir = os.path.expanduser('~')
+        app_dir = os.path.join(user_dir, '.local/share/applications')
+        desktop_file = os.path.join(app_dir,'libro2.desktop')
+        if not os.path.exists(app_dir):
+            os.makedirs(app_dir)
+        with open(desktop_file, 'w') as f:
+            print(sys.argv[0])
+            base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+            print(base_dir)
+            f.write(desktop_entry.format(os.path.join(base_dir, 'linux/libro2.png'),
+                                         os.path.join(base_dir, 'linux/'),
+                                         os.path.join(base_dir, 'libro2.sh')))
+            f.close()
+    else:
+        print(f'The command is not supported for {sys.platform}')
 
 if __name__ == '__main__':
     _parse_args()

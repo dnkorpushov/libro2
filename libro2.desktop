@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Libro2
-Version=v1
-Icon=libro2.png
-X-Icon-Path=/home/dnk/work/libro2/
-Exec=/home/dnk/work/libro2/libro2.sh
-Terminal=false
-Type=Application

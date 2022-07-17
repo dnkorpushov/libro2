@@ -7,7 +7,6 @@ import PyInstaller.__main__
 import os
 import shutil
 
-from importlib_metadata import version
 
 desktop_entry = '''
 [Desktop Entry]

@@ -2,10 +2,11 @@ from functools import partial
 import os
 import sys
 import webbrowser
+import traceback
 
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget, QLineEdit
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget, QLineEdit, QShortcut
 from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent
-from PyQt5.QtGui import QIcon, QFont, QColor, QPalette
+from PyQt5.QtGui import QIcon, QFont, QKeySequence
 
 from .mainwindow_ui import Ui_MainWindow
 from .addfilesdialog import AddFilesDialog
@@ -20,6 +21,8 @@ from .runplugindialog import RunPluginDialog
 import config
 import database
 from plugin_collection import PluginCollection
+from .pluginform import PluginForm
+from .editdialog import EditDialog
 
 settings = config.settings
 
@@ -111,28 +114,46 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
 
     def runPlugin(self, action):
-        plugin = action.data()
+        editDialog = EditDialog(self)
+        editDialog.exec()
+        # plugin = action.data()
+        # run_plugin = True
 
-        book_info_list = self.getSelectedBookList()
-        if len(book_info_list):
-            self.wait()
-       
-            runPluginDialog = RunPluginDialog(self, plugin, book_info_list)
-            runPluginDialog.exec()
+        # book_info_list = self.getSelectedBookList()
+        # if len(book_info_list):
+        #     if len(plugin.params()) > 0:
+        #         try:
+        #             pluginForm = PluginForm(self, plugin.params(), title=plugin.description())
+        #             if pluginForm.exec_():
+        #                 plugin_params = pluginForm.getParams()
+        #                 plugin.set_params(plugin_params)
+        #             else:
+        #                 run_plugin = False
+        #         except:
+        #             errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}])
+        #             errorDialog.exec()
 
-            self.bookList.updateRows()
-            self.stopWait()
+        #     if run_plugin:
+        #         self.wait()
+        
+        #         runPluginDialog = RunPluginDialog(self, plugin, book_info_list)
+        #         runPluginDialog.exec()
 
-            errors = runPluginDialog.getErrors()
-            if len(errors) > 0:
-                errorDialog = TextViewDialog(self, errors)
-                errorDialog.exec()
+        #         self.bookList.updateRows()
+        #         self.stopWait()
+
+        #         errors = runPluginDialog.getErrors()
+        #         if len(errors) > 0:
+        #             errorDialog = TextViewDialog(self, errors)
+        #             errorDialog.exec()
                         
     def initPluginsMenu(self):
         for plugin in self.pluginCollection.plugins():
             try:
                 action = self.menuTools.addAction(plugin.description())
                 action.setData(plugin)
+                if plugin.hotkey():
+                    action.setShortcut(QKeySequence(plugin.hotkey()))
                 action.triggered.connect(partial(self.runPlugin, action))
             except Exception as e:
                 print(e)
@@ -154,6 +175,19 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         menu = QMenu()
         menu.addAction(self.actionRename)
         menu.addAction(self.actionConvert)
+        menu.addSeparator()
+
+        for plugin in self.pluginCollection.plugins():
+            try:
+                if plugin.is_context_menu():
+                    action = menu.addAction(plugin.description())
+                    action.setData(plugin)
+                    if plugin.hotkey():
+                        action.setShortcut(QKeySequence(plugin.hotkey()))
+                    action.triggered.connect(partial(self.runPlugin, action))
+            except Exception as e:
+                print(e)
+
         menu.addSeparator()
         menu.addAction(self.actionRemove_selected_files)
 

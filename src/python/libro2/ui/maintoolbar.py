@@ -16,14 +16,15 @@ class MainToolbar(QToolBar):
         self.savePixmap = None
         self.addPixmap = None
         self.folderPixmap = None
+        self.editPixmap = None
         self.renamePixmap = None
         self.convertPixmap = None
 
-    def addSeparator(self):
-        if sys.platform == 'win32':
-            separator = QWidget(self)
-            separator.setFixedWidth(4)
-            self.addWidget(separator)
+    # def addSeparator(self):
+    #     if sys.platform == 'win32':
+    #         separator = QWidget(self)
+    #         separator.setFixedWidth(4)
+    #         self.addWidget(separator)
 
     def setCenterAlign(self):
         spacer1 = QWidget()
@@ -40,7 +41,8 @@ class MainToolbar(QToolBar):
         self.savePixmap = QPixmap(':/toolbar/save_28px.png')
         self.addPixmap = QPixmap(':/toolbar/add_28px.png')
         self.folderPixmap = QPixmap(':/toolbar/folder_28px.png')
-        self.renamePixmap = QPixmap(':/toolbar/edit_28px.png')
+        self.editPixmap = QPixmap(':/toolbar/edit_28px.png')
+        self.renamePixmap = QPixmap(':/toolbar/rename_28px.png')
         self.convertPixmap = QPixmap(':/toolbar/convert_28px.png')
        
         if sys.platform == 'win32':
@@ -53,7 +55,8 @@ class MainToolbar(QToolBar):
         self.savePixmap = QPixmap(':/toolbar/save_22px.png')
         self.addPixmap = QPixmap(':/toolbar/add_22px.png')
         self.folderPixmap = QPixmap(':/toolbar/folder_22px.png')
-        self.renamePixmap = QPixmap(':/toolbar/edit_22px.png')
+        self.editPixmap = QPixmap(':/toolbar/edit_22px.png')
+        self.renamePixmap = QPixmap(':/toolbar/rename_22px.png')
         self.convertPixmap = QPixmap(':/toolbar/convert_22px.png')
 
         if sys.platform == 'win32':
@@ -70,6 +73,8 @@ class MainToolbar(QToolBar):
                 action.setIcon(_icon(self.addPixmap))
             elif action.objectName() == 'actionAdd_folder':
                 action.setIcon(_icon(self.folderPixmap))
+            elif action.objectName() == 'actionEdit_metadata':
+                action.setIcon(_icon(self.editPixmap))
             elif action.objectName() == 'actionRename':
                 action.setIcon(_icon(self.renamePixmap))
             elif action.objectName() == 'actionConvert':

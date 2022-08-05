@@ -18,6 +18,8 @@ SOURCES =   src/python/libro2/ui/aboutdialog.py  \
             src/python/libro2/ui/renamedialog_ui.py \
             src/python/libro2/ui/resources_rc.py \
             src/python/libro2/ui/textviewdialog.py \
-            src/python/libro2/ui/textviewdialog_ui.py
+            src/python/libro2/ui/textviewdialog_ui.py \
+            src/python/libro2/ui/editdialog.py \
+            src/python/libro2/ui/editdialog_ui.py
 
 TRANSLATIONS = src/locale/libro2_ru_RU.ts

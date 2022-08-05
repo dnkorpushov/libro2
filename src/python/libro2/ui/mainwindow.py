@@ -8,6 +8,8 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication,
 from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent
 from PyQt5.QtGui import QIcon, QFont, QKeySequence
 
+import qtawesome as qta
+
 from .mainwindow_ui import Ui_MainWindow
 from .addfilesdialog import AddFilesDialog
 from .renamedialog import RenameDialog
@@ -17,12 +19,12 @@ from .aboutdialog import AboutDialog
 from .convertdialog import ConvertDialog
 from .convertfilesdialog import ConvertFilesDialog
 from .runplugindialog import RunPluginDialog
+from .editdialog import EditDialog
 
 import config
 import database
 from plugin_collection import PluginCollection
 from .pluginform import PluginForm
-from .editdialog import EditDialog
 
 settings = config.settings
 
@@ -96,15 +98,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         else:
             self.onToolbarIconLarge()
         self.actionsSetEnabled(False)
-        self.actionSave_metadata.setEnabled(False)
-        self.bookInfo.dataChanged.connect(self.OnBookInfoDataChanged)
 
         self.setPlatformUI()
-
-        self.bookInfo.mainInfoCollapsed = settings.ui_main_info_collapsed
-        self.bookInfo.publishInfoCollapsed = settings.ui_publish_info_collapsed
-        self.bookInfo.coverInfoCollapsed = settings.ui_cover_info_collapsed
-        self.bookInfo.descriptionInfoCollapsed = settings.ui_description_info_collapsed
 
         QTimer.singleShot(1, self.loadFilesFromCommandLine)
 
@@ -114,38 +109,36 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
 
     def runPlugin(self, action):
-        editDialog = EditDialog(self)
-        editDialog.exec()
-        # plugin = action.data()
-        # run_plugin = True
+        plugin = action.data()
+        run_plugin = True
 
-        # book_info_list = self.getSelectedBookList()
-        # if len(book_info_list):
-        #     if len(plugin.params()) > 0:
-        #         try:
-        #             pluginForm = PluginForm(self, plugin.params(), title=plugin.description())
-        #             if pluginForm.exec_():
-        #                 plugin_params = pluginForm.getParams()
-        #                 plugin.set_params(plugin_params)
-        #             else:
-        #                 run_plugin = False
-        #         except:
-        #             errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}])
-        #             errorDialog.exec()
+        book_info_list = self.getSelectedBookList()
+        if len(book_info_list):
+            if len(plugin.params()) > 0:
+                try:
+                    pluginForm = PluginForm(self, plugin.params(), title=plugin.description())
+                    if pluginForm.exec_():
+                        plugin_params = pluginForm.getParams()
+                        plugin.set_params(plugin_params)
+                    else:
+                        run_plugin = False
+                except:
+                    errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}])
+                    errorDialog.exec()
 
-        #     if run_plugin:
-        #         self.wait()
+            if run_plugin:
+                self.wait()
         
-        #         runPluginDialog = RunPluginDialog(self, plugin, book_info_list)
-        #         runPluginDialog.exec()
+                runPluginDialog = RunPluginDialog(self, plugin, book_info_list)
+                runPluginDialog.exec()
 
-        #         self.bookList.updateRows()
-        #         self.stopWait()
+                self.bookList.updateRows()
+                self.stopWait()
 
-        #         errors = runPluginDialog.getErrors()
-        #         if len(errors) > 0:
-        #             errorDialog = TextViewDialog(self, errors)
-        #             errorDialog.exec()
+                errors = runPluginDialog.getErrors()
+                if len(errors) > 0:
+                    errorDialog = TextViewDialog(self, errors)
+                    errorDialog.exec()
                         
     def initPluginsMenu(self):
         for plugin in self.pluginCollection.plugins():
@@ -173,6 +166,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
     def onBookListContextMenu(self, point):
         menu = QMenu()
+        menu.addAction(self.actionEdit_metadata)
         menu.addAction(self.actionRename)
         menu.addAction(self.actionConvert)
         menu.addSeparator()
@@ -222,9 +216,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def loadFilesFromCommandLine(self):
         if len(sys.argv) > 1:
             self.addFilesAndDirs(sys.argv[1:])
-
-    def OnBookInfoDataChanged(self, dataChanged):
-        self.actionSave_metadata.setEnabled(dataChanged)
 
     def setFilterOnTextChanged(self):
         if self.isAutoApplyFilter:
@@ -300,12 +291,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         return book_info_list
 
     def onBookListSelectionChanged(self):
-        if self.bookInfo.isDataChanged:
-            if QMessageBox.question(self, 'Libro2', _t('main', 'Save changes?')) == QMessageBox.Yes:
-                self.SaveMetadata()
-
         book_info_list = self.getSelectedBookList()
-
         self.bookInfo.clear()
 
         if len(book_info_list) > 0:
@@ -317,6 +303,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def actionsSetEnabled(self, enabled):
         self.actionRename.setEnabled(enabled)
         self.actionConvert.setEnabled(enabled)
+        self.actionEdit_metadata.setEnabled(enabled)
 
 
     def onViewFilterPanel(self, isVisible):
@@ -331,7 +318,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.splitter.setChildrenCollapsible(not checked)
 
         if checked:
-            self.splitter.setHandleWidth(3)
+            self.splitter.setHandleWidth(1)
             self.splitter.setSizes(self.prevSplitterSizes)
         else:
             self.prevSplitterSizes = self.splitter.sizes()
@@ -341,29 +328,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def onViewToolbar(self, checked):
         self.toolBar.setVisible(checked)
     
-    def onSaveMetadata(self):
-        if self.bookInfo.isDataChanged:
-            self.SaveMetadata()
-
-    def SaveMetadata(self):
-        self.wait()
-        book_info_list = self.bookInfo.getData()
-        errors = []
-        for book_info in book_info_list:
-            try:
-                database.update_book_info(book_info)
-            except Exception as e:
-                errors.append({ 'src': book_info.file, 'dest': None, 'error': str(e) })
-        self.bookInfo.isDataChanged = False
-        self.actionSave_metadata.setEnabled(False)
-        
-        self.bookList.updateRows()
-        self.stopWait()
-
-        if len(errors) > 0:
-            errorDialog = TextViewDialog(self, errors)
-            errorDialog.exec()
-     
     def onRename(self):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list):
@@ -423,6 +387,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                                                  out_path=convertDialog.outputPath,
                                                  overwrite=convertDialog.overwrite,
                                                  stk = convertDialog.stk,
+                                                 debug=convertDialog.debug,
                                                  converter_path=convertDialog.converterPath,
                                                  converter_config=convertDialog.converterConfig)
             convertProgress.exec()
@@ -437,6 +402,28 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             settings.convert_stk = convertDialog.stk
             settings.convert_converter_path = convertDialog.converterPath
             settings.convert_converter_config = convertDialog.converterConfig
+
+    def onEditMetadata(self):
+        book_info_list = self.getSelectedBookList()
+        if len(book_info_list) > 0:
+            editDialog = EditDialog(self, book_info_list)
+            if editDialog.exec():
+                self.wait()
+                
+                book_info_list = editDialog.getData()
+                errors = []
+                for book_info in book_info_list:
+                    try:
+                        database.update_book_info(book_info)
+                    except Exception as e:
+                        errors.append({ 'src': book_info.file, 'dest': None, 'error': str(e) })
+        
+                self.bookList.updateRows()
+                self.stopWait()
+
+                if len(errors) > 0:
+                    errorDialog = TextViewDialog(self, errors)
+                    errorDialog.exec()
 
     def onToolFilterMenu(self):
         actionList = {
@@ -546,11 +533,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         settings.ui_hidden_columns = self.bookList.getHiddenColumns()
         settings.ui_hidden_columns_width = self.bookList.getHiddenColumnsWidth()
         settings.ui_toolbar_icon_size = 'small' if self.actionToolbarIconSmall.isChecked() else 'large'
-
-        settings.ui_main_info_collapsed = self.bookInfo.mainInfoCollapsed
-        settings.ui_publish_info_collapsed = self.bookInfo.publishInfoCollapsed
-        settings.ui_cover_info_collapsed = self.bookInfo.coverInfoCollapsed
-        settings.ui_description_info_collapsed = self.bookInfo.descriptionInfoCollapsed
 
         if self.actionViewInfo_panel.isChecked():
             settings.ui_splitter_sizes = self.splitter.sizes()

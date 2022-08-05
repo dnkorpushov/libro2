@@ -189,7 +189,7 @@ def update_book_info(book_rec):
     filename = book_rec.file
     try:
         meta = ebookmeta.get_metadata(filename)
-
+        
         meta.title = book_rec.title
         meta.set_author_list_from_string(book_rec.authors)
         meta.set_tag_list_from_string(book_rec.tags)
@@ -215,7 +215,7 @@ def update_book_info(book_rec):
 
     q = QSqlQuery(db)
     q.prepare(query.update_book)
-
+    
     q.bindValue(0, meta.title)
     q.bindValue(1, meta.author_list_to_string())
     q.bindValue(2, meta.tag_list_to_string())

@@ -12,6 +12,10 @@
   </qresource>
   <qresource prefix="newPrefix"/>
   <qresource prefix="toolbar">
+    <file>rename_22px.png</file>
+    <file>rename_22px@2x.png</file>
+    <file>rename_28px.png</file>
+    <file>rename_28px@2x.png</file>
     <file>add_22px.png</file>
     <file>add_22px@2x.png</file>
     <file>add_28px.png</file>
@@ -28,9 +32,5 @@
     <file>folder_22px@2x.png</file>
     <file>folder_28px.png</file>
     <file>folder_28px@2x.png</file>
-    <file>save_22px.png</file>
-    <file>save_22px@2x.png</file>
-    <file>save_28px.png</file>
-    <file>save_28px@2x.png</file>
   </qresource>
 </RCC>

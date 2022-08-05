@@ -48,6 +48,10 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
     def converterConfig(self):
         return self.textConverterConfig.text()
 
+    @property
+    def debug(self):
+        return self.checkDebug.isChecked()
+
     @outputPath.setter
     def outputPath(self, value):
         self.textOutputDir.setText(value)
@@ -74,7 +78,11 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
     @converterConfig.setter
     def converterConfig(self, value):
         self.textConverterConfig.setText(value)
-
+        
+    @debug.setter
+    def debug(self, value):
+        self.checkDebug.setChecked(value)
+        
     def onFormatChanged(self):
         self.checkStk.setEnabled(self.comboFormat.currentText() == 'epub')
 

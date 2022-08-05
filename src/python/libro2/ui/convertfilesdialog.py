@@ -53,7 +53,7 @@ def parse_converter_error(b):
 
 
 class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
-    def __init__(self, parent, book_info_list, out_format, out_path, overwrite, stk, converter_path, converter_config):
+    def __init__(self, parent, book_info_list, out_format, out_path, overwrite, stk, debug, converter_path, converter_config):
         super(ConvertFilesDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle(_t('cv', 'Convert {0} files').format(len(book_info_list)))
@@ -65,6 +65,7 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
         self.converter_path = converter_path
         self.overwrite = overwrite
         self.stk = stk
+        self.debug = debug
         self.output_format = out_format
         self.output_path = out_path
 
@@ -93,6 +94,8 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
         self.src = os.path.normpath(self.book_info_list[self.currentIndex].file)
         if self.src.lower().endswith(('.fb2', '.fb2.zip')):
             args = []
+            if self.debug:
+                args.append('--debug')
             if self.converter_config:
                 args.append('--config')
                 args.append(self.converter_config)

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ConvertDialog(object):
     def setupUi(self, ConvertDialog):
         ConvertDialog.setObjectName("ConvertDialog")
-        ConvertDialog.resize(483, 297)
+        ConvertDialog.resize(483, 317)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(ConvertDialog)
         self.verticalLayout_2.setContentsMargins(10, 10, 12, 12)
         self.verticalLayout_2.setSpacing(12)
@@ -53,6 +53,9 @@ class Ui_ConvertDialog(object):
         self.checkStk = QtWidgets.QCheckBox(self.tab)
         self.checkStk.setObjectName("checkStk")
         self.verticalLayout.addWidget(self.checkStk)
+        self.checkDebug = QtWidgets.QCheckBox(self.tab)
+        self.checkDebug.setObjectName("checkDebug")
+        self.verticalLayout.addWidget(self.checkDebug)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.verticalLayout.setStretch(4, 1)
@@ -109,6 +112,8 @@ class Ui_ConvertDialog(object):
         self.label_2.setText(_translate("ConvertDialog", "Output folder"))
         self.checkOverwrite.setText(_translate("ConvertDialog", "Overwrite existing files"))
         self.checkStk.setText(_translate("ConvertDialog", "Send to Kindle"))
+        self.checkDebug.setToolTip(_translate("ConvertDialog", "Prepare archive with details for debugging"))
+        self.checkDebug.setText(_translate("ConvertDialog", "Debug"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("ConvertDialog", "Convert"))
         self.label_3.setText(_translate("ConvertDialog", "Path to fb2c executable"))
         self.label_4.setText(_translate("ConvertDialog", "fb2c config file"))

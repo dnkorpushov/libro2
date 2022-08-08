@@ -71,13 +71,10 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.actionFilter_panel.setChecked(settings.ui_filter_panel_visible)
         self.isAutoApplyFilter = settings.ui_auto_apply_filter
         
-        self.customFilterLineEdit = QLineEdit()
-        action = self.customFilterLineEdit.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
-        action.triggered.connect(self.onToolFilterMenu)
-        self.customFilterLineEdit.textChanged.connect(self.setFilterOnTextChanged)
-        self.customFilterLineEdit.returnPressed.connect(self.setFilterOnReturnPressed)
 
-        self.textFilter.setLineEdit(self.customFilterLineEdit)
+        self.btnFilterMenu.clicked.connect(self.onToolFilterMenu)
+        self.textFilter.textChanged.connect(self.setFilterOnTextChanged)
+        self.textFilter.returnPressed.connect(self.setFilterOnReturnPressed)
 
         self.bookInfo.clear()
 
@@ -226,7 +223,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.setFilter()
 
     def setFilter(self):
-        self.bookList.setFilter(self.textFilter.currentText())  
+        self.bookList.setFilter(self.textFilter.text())  
 
     def onAddFiles(self):
         result = QFileDialog.getOpenFileNames(self, 
@@ -453,17 +450,17 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         actionItem.setData('AutoApplyFilter')
         menu.addAction(actionItem)
         
-        menu_x = -1 * menu.sizeHint().width() + self.textFilter.width()
-        menu_y = -1 * menu.sizeHint().height() + self.textFilter.height()
+        menu_x = -1 * menu.sizeHint().width() + self.btnFilterMenu.width()
+        menu_y = -1 * menu.sizeHint().height() - 2
         
-        action = menu.exec_(self.textFilter.mapToGlobal(QPoint(menu_x , menu_y)))
+        action = menu.exec_(self.btnFilterMenu.mapToGlobal(QPoint(menu_x , menu_y)))
         if action:
             if action.data() == 'AutoApplyFilter':
                 self.isAutoApplyFilter = not self.isAutoApplyFilter
             elif action.data() in ('AND', 'OR'):
-                self.textFilter.setCurrentText(self.textFilter.currentText() + ' {} '.format(action.data()))
+                self.textFilter.setText(self.textFilter.text() + ' {} '.format(action.data()))
             else:
-                self.textFilter.setCurrentText(self.textFilter.currentText() + ' {}:'.format(action.data()))
+                self.textFilter.setText(self.textFilter.text() + ' {}:'.format(action.data()))
             self.textFilter.setFocus(True)
  
     def onToolbarIconLarge(self):

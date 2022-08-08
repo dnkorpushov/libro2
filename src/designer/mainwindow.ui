@@ -108,9 +108,9 @@
         <property name="frameShadow">
          <enum>QFrame::Plain</enum>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
          <property name="spacing">
-          <number>8</number>
+          <number>5</number>
          </property>
          <property name="leftMargin">
           <number>16</number>
@@ -132,15 +132,16 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="textFilter">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+          <widget class="QLineEdit" name="textFilter"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnFilterMenu">
+           <property name="text">
+            <string/>
            </property>
-           <property name="editable">
-            <bool>true</bool>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/sort_right_24px.png</normaloff>:/icons/sort_right_24px.png</iconset>
            </property>
           </widget>
          </item>

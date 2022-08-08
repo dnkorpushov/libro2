@@ -1,12 +1,10 @@
 <RCC>
   <qresource prefix="icons">
+    <file>sort_right_24px@2x.png</file>
     <file>libro2_16px.png</file>
     <file>more_20px@2x.png</file>
+    <file>sort_right_24px.png</file>
     <file>more_20px.png</file>
-    <file>expanded_12px.png</file>
-    <file>collapsed_12px@2x.png</file>
-    <file>expanded_12px@2x.png</file>
-    <file>collapsed_12px.png</file>
     <file>libro2_32px.png</file>
     <file>libro2_48px.png</file>
   </qresource>

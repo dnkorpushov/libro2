@@ -1,7 +1,8 @@
 import os
-from PyQt5.QtWidgets import QDialog, QFileDialog
+from lxml import etree
+from PyQt5.QtWidgets import QDialog, QFileDialog, QMenu
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import Qt, QCoreApplication, QByteArray, QBuffer
+from PyQt5.QtCore import Qt, QCoreApplication, QByteArray, QBuffer, QLocale, QPoint
 
 import ebookmeta
 
@@ -50,6 +51,8 @@ class EditDialog(QDialog, Ui_EditDialog):
         self.checkPublishISBN.clicked.connect(lambda x: self.onCheckClicked(x, self.textPublishISBN))
         self.checkPublishSeries.clicked.connect(lambda x: self.onCheckClicked(x, self.textPublishSeries))
         self.checkPublishSeriesIndex.clicked.connect(lambda x: self.onCheckClicked(x, self.textPublishSeriesIndex))
+
+        self.btnAddGenre.clicked.connect(self.onAddGenreClick)
 
         self.setData()
         
@@ -284,6 +287,34 @@ class EditDialog(QDialog, Ui_EditDialog):
             pixmap.loadFromData(self.book_info_list[0].cover_image)
             pixmap.save(filename, 'JPG')
 
+
+
+    def onAddGenreClick(self):
+        menuData = self.getGenres(QLocale.system().name()[:2])
+
+        menu = QMenu()
+        submenus = []
+        for item in menuData:
+            submenu = QMenu(item['title'])
+            for i in item['submenu']:
+                menuAction = submenu.addAction(i['title'])
+                menuAction.setData(i['value'])
+            submenus.append(submenu)
+            menu.addMenu(submenu)
+
+        action = menu.exec_(self.btnAddGenre.mapToGlobal(QPoint(0, self.btnAddGenre.height())))
+        if action:
+            text = self.textTags.text()
+            
+            tags = [x.strip() for x in text.split(',')]
+            if not text:
+                text = action.data()
+            else:
+                if action.data() not in tags:
+                    tags.append(action.data())
+                    text = ', '.join(tags)
+                    
+            self.textTags.setText(text)
 
     def getGenres(self, lang='ru'):
         if lang not in ['ru', 'en']:

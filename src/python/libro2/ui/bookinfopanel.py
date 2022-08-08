@@ -96,41 +96,58 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
        
 
     def setPlatformUI(self):
-        if sys.platform == 'win32':
-            # self.setStyleSheet('#scrollAreaWidgetContents { background: #ffffff; }')
-            font = QFont('Segoe UI', 9)
-            font_bold = QFont('Segoe UI', 9, weight=700)
-            font_caption = QFont('Segoe UI', 12)
 
-            self.labelTags.setFont(font_bold)
-            self.labelTags.setStyleSheet('color: #174276')
-            self.labelLang.setFont(font_bold)
-            self.labelLang.setStyleSheet('color: #174276')
-            self.labelTranslator.setFont(font_bold)
-            self.labelTranslator.setStyleSheet('color: #174276')
-            self.labelDescription.setFont(font_bold)
-            self.labelDescription.setStyleSheet('color: #174276')
+        font = self.title.font()
+        font_caption = self.title.font()
+        font_caption.setPointSize(14)
+        font_bold = self.title.font()
+        font_bold.setBold(True)
 
-            self.title.setFont(font_caption)
-            self.author.setFont(font)
+
+        self.labelTags.setFont(font_bold)
+        self.labelLang.setFont(font_bold)
+        self.labelTranslator.setFont(font_bold)
+        self.labelDescription.setFont(font_bold)
+
+        self.title.setFont(font_caption)
+        self.author.setFont(font)
+
+        self.series.setFont(font_bold)
+
+        self.tags.setFont(font)
+        self.lang.setFont(font)
+        self.translators.setFont(font)
+        self.description.setFont(font)
+
+        # if sys.platform == 'win32':
+        #     font = QFont('Segoe UI', 9)
+        #     font_bold = QFont('Segoe UI', 9, weight=700)
+        #     font_caption = QFont('Segoe UI', 14)
+
+        #     self.labelTags.setFont(font_bold)
+        #     self.labelLang.setFont(font_bold)
+        #     self.labelTranslator.setFont(font_bold)
+        #     self.labelDescription.setFont(font_bold)
+
+        #     self.title.setFont(font_caption)
+        #     self.author.setFont(font)
+
+        #     self.series.setFont(font_bold)
+
+        #     self.tags.setFont(font)
+        #     self.lang.setFont(font)
+        #     self.translators.setFont(font)
+        #     self.description.setFont(font)
             
-            self.series.setFont(font_bold)
-            self.series.setStyleSheet('color: #174276')
-
-            self.tags.setFont(font)
-            self.lang.setFont(font)
-            self.translators.setFont(font)
-            self.description.setFont(font)
-            
-        elif sys.platform == 'darwin':
-            font = self.toggleMainInfo.font()
-            font.setPointSize(12)
-            self.toggleMainInfo.setFont(font)
-            self.togglePublishInfo.setFont(font)
-            self.toggleCoverInfo.setFont(font)
-            self.toggleDescription.setFont(font)
-        else:
-            pass
+        # elif sys.platform == 'darwin':
+        #     font = self.toggleMainInfo.font()
+        #     font.setPointSize(12)
+        #     self.toggleMainInfo.setFont(font)
+        #     self.togglePublishInfo.setFont(font)
+        #     self.toggleCoverInfo.setFont(font)
+        #     self.toggleDescription.setFont(font)
+        # else:
+        #     pass
 
 
  

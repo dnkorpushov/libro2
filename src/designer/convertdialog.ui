@@ -87,7 +87,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="textOutputDir"/>
+        <widget class="FolderPicker" name="textOutputDir"/>
        </item>
        <item>
         <widget class="QCheckBox" name="checkOverwrite">
@@ -141,7 +141,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="textConverterPath"/>
+        <widget class="FilePicker" name="textConverterPath"/>
        </item>
        <item>
         <widget class="QLabel" name="label_4">
@@ -151,7 +151,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="textConverterConfig"/>
+        <widget class="FilePicker" name="textConverterConfig"/>
        </item>
        <item>
         <widget class="QLabel" name="labelEditConfig">
@@ -199,6 +199,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FolderPicker</class>
+   <extends>QLineEdit</extends>
+   <header>.customcontrols.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FilePicker</class>
+   <extends>QLineEdit</extends>
+   <header>.customcontrols.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

@@ -110,7 +110,7 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
             if self.output_path:
                 args.append(self.output_path)
             
-            self.process.setWorkingDirectory(config.config_path)
+            self.process.setWorkingDirectory(self.output_path)
             self.process.start(self.converter_path, args)
        
         elif self.src.lower().endswith('.epub') and self.output_format == 'mobi':

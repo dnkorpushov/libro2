@@ -15,14 +15,15 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
         self.setupUi(self)
         self.comboFormat.currentIndexChanged.connect(self.onFormatChanged)
 
-        action = self.textOutputDir.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
-        action.triggered.connect(self.onToolOutputDir)
-        action = self.textConverterPath.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
-        action.triggered.connect(self.onToolConverterPath)
-        action = self.textConverterConfig.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
-        action.triggered.connect(self.onToolConverterConfig)
-        
-        
+
+        if sys.platform == 'win32':
+            self.textConverterPath.setFilter(_t('cv', 'fb2c.exe (fb2c.exe);;All files (*.*)'))
+        else:
+            self.textConverterPath.setFilter(('cv', 'fb2c (fb2c);;All files (*)'))
+        self.textConverterPath.setCaption(_t('cv', 'Select fb2c executable'))
+        self.textConverterConfig.setCaption(_t('cv', 'Select fb2c config file'))
+        self.textConverterConfig.setFilter(_t('cv', 'Config files (*.json *.yaml *.yml *.toml);;All files(*.*)'))
+
 
     @property
     def outputFormat(self):
@@ -128,27 +129,3 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
     def onDownloadConverter(self, link):
         browser = webbrowser.get()
         browser.open_new_tab(link)
-
-    def onToolOutputDir(self):
-        result = QFileDialog.getExistingDirectory(self, caption=_t('cv', 'Select output folder'))
-        if result:
-            self.textOutputDir.setText(result)
-
-    def onToolConverterPath(self):
-        if sys.platform == 'win32':
-            flt = _t('cv', 'fb2c.exe (fb2c.exe);;All files (*.*)')
-        else:
-            flt = _t('cv', 'fb2c (fb2c);;All files (*)')
-
-        result = QFileDialog.getOpenFileName(self, 
-                                             caption=_t('cv', 'Select fb2c executable'),
-                                             filter=flt)
-        if result:
-            self.textConverterPath.setText(result[0])
-
-    def onToolConverterConfig(self):
-        result = QFileDialog.getOpenFileName(self,
-                                             caption=_t('cv', 'Select fb2c config file'),
-                                             filter=_t('cv', 'Config files (*.json *.yaml *.yml *.toml);;All files(*.*)'))
-        if result:
-            self.textConverterConfig.setText(result[0])

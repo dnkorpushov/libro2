@@ -8,8 +8,6 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication,
 from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent
 from PyQt5.QtGui import QIcon, QFont, QKeySequence
 
-import qtawesome as qta
-
 from .mainwindow_ui import Ui_MainWindow
 from .addfilesdialog import AddFilesDialog
 from .renamedialog import RenameDialog

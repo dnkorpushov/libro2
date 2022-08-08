@@ -97,12 +97,16 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
 
     def setPlatformUI(self):
 
-        font = self.title.font()
-        font_caption = self.title.font()
-        font_caption.setPointSize(14)
-        font_bold = self.title.font()
-        font_bold.setBold(True)
-
+        if sys.platform == 'win32':
+            font = QFont('Segoe UI', 9)
+            font_bold = QFont('Segoe UI', 9, weight=700)
+            font_caption = QFont('Segoe UI', 14)
+        else:
+            font = self.title.font()
+            font_caption = self.title.font()
+            font_caption.setPointSize(14)
+            font_bold = self.title.font()
+            font_bold.setBold(True)
 
         self.labelTags.setFont(font_bold)
         self.labelLang.setFont(font_bold)
@@ -119,35 +123,6 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.translators.setFont(font)
         self.description.setFont(font)
 
-        # if sys.platform == 'win32':
-        #     font = QFont('Segoe UI', 9)
-        #     font_bold = QFont('Segoe UI', 9, weight=700)
-        #     font_caption = QFont('Segoe UI', 14)
-
-        #     self.labelTags.setFont(font_bold)
-        #     self.labelLang.setFont(font_bold)
-        #     self.labelTranslator.setFont(font_bold)
-        #     self.labelDescription.setFont(font_bold)
-
-        #     self.title.setFont(font_caption)
-        #     self.author.setFont(font)
-
-        #     self.series.setFont(font_bold)
-
-        #     self.tags.setFont(font)
-        #     self.lang.setFont(font)
-        #     self.translators.setFont(font)
-        #     self.description.setFont(font)
-            
-        # elif sys.platform == 'darwin':
-        #     font = self.toggleMainInfo.font()
-        #     font.setPointSize(12)
-        #     self.toggleMainInfo.setFont(font)
-        #     self.togglePublishInfo.setFont(font)
-        #     self.toggleCoverInfo.setFont(font)
-        #     self.toggleDescription.setFont(font)
-        # else:
-        #     pass
 
 
  

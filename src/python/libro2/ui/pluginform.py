@@ -1,95 +1,8 @@
-import os
 
-from PyQt5.QtWidgets import (QWidget, QDialog, QDialogButtonBox, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QLineEdit, 
-                             QCheckBox, QComboBox, QFileDialog, QPushButton, QHBoxLayout)
-from PyQt5.QtGui import QIcon
-
+from PyQt5.QtWidgets import (QDialog, QDialogButtonBox, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QLineEdit, 
+                             QCheckBox, QComboBox)
 from plugin_collection import Param
-
-
-
-class FolderPicker(QWidget):
-    def __init__(self, parent):
-        super().__init__(parent)
-        self.line = QLineEdit()
-        self.btn = QPushButton()
-        
-        self.btn.setText('Обзор...')
-        
-
-        self.btn.clicked.connect(self._selectFolder)
-
-        self.layout = QHBoxLayout()
-        self.layout.setContentsMargins(0, 0, 0, 0)
-        self.layout.setSpacing(6)
-        self.layout.addWidget(self.line)
-        self.layout.addWidget(self.btn)
-        self.setLayout(self.layout)
-
-    def setText(self, text):
-        self.line.setText(os.path.normpath(text))
-
-    def text(self):
-        return self.line.text()
-
-    def setReadOnly(self, readonly):
-        self.line.setReadOnly(readonly)
-
-    def isReadOnly(self):
-        return self.line.isReadOnly()
-
-    def setEnabled(self, enabled):
-        self.line.setEnabled(enabled)
-        self.btn.setEnabled(enabled)
-    
-    def isEnabled(self):
-        return self.line.isEnabled()
-
-    def _selectFolder(self):
-        result = QFileDialog.getExistingDirectory(directory=self.text())
-        if result:
-            self.setText(result)
-
-class FilePicker(QWidget):
-    def __init__(self, parent):
-        super().__init__(parent)
-        self.line = QLineEdit()
-        self.btn = QPushButton()
-        self.btn.setText('Обзор...')
-        self.btn.clicked.connect(self._selectFile)
-
-        self.layout = QHBoxLayout()
-        self.layout.setContentsMargins(0, 0, 0, 0)
-        self.layout.setSpacing(6)
-        self.layout.addWidget(self.line)
-        self.layout.addWidget(self.btn)
-        self.setLayout(self.layout)
-
-    def setText(self, text):
-        self.line.setText(os.path.normpath(text))
-
-    def text(self):
-        return self.line.text()
-
-    def setReadOnly(self, readonly):
-        self.line.setReadOnly(readonly)
-
-    def isReadOnly(self):
-        return self.line.isReadOnly()
-
-    def setEnabled(self, enabled):
-        self.line.setEnabled(enabled)
-        self.btn.setEnabled(enabled)
-    
-    def isEnabled(self):
-        return self.line.isEnabled()
-
-    def _selectFile(self):
-        result = QFileDialog.getOpenFileName(directory=self.text())
-        if result[0]:
-            self.setText(result[0])
-
-
+from .customcontrols import FolderPicker, FilePicker
 
 class PluginForm(QDialog):
     def __init__(self, parent, params, title):
@@ -135,7 +48,6 @@ class PluginForm(QDialog):
                 label = QLabel(param.title)
                 self.layout.addWidget(label)
 
-                # control = FolderLineEdit(self)
                 control = FolderPicker(self)
                 control.setObjectName(param.name)
                 if param.default_value:

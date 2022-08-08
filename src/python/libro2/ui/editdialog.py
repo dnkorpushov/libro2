@@ -10,6 +10,14 @@ from .editdialog_ui import Ui_EditDialog
 
 _t = QCoreApplication.translate
 
+
+def uniq(s):
+    if len(s) == 1:
+        if list(s)[0]:
+            return True
+    return False
+
+
 class EditDialog(QDialog, Ui_EditDialog):
     def __init__(self, parent, book_info_list):
         super(EditDialog, self).__init__(parent)
@@ -92,76 +100,76 @@ class EditDialog(QDialog, Ui_EditDialog):
 
         
         #### Basic info
-        if len(title) == 1:
+        if uniq(title):
             self.setChecked(True, self.checkTitle, self.textTitle)
             self.textTitle.setText(list(title)[0])
             self.textTitle.setCursorPosition(0)
 
-        if len(author) == 1:
+        if uniq(author):
             self.setChecked(True, self.checkAuthor, self.textAuthor)
             self.textAuthor.setText(list(author)[0])
             self.textAuthor.setCursorPosition(0)
 
-        if len(series) == 1:
+        if uniq(series):
             self.setChecked(True, self.checkSeries, self.textSeries)
             self.textSeries.setText(list(series)[0])
             self.textSeries.setCursorPosition(0)
         
-        if len(series_index) == 1:
+        if uniq(series_index):
             self.setChecked(True, self.checkSeriesIndex, self.textSeriesIndex)
             self.textSeriesIndex.setText(str(list(series_index)[0]))
         
-        if len(tags) == 1:
+        if uniq(tags):
             self.setChecked(True, self.checkTags, self.textTags)
             self.textTags.setText(list(tags)[0])
             self.textTags.setCursorPosition(0)
         
-        if len(lang) == 1:
+        if uniq(lang):
             self.setChecked(True, self.checkLang, self.textLang)
             self.textLang.setText(list(lang)[0])
             self.textLang.setCursorPosition(0)
         
-        if len(tranlator) == 1:
+        if uniq(tranlator):
             self.setChecked(True, self.checkTranslator, self.textTranslator)
             self.textTranslator.setText(list(tranlator)[0])
             self.textTranslator.setCursorPosition(0)
 
         ##### Publish info 
-        if len(publishTitle) == 1:
+        if uniq(publishTitle):
             self.setChecked(True, self.checkPublishTitle, self.textPublishTitle)
             self.textPublishTitle.setText(list(publishTitle)[0])
             self.textPublishTitle.setCursorPosition(0)
 
-        if len(publishPublisher) == 1:
+        if uniq(publishPublisher):
             self.setChecked(True, self.checkPublishPublisher, self.textPublishPublisher)
             self.textPublishPublisher.setText(list(publishPublisher)[0])
             self.textPublishPublisher.setCursorPosition(0)
 
-        if len(publishCity) == 1:
+        if uniq(publishCity):
             self.setChecked(True, self.checkPublishCity, self.textPublishCity)
             self.textPublishCity.setText(list(publishCity)[0])
             self.textPublishCity.setCursorPosition(0)
 
-        if len(publishYear) == 1:
+        if uniq(publishYear):
             self.setChecked(True, self.checkPublishYear, self.textPublishYear)
             self.textPublishYear.setText(list(publishYear)[0])
             self.textPublishYear.setCursorPosition(0)
         
-        if len(publishISBN) == 1:
+        if uniq(publishISBN):
             self.setChecked(True, self.checkPublishISBN, self.textPublishISBN)
             self.textPublishISBN.setText(list(publishISBN)[0])
             self.textPublishISBN.setCursorPosition(0)
         
-        if len(publishSeries) == 1:
+        if uniq(publishSeries):
             self.setChecked(True, self.checkPublishSeries, self.textPublishSeries)
             self.textPublishSeries.setText(list(publishSeries)[0])
             self.textPublishSeries.setCursorPosition(0)
         
-        if len(publishSeriesIndex) == 1:
+        if uniq(publishSeriesIndex):
             self.setChecked(True, self.checkPublishSeriesIndex, self.textPublishSeriesIndex)
             self.textPublishSeriesIndex.setText(str(list(publishSeriesIndex)[0]))
 
-        if len(self.book_info_list) == 1:
+        if len(self.book_info_list):
             self.btnLoadFromFile.setEnabled(True)
             self.btnSaveToFile.setEnabled(True)
             self.setCoverImage()

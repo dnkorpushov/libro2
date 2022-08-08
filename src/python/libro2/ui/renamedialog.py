@@ -18,28 +18,26 @@ class RenameDialog(Ui_RenameDialog, QDialog):
         self.setupUi(self)
         self._book_list = []
 
-        self.customAuthorFormatLineEdit = QLineEdit()
-        action = self.customAuthorFormatLineEdit.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
-        action.triggered.connect(self.onToolAuthorClick)
-        self.textAuthorFormat.setLineEdit(self.customAuthorFormatLineEdit)
+        self._author_format_list = set()
+        self._filename_format_list = set()
 
-        self.customFilenameFormatLineEdit = QLineEdit()
-        action = self.customFilenameFormatLineEdit.addAction(QIcon(':/icons/more_20px.png'), QLineEdit.TrailingPosition)
-        action.triggered.connect(self.onToolFilenameClick)
-        self.textFilenameFormat.setLineEdit(self.customFilenameFormatLineEdit)
+        self.textAuthorFormat.setIcon(QIcon(':/icons/sort_right_24px.png'))
+        self.textAuthorFormat.clicked.connect(self.onTextAuthorFormatClick)
+        self.textAuthorFormat.textChanged.connect(self.generateSample)
 
-        self.textAuthorFormat.lineEdit().textChanged.connect(self.generateSample)
-        self.textFilenameFormat.lineEdit().textChanged.connect(self.generateSample)
-        
+        self.textFilenameFormat.setIcon(QIcon(':/icons/sort_right_24px.png'))
+        self.textFilenameFormat.clicked.connect(self.onTextFilenameFormatClick)
+        self.textFilenameFormat.textChanged.connect(self.generateSample)
+
         self.checkDeleteSource.stateChanged.connect(self.onDeleteSourceClick)
 
     @property
     def authorFormat(self):
-        return self.textAuthorFormat.currentText()
+        return self.textAuthorFormat.text()
 
     @property
     def filenameFormat(self):
-        return self.textFilenameFormat.currentText()
+        return self.textFilenameFormat.text()
 
     @property
     def bookList(self):
@@ -59,21 +57,23 @@ class RenameDialog(Ui_RenameDialog, QDialog):
 
     @property
     def authorFormatList(self):
-        return [self.textAuthorFormat.itemText(i) for i in range(self.textAuthorFormat.count())]
+        return list(self._author_format_list)
 
     @property 
     def filenameFormatList(self):
-        return [self.textFilenameFormat.itemText(i) for i in range(self.textFilenameFormat.count())]
+        return list(self._filename_format_list)
 
     @authorFormatList.setter
     def authorFormatList(self, values):
-        for val in values:
-            self.textAuthorFormat.addItem(val)
+        if values:
+            for val in values:
+                self._author_format_list.add(val)
 
     @filenameFormatList.setter
     def filenameFormatList(self, values):
-        for val in values:
-            self.textFilenameFormat.addItem(val)
+        if values:
+            for val in values:
+                self._filename_format_list.add(val)
 
     @deleteSourceFiles.setter
     def deleteSourceFiles(self, value):
@@ -82,11 +82,11 @@ class RenameDialog(Ui_RenameDialog, QDialog):
 
     @authorFormat.setter
     def authorFormat(self, value):
-        self.textAuthorFormat.setCurrentText(value)
+        self.textAuthorFormat.setText(value)
 
     @filenameFormat.setter
     def filenameFormat(self, value):
-        self.textFilenameFormat.setCurrentText(value)
+        self.textFilenameFormat.setText(value)
 
     @bookList.setter
     def bookList(self, value):
@@ -136,7 +136,7 @@ class RenameDialog(Ui_RenameDialog, QDialog):
                 subprocess.call(('xdg-open', out_file))
 
 
-    def onToolAuthorClick(self):
+    def onTextAuthorFormatClick(self):
         elements = {
             _t('ren', 'First name'): '#f',
             _t('ren', 'Middle name'): '#m',
@@ -144,10 +144,12 @@ class RenameDialog(Ui_RenameDialog, QDialog):
             _t('ren', 'Fist name initial'): '#fi',
             _t('ren', 'Middle name initial'): '#mi'
         }
-        self.toolContextMenu(elements, self.textAuthorFormat, 
-                             self.customAuthorFormatLineEdit.mapToGlobal(QPoint(self.customAuthorFormatLineEdit.width(), 0)))
+        self.toolContextMenu(elements=elements, 
+                             templateSet=self._author_format_list,
+                             control=self.textAuthorFormat, 
+                             point=self.textAuthorFormat.mapToGlobal(QPoint(self.textAuthorFormat.width(), 0)))
 
-    def onToolFilenameClick(self):
+    def onTextFilenameFormatClick(self):
         elements = {
             'Title': '#Title',
             'Series': '#Series',
@@ -162,42 +164,55 @@ class RenameDialog(Ui_RenameDialog, QDialog):
             'Bookid': '#Bookid',
             'Md5':  '#Md5'
         }
-        self.toolContextMenu(elements, self.textFilenameFormat, 
-                             self.customFilenameFormatLineEdit.mapToGlobal(QPoint(self.customFilenameFormatLineEdit.width(), 0)))
+        self.toolContextMenu(elements=elements, 
+                             templateSet=self._filename_format_list,
+                             control=self.textFilenameFormat, 
+                             point=self.textFilenameFormat.mapToGlobal(QPoint(self.textFilenameFormat.width(), 0)))
        
-    def toolContextMenu(self, elements, control, point):
+    def toolContextMenu(self, elements, templateSet, control, point):
         menu = QMenu()
         for key in elements:
             item = menu.addAction(key)
-            item.setData(elements[key])
+            item.setData(('template_element', elements[key]))
         
+        templateList = list(templateSet)
+        if len(templateList) > 0:
+            menu.addSeparator()
+            templateMenu = QMenu(_t('ren', 'Saved templates'))
+            for template in templateList:
+                item = templateMenu.addAction(template)
+                item.setData(('saved_template', template))
+            menu.addMenu(templateMenu)
+
         menu.addSeparator()
         item = menu.addAction(_t('ren', 'Save current template to list'))
-        item.setData('__save__')
+        item.setData(('save_action', ''))
         item = menu.addAction(_t('ren', 'Delete current template from list'))
-        item.setData('__delete__')
+        item.setData(('delete_action', ''))
         action = menu.exec_(point)
         if action:
             element = action.data()
-            text = control.currentText()
-            if element == '__save__':
-                if control.findText(text) == -1:
-                    control.addItem(text)
+            text = control.text()
+            
+            if element[0] == 'save_action':
+                templateSet.add(text)
 
-            elif element == '__delete__':
-                index = control.findText(text)
-                if index > -1:
-                    control.removeItem(index)
-            else:
+            elif element[0] == 'delete_action':
+                templateSet.discard(text)
+            
+            elif element[0] == 'saved_template':
+                control.setText(element[1])
+            
+            elif element[0] == 'template_element':
                 if control.lineEdit().selectionStart() == -1:
                     pos = control.lineEdit().cursorPosition()
-                    text = text[:pos] + element + text[pos:]
-                    control.setCurrentText(text)
-                    control.lineEdit().setCursorPosition(pos + len(element))
+                    text = text[:pos] + element[1] + text[pos:]
+                    control.setText(text)
+                    control.lineEdit().setCursorPosition(pos + len(element[1]))
                 else:
                     start = control.lineEdit().selectionStart()
                     end = control.lineEdit().selectionEnd()
-                    text = text[:start] + element + text[end:]
-                    control.setCurrentText(text)
-                    control.lineEdit().setCursorPosition(start + len(element))
+                    text = text[:start] + element[1] + text[end:]
+                    control.setText(text)
+                    control.lineEdit().setCursorPosition(start + len(element[1]))
 

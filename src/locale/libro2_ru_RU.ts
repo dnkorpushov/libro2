@@ -1,47 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="ru_RU" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.1" language="ru_RU">
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../python/libro2/ui/aboutdialog_ui.py" line="93"/>
+        <location filename="../python/libro2/ui/aboutdialog_ui.py" line="95"/>
         <source>About Libro2</source>
         <translation>О Libro2</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/aboutdialog_ui.py" line="94"/>
+        <location filename="../python/libro2/ui/aboutdialog_ui.py" line="96"/>
         <source>Libro2 v1.0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/aboutdialog_ui.py" line="95"/>
+        <location filename="../python/libro2/ui/aboutdialog_ui.py" line="97"/>
         <source>Written by dnk_dz</source>
         <translation>Автор dnk_dz</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/aboutdialog_ui.py" line="96"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Icons by &lt;a href=&quot;https://icons8.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;icons8.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Иконки: &lt;a href=&quot;https://icons8.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;icons8.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;Иконки: &amp;lt;a href=&amp;quot;https://icons8.com/&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;icons8.com&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/aboutdialog_ui.py" line="98"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Special sanks to &lt;a href=&quot;https://github.com/rupor-github&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;rupor&lt;/span&gt;&lt;/a&gt; for &lt;a href=&quot;https://github.com/rupor-github/fb2converter&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;fb2converter&lt;/span&gt;&lt;/a&gt; and &lt;a href=&quot;https://github.com/rupor-github/fb2mobi&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;fb2mobi&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Отдельная благодарность &lt;a href=&quot;https://github.com/rupor-github&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;rupor&lt;/span&gt;&lt;/a&gt; за его проекты &lt;a href=&quot;https://github.com/rupor-github/fb2converter&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;fb2converter&lt;/span&gt;&lt;/a&gt; и &lt;a href=&quot;https://github.com/rupor-github/fb2mobi&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;fb2mobi&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;Отдельная благодарность &amp;lt;a href=&amp;quot;https://github.com/rupor-github&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;rupor&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt; за его проекты &amp;lt;a href=&amp;quot;https://github.com/rupor-github/fb2converter&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;fb2converter&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt; и &amp;lt;a href=&amp;quot;https://github.com/rupor-github/fb2mobi&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;fb2mobi&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/aboutdialog_ui.py" line="99"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check new version &lt;a href=&quot;https://github.com/dnkorpushov/libro2/releases&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Проверить наличие новой версии &lt;a href=&quot;https://github.com/dnkorpushov/libro2/releases&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;здесь&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;Проверить наличие новой версии &amp;lt;a href=&amp;quot;https://github.com/dnkorpushov/libro2/releases&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;здесь&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/aboutdialog_ui.py" line="97"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;App icon by &lt;a href=&quot;https://icon-icons.com/users/5C4aDHDZ0aEGLnypl9KyW/icon-sets/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Nick Frost and Greg Lapin&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Иконка программы: &lt;a href=&quot;https://icon-icons.com/users/5C4aDHDZ0aEGLnypl9KyW/icon-sets/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Nick Frost and Greg Lapin&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;Иконка программы: &amp;lt;a href=&amp;quot;https://icon-icons.com/users/5C4aDHDZ0aEGLnypl9KyW/icon-sets/&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;Nick Frost and Greg Lapin&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/aboutdialog_ui.py" line="98"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Icons by &lt;a href=&quot;https://icons8.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;icons8.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;Иконки &amp;lt;a href=&amp;quot;https://icons8.com&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;icons8.com&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/aboutdialog_ui.py" line="99"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Roboto&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;App icon by &lt;a href=&quot;https://icon-icons.com/users/5C4aDHDZ0aEGLnypl9KyW/icon-sets/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Nick Frost and Greg Lapin&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&amp;lt;!DOCTYPE HTML PUBLIC &amp;quot;-//W3C//DTD HTML 4.0//EN&amp;quot; &amp;quot;http://www.w3.org/TR/REC-html40/strict.dtd&amp;quot;&amp;gt;
+&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta name=&amp;quot;qrichtext&amp;quot; content=&amp;quot;1&amp;quot; /&amp;gt;&amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;
+p, li { white-space: pre-wrap; }
+&amp;lt;/style&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body style=&amp;quot; font-family:'Roboto'; font-size:10pt; font-weight:400; font-style:normal;&amp;quot;&amp;gt;
+&amp;lt;p style=&amp;quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&amp;quot;&amp;gt;Иконка приложения &amp;lt;a href=&amp;quot;https://icon-icons.com/users/5C4aDHDZ0aEGLnypl9KyW/icon-sets/&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;Nick Frost и Greg Lapin&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/aboutdialog_ui.py" line="104"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Roboto&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Special sanks to &lt;a href=&quot;https://github.com/rupor-github&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;rupor&lt;/span&gt;&lt;/a&gt; for &lt;a href=&quot;https://github.com/rupor-github/fb2converter&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;fb2converter&lt;/span&gt;&lt;/a&gt; and &lt;a href=&quot;https://github.com/rupor-github/fb2mobi&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;fb2mobi&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&amp;lt;!DOCTYPE HTML PUBLIC &amp;quot;-//W3C//DTD HTML 4.0//EN&amp;quot; &amp;quot;http://www.w3.org/TR/REC-html40/strict.dtd&amp;quot;&amp;gt;
+&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta name=&amp;quot;qrichtext&amp;quot; content=&amp;quot;1&amp;quot; /&amp;gt;&amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;
+p, li { white-space: pre-wrap; }
+&amp;lt;/style&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body style=&amp;quot; font-family:'Roboto'; font-size:10pt; font-weight:400; font-style:normal;&amp;quot;&amp;gt;
+&amp;lt;p style=&amp;quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&amp;quot;&amp;gt;Особая благодарность &amp;lt;a href=&amp;quot;https://github.com/rupor-github&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;rupor&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt; за проекты &amp;lt;a href=&amp;quot;https://github.com/rupor-github/fb2converter&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;fb2converter&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt; и &amp;lt;a href=&amp;quot;https://github.com/rupor-github/fb2mobi&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;fb2mobi&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/aboutdialog_ui.py" line="109"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Roboto&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Check new version &lt;a href=&quot;https://github.com/dnkorpushov/libro2/releases&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;here&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&amp;lt;!DOCTYPE HTML PUBLIC &amp;quot;-//W3C//DTD HTML 4.0//EN&amp;quot; &amp;quot;http://www.w3.org/TR/REC-html40/strict.dtd&amp;quot;&amp;gt;
+&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta name=&amp;quot;qrichtext&amp;quot; content=&amp;quot;1&amp;quot; /&amp;gt;&amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;
+p, li { white-space: pre-wrap; }
+&amp;lt;/style&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body style=&amp;quot; font-family:'Roboto'; font-size:10pt; font-weight:400; font-style:normal;&amp;quot;&amp;gt;
+&amp;lt;p style=&amp;quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&amp;quot;&amp;gt;Проверьте наличие новой версии &amp;lt;a href=&amp;quot;https://github.com/dnkorpushov/libro2/releases&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;здесь&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
     </message>
 </context>
 <context>
     <name>BookInfoPanel</name>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="116"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="164"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -126,147 +171,167 @@
         <translation type="obsolete">Описание</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="117"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="165"/>
         <source>Book title</source>
         <translation>Название книги</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="118"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="166"/>
         <source>Book series</source>
         <translation>Книжная серия</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="119"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="167"/>
         <source>Book author</source>
         <translation>Автор книги</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="120"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="168"/>
         <source>Book cover</source>
         <translation>Книжная обложка</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="121"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="169"/>
         <source>TAGS</source>
         <translation>ТЕГИ</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="122"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="170"/>
         <source>Book tags</source>
         <translation>Теги книги</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="123"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="171"/>
         <source>LANG</source>
         <translation>ЯЗЫК</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="124"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="172"/>
         <source>Book lang</source>
         <translation>Язык книги</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="125"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="173"/>
         <source>TRANSLATOR</source>
         <translation>ПЕРЕВОД</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="126"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="174"/>
         <source>Book translators</source>
         <translation>Переводчики книги</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="127"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="177"/>
         <source>DESCRIPTION</source>
         <translation>ОПИСАНИЕ</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="128"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="178"/>
         <source>Book description</source>
         <translation>Описание книги</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="175"/>
+        <source>FILE</source>
+        <translation>ФАЙЛ</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="176"/>
+        <source>Book file</source>
+        <translation>Файл книги</translation>
     </message>
 </context>
 <context>
     <name>ConvertDialog</name>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="117"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="126"/>
         <source>Convert</source>
         <translation>Конвертировать</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="107"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="116"/>
         <source>Output format</source>
         <translation>Формат</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="108"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="117"/>
         <source>epub</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="109"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="118"/>
         <source>kepub</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="110"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="119"/>
         <source>mobi</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="111"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="120"/>
         <source>azw3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="112"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="121"/>
         <source>Output folder</source>
         <translation>Конвертировать в папку</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="113"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="122"/>
         <source>Overwrite existing files</source>
         <translation>Перезаписать существующие файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="118"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="127"/>
         <source>Path to fb2c executable</source>
         <translation>Путь к программе fb2c</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="119"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="128"/>
         <source>fb2c config file</source>
         <translation>Файл конфигурации fb2c</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/convertdialog_ui.py" line="120"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://null&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Edit config file&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://null&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Редактировать файл конфигурации&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://null&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;Редактировать файл конфигурации&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/convertdialog_ui.py" line="121"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/rupor-github/fb2converter/releases/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Download fb2converter&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/rupor-github/fb2converter/releases/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Скачать fb2converter&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https://github.com/rupor-github/fb2converter/releases/&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot; text-decoration: underline; color:#0000ff;&amp;quot;&amp;gt;Скачать fb2converter&amp;lt;/span&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="122"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="131"/>
         <source>fb2c</source>
         <translation>Конвертер fb2c</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="114"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="123"/>
         <source>Send to Kindle</source>
         <translation>Отправить на устройство Kindle</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="115"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="124"/>
         <source>Prepare archive with details for debugging</source>
         <translation>Подготовить архив с детальной отладочной информацией</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog_ui.py" line="116"/>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="125"/>
         <source>Debug</source>
         <translation>Отладка</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="129"/>
+        <source>Edit config file</source>
+        <translation>Редактировать файл конфигурации</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/convertdialog_ui.py" line="130"/>
+        <source>Download fb2converter</source>
+        <translation>Скачать fb2converter</translation>
     </message>
 </context>
 <context>
@@ -365,197 +430,192 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="220"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="213"/>
         <source>Libro2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="221"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="214"/>
         <source>Filter:</source>
         <translation>Фильтр:</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="222"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="215"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="259"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="250"/>
         <source>Edit</source>
         <translation>Правка</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="224"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="217"/>
         <source>View</source>
         <translation>Вид</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="256"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="247"/>
         <source>Help</source>
         <translation>Справка</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="253"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="244"/>
         <source>Toolbar</source>
         <translation>Панель инструментов</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="229"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="222"/>
         <source>Add...</source>
         <translation>Добавить...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="230"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="223"/>
         <source>Add files</source>
         <translation>Добавить файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="231"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="224"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="232"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="225"/>
         <source>Add folder...</source>
         <translation>Добавить папку...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="233"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="226"/>
         <source>Ctrl+D</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="234"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="227"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="235"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="228"/>
         <source>Select all</source>
         <translation>Выбрать все</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="236"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="229"/>
         <source>Ctrl+A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="237"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="230"/>
         <source>Remove selected files</source>
         <translation>Убрать выбранные файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="238"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="231"/>
         <source>Del</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="239"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="232"/>
         <source>Info panel</source>
         <translation>Панель информации</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="240"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="233"/>
         <source>Ctrl+I</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/mainwindow_ui.py" line="241"/>
         <source>Save</source>
-        <translation>Сохранить</translation>
+        <translation type="obsolete">Сохранить</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="242"/>
-        <source>Ctrl+S</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="243"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="234"/>
         <source>Filter panel</source>
         <translation>Панель фильтра</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="244"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="235"/>
         <source>F3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="245"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="236"/>
         <source>Rename...</source>
         <translation>Переименовать...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="246"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="237"/>
         <source>Rename selected files</source>
         <translation>Переименовать выбранные файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="247"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="238"/>
         <source>Ctrl+R</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="248"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="239"/>
         <source>Convert...</source>
         <translation>Конвертировать...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="249"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="240"/>
         <source>Convert selected files</source>
         <translation>Конвертировать выбранные файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="250"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="241"/>
         <source>Ctrl+T</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="251"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="242"/>
         <source>About...</source>
         <translation>О программе...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="252"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="243"/>
         <source>About Qt...</source>
         <translation>О Qt</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="225"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="218"/>
         <source>Toolbar icon size</source>
         <translation>Размер иконок панели инструментов</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="254"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="245"/>
         <source>Small</source>
         <translation>Маленький</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="255"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="246"/>
         <source>Large</source>
         <translation>Большой</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="257"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="248"/>
         <source>Forum</source>
         <translation>Обсуждение на 4PDA</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="227"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="220"/>
         <source>Tools</source>
         <translation>Инструменты</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="258"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="249"/>
         <source>Edit...</source>
         <translation>Изменить...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="260"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="251"/>
         <source>Edit metadata for selected files</source>
         <translation>Изменить метаданные для выбранных файлов</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="261"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="252"/>
         <source>Ctrl+E</source>
         <translation></translation>
     </message>
@@ -581,42 +641,42 @@
 <context>
     <name>RenameDialog</name>
     <message>
-        <location filename="../python/libro2/ui/renamedialog_ui.py" line="80"/>
+        <location filename="../python/libro2/ui/renamedialog_ui.py" line="78"/>
         <source>Rename</source>
         <translation>Переименовать</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog_ui.py" line="81"/>
+        <location filename="../python/libro2/ui/renamedialog_ui.py" line="79"/>
         <source>Author format:</source>
         <translation>Шаблон имени автора:</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog_ui.py" line="82"/>
+        <location filename="../python/libro2/ui/renamedialog_ui.py" line="80"/>
         <source>Filename format:</source>
         <translation>Шаблон имени файла:</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog_ui.py" line="83"/>
+        <location filename="../python/libro2/ui/renamedialog_ui.py" line="81"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog_ui.py" line="84"/>
+        <location filename="../python/libro2/ui/renamedialog_ui.py" line="82"/>
         <source>Delete source files</source>
         <translation>Удалить исходные файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog_ui.py" line="85"/>
+        <location filename="../python/libro2/ui/renamedialog_ui.py" line="83"/>
         <source>Backup files before rename</source>
         <translation>Сделать бэкап файлов перед переименованием</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog_ui.py" line="86"/>
+        <location filename="../python/libro2/ui/renamedialog_ui.py" line="84"/>
         <source>Overwrite exsiting files</source>
         <translation>Перезаписывать существующие файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog_ui.py" line="87"/>
+        <location filename="../python/libro2/ui/renamedialog_ui.py" line="85"/>
         <source>Preview</source>
         <translation>Просмотр</translation>
     </message>
@@ -653,34 +713,52 @@
     </message>
 </context>
 <context>
-    <name>cv</name>
+    <name>ctl</name>
     <message>
-        <location filename="../python/libro2/ui/convertdialog.py" line="92"/>
-        <source>Folder &quot;{0}&quot; not exsist</source>
-        <translation>Папка &quot;{0}&quot; не найдена</translation>
+        <location filename="../python/libro2/ui/customcontrols.py" line="100"/>
+        <source>Browse...</source>
+        <translation>Обзор...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog.py" line="97"/>
+        <location filename="../python/libro2/ui/customcontrols.py" line="109"/>
+        <source>All files (*.*)</source>
+        <translation>Все файлы (*.*)</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/customcontrols.py" line="110"/>
+        <source>Open file</source>
+        <translation>Открыть файл</translation>
+    </message>
+</context>
+<context>
+    <name>cv</name>
+    <message>
+        <location filename="../python/libro2/ui/convertdialog.py" line="94"/>
+        <source>Folder &quot;{0}&quot; not exsist</source>
+        <translation>Папка &amp;quot;{0}&amp;quot; не найдена</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/convertdialog.py" line="99"/>
         <source>Output folder not specified</source>
         <translation>Не указана папка для конвертации</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog.py" line="112"/>
+        <location filename="../python/libro2/ui/convertdialog.py" line="114"/>
         <source>File &quot;{0}&quot; not exsist</source>
-        <translation>Файл &quot;{0}&quot; не найден</translation>
+        <translation>Файл &amp;quot;{0}&amp;quot; не найден</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog.py" line="107"/>
+        <location filename="../python/libro2/ui/convertdialog.py" line="109"/>
         <source>Path to fb2converter not specified</source>
         <translation>Не указан путь к конвертеру fb2converter</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/convertdialog.py" line="133"/>
         <source>Select output folder</source>
-        <translation>Выберите папку</translation>
+        <translation type="obsolete">Выберите папку</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog.py" line="143"/>
+        <location filename="../python/libro2/ui/convertdialog.py" line="24"/>
         <source>Select fb2c executable</source>
         <translation>Выберите программу fb2c</translation>
     </message>
@@ -690,12 +768,12 @@
         <translation type="obsolete">Исполняемые файлы (*.exe);;Все файлы (*.*)</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog.py" line="150"/>
+        <location filename="../python/libro2/ui/convertdialog.py" line="25"/>
         <source>Select fb2c config file</source>
         <translation>Выберите файл конфигурации для fb2c</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog.py" line="150"/>
+        <location filename="../python/libro2/ui/convertdialog.py" line="26"/>
         <source>Config files (*.json *.yaml *.yml *.toml);;All files(*.*)</source>
         <translation>Файлы конфигурации (*.json *.yaml *.yml *.toml);;Все файлы(*.*)</translation>
     </message>
@@ -720,12 +798,12 @@
         <translation>Конвертация файлов... {0} of {1}</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog.py" line="139"/>
+        <location filename="../python/libro2/ui/convertdialog.py" line="20"/>
         <source>fb2c.exe (fb2c.exe);;All files (*.*)</source>
         <translation>fb2c.exe (fb2c.exe);;Все файлы (*.*)</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/convertdialog.py" line="141"/>
+        <location filename="../python/libro2/ui/convertdialog.py" line="22"/>
         <source>fb2c (fb2c);;All files (*)</source>
         <translation>fb2c (fb2c);;Все файлы (*)</translation>
     </message>
@@ -738,12 +816,12 @@
 <context>
     <name>edit</name>
     <message>
-        <location filename="../python/libro2/ui/editdialog.py" line="225"/>
+        <location filename="../python/libro2/ui/editdialog.py" line="245"/>
         <source>Load cover from file</source>
         <translation>Загрузить обложку из файла</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog.py" line="225"/>
+        <location filename="../python/libro2/ui/editdialog.py" line="245"/>
         <source>Image file (*.jpg *.jpeg *.png)</source>
         <translation>Файлы изображений (*.jpg *.jpeg *.png)</translation>
     </message>
@@ -776,12 +854,12 @@
         <translation type="obsolete">Файлы изображений (*.jpg *.jpeg *.png)</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog.py" line="263"/>
+        <location filename="../python/libro2/ui/editdialog.py" line="283"/>
         <source>Save cover to file</source>
         <translation>Сохранить обложку в файл</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog.py" line="263"/>
+        <location filename="../python/libro2/ui/editdialog.py" line="283"/>
         <source>Image file (*.jpg)</source>
         <translation>Файлы изображений (*.jpg)</translation>
     </message>
@@ -793,12 +871,12 @@
     <message>
         <location filename="../python/libro2/ui/comboedit.py" line="13"/>
         <source>&lt; keep &gt;</source>
-        <translation>&lt; оставить &gt;</translation>
+        <translation>&amp;lt; оставить &amp;gt;</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/comboedit.py" line="14"/>
         <source>&lt; blank &gt;</source>
-        <translation>&lt; очистить &gt;</translation>
+        <translation>&amp;lt; очистить &amp;gt;</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/bookinfopanel.py" line="84"/>
@@ -806,12 +884,12 @@
         <translation type="obsolete">Добавить жанр для формата fb2</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel.py" line="33"/>
+        <location filename="../python/libro2/ui/bookinfopanel.py" line="40"/>
         <source>No items</source>
         <translation>Нет элементов</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel.py" line="88"/>
+        <location filename="../python/libro2/ui/bookinfopanel.py" line="104"/>
         <source>Selected items: {0}</source>
         <translation>Выбрано элементов: {0}</translation>
     </message>
@@ -819,17 +897,17 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="234"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="227"/>
         <source>Add files</source>
         <translation>Добавить файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="234"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="227"/>
         <source>Ebook files (*.fb2 *.fb2.zip *.epub);;All files (*.*)</source>
         <translation>Электронные книги (*.fb2 *.fb2.zip *.epub);;Все файлы (*.*)</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="245"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="238"/>
         <source>Add folder</source>
         <translation>Добавить папку</translation>
     </message>
@@ -839,52 +917,52 @@
         <translation type="obsolete">Сохранить изменения?</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="455"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="425"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="456"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="426"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="457"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="427"/>
         <source>Series</source>
         <translation>Серия</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="458"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="428"/>
         <source>Tags</source>
         <translation>Теги</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="459"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="429"/>
         <source>Lang</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="460"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="430"/>
         <source>Translator</source>
         <translation>Переводчик</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="461"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="431"/>
         <source>Type</source>
         <translation>Тип</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="462"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="432"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="477"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="447"/>
         <source>Auto-apply filter</source>
         <translation>Автоматический фильтр</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="153"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="149"/>
         <source>Reload plugins</source>
         <translation>Перезагрузить плагины</translation>
     </message>
@@ -917,14 +995,19 @@
         <translation>Инициал отчества</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="175"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="188"/>
         <source>Save current template to list</source>
         <translation>Сохранить шаблон в списке</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="177"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="190"/>
         <source>Delete current template from list</source>
         <translation>Удалить шаблон из списка</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="181"/>
+        <source>Saved templates</source>
+        <translation>Сохраненные шаблоны</translation>
     </message>
 </context>
 <context>

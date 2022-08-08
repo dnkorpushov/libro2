@@ -1,9 +1,53 @@
 import os
-from PyQt5.QtWidgets import QWidget,QFileDialog, QPushButton, QHBoxLayout, QLineEdit
-from PyQt5.QtCore import QCoreApplication
+from re import L
+from PyQt5.QtWidgets import QWidget,QFileDialog, QPushButton, QHBoxLayout, QLineEdit, QLabel
+from PyQt5.QtCore import QCoreApplication, pyqtSignal
 
 _t = QCoreApplication.translate
 
+
+class ClickedLabel(QLabel):
+    clicked = pyqtSignal()
+
+    def mousePressEvent(self):
+        self.clicked.emit()
+
+class ButtonLineEdit(QWidget):
+    clicked = pyqtSignal()
+    textChanged = pyqtSignal()
+
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.line = QLineEdit()
+        self.btn = QPushButton()
+        self.btn.clicked.connect(self._onMenuButtonClicked)
+        self.line.textChanged.connect(self._onTextChanged)
+
+        self.layout = QHBoxLayout()
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(2)
+        self.layout.addWidget(self.line)
+        self.layout.addWidget(self.btn)
+        self.setLayout(self.layout)
+
+    def setIcon(self, icon):
+        self.btn.setIcon(icon)
+
+    def setText(self, text):
+        self.line.setText(text)
+
+    def text(self):
+        return self.line.text()
+
+    def _onMenuButtonClicked(self):
+        self.clicked.emit()
+    
+    def _onTextChanged(self):
+        self.textChanged.emit()
+        
+
+    def lineEdit(self):
+        return self.line
 
 class FolderPicker(QWidget):
     def __init__(self, parent):

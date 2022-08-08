@@ -23,16 +23,19 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.tags.clear()
         self.lang.clear()
         self.translators.clear()
+        self.file.clear()
         self.description.clear()
 
         self.labelTags.setVisible(False)
         self.labelLang.setVisible(False)
         self.labelTranslator.setVisible(False)
+        self.labelFile.setVisible(False)
         self.labelDescription.setVisible(False)
 
         self.spacerLang.setVisible(False)
         self.spacerTags.setVisible(False)
         self.spacerTransator.setVisible(False)
+        self.spacerFile.setVisible(False)
 
         self.title.setText(_t('info', 'No items'))
         self.author.setVisible(False)
@@ -40,6 +43,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.tags.setVisible(False)
         self.lang.setVisible(False)
         self.translators.setVisible(False)
+        self.file.setVisible(False)
         self.description.setVisible(False)
 
     def setData(self, book_info_list):
@@ -78,12 +82,17 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
                 self.spacerTransator.setVisible(True)
                 self.translators.setText(book_info.translators)
        
+            if book_info.file:
+                self.labelFile.setVisible(True)
+                self.file.setVisible(True)
+                self.spacerFile.setVisible(True)
+                self.file.setText(book_info.file)
+
             if book_info.description:
                 self.labelDescription.setVisible(True)
                 self.description.setVisible(True)
                 self.description.setText(book_info.description.strip())
        
-
             if book_info.cover_image:
                 self.cover.setVisible(True)
                 pix = QPixmap()

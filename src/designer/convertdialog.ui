@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>483</width>
-    <height>317</height>
+    <width>583</width>
+    <height>392</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -154,11 +154,28 @@
         <widget class="FilePicker" name="textConverterConfig"/>
        </item>
        <item>
-        <widget class="QLabel" name="labelEditConfig">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://null&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Edit config file&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="btnEditConfig">
+           <property name="text">
+            <string>Edit config file</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>38</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </item>
        <item>
         <spacer name="verticalSpacer_2">
@@ -174,14 +191,28 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="labelDownloadConverter">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/rupor-github/fb2converter/releases/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Download fb2converter&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnDowloadConverter">
+           <property name="text">
+            <string>Download fb2converter</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -246,41 +277,41 @@
    </hints>
   </connection>
   <connection>
-   <sender>labelEditConfig</sender>
-   <signal>linkActivated(QString)</signal>
+   <sender>btnEditConfig</sender>
+   <signal>clicked()</signal>
    <receiver>ConvertDialog</receiver>
-   <slot>onEditConfig(QString)</slot>
+   <slot>onEditConfig()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>240</x>
-     <y>165</y>
+     <x>77</x>
+     <y>187</y>
     </hint>
     <hint type="destinationlabel">
-     <x>241</x>
-     <y>148</y>
+     <x>289</x>
+     <y>211</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>labelDownloadConverter</sender>
-   <signal>linkActivated(QString)</signal>
+   <sender>btnDowloadConverter</sender>
+   <signal>clicked()</signal>
    <receiver>ConvertDialog</receiver>
-   <slot>onDownloadConverter(QString)</slot>
+   <slot>onDownloadConverter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>240</x>
-     <y>225</y>
+     <x>465</x>
+     <y>345</y>
     </hint>
     <hint type="destinationlabel">
-     <x>241</x>
-     <y>148</y>
+     <x>289</x>
+     <y>211</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>onEditConfig(QString)</slot>
-  <slot>onDownloadConverter(QString)</slot>
+  <slot>onEditConfig()</slot>
+  <slot>onDownloadConverter()</slot>
   <slot>onToolOutputDir()</slot>
   <slot>onToolConverterPath()</slot>
   <slot>onToolConverterConfig()</slot>

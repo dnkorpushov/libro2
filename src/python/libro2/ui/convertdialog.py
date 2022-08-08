@@ -118,7 +118,7 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
 
         return super().accept()
 
-    def onEditConfig(self,link):
+    def onEditConfig(self):
         if self.converterConfig:
             if sys.platform == 'win32':
                 os.startfile(self.converterConfig)
@@ -127,6 +127,7 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
             else:
                 subprocess.call(('xdg-open', self.converterConfig))
 
-    def onDownloadConverter(self, link):
+    def onDownloadConverter(self):
+        link = 'https://github.com/rupor-github/fb2converter/releases/'
         browser = webbrowser.get()
         browser.open_new_tab(link)

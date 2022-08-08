@@ -48,11 +48,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="textAuthorFormat">
-       <property name="editable">
-        <bool>true</bool>
-       </property>
-      </widget>
+      <widget class="ButtonLineEdit" name="textAuthorFormat"/>
      </item>
      <item>
       <widget class="QLabel" name="label_3">
@@ -62,11 +58,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="textFilenameFormat">
-       <property name="editable">
-        <bool>true</bool>
-       </property>
-      </widget>
+      <widget class="ButtonLineEdit" name="textFilenameFormat"/>
      </item>
      <item>
       <spacer name="verticalSpacer_2">
@@ -166,6 +158,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ButtonLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>.customcontrols.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>

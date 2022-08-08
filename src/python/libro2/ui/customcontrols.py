@@ -24,7 +24,8 @@ class FolderPicker(QWidget):
         self.setLayout(self.layout)
 
     def setText(self, text):
-        self.line.setText(os.path.normpath(text))
+        if text:
+            self.line.setText(os.path.normpath(text))
 
     def text(self):
         return self.line.text()
@@ -71,7 +72,8 @@ class FilePicker(QWidget):
         self.caption = value
 
     def setText(self, text):
-        self.line.setText(os.path.normpath(text))
+        if text:
+            self.line.setText(os.path.normpath(text))
 
     def text(self):
         return self.line.text()

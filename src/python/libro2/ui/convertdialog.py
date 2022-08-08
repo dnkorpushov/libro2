@@ -19,7 +19,8 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
         if sys.platform == 'win32':
             self.textConverterPath.setFilter(_t('cv', 'fb2c.exe (fb2c.exe);;All files (*.*)'))
         else:
-            self.textConverterPath.setFilter(('cv', 'fb2c (fb2c);;All files (*)'))
+            self.textConverterPath.setFilter(_t('cv', 'fb2c (fb2c);;All files (*)'))
+
         self.textConverterPath.setCaption(_t('cv', 'Select fb2c executable'))
         self.textConverterConfig.setCaption(_t('cv', 'Select fb2c config file'))
         self.textConverterConfig.setFilter(_t('cv', 'Config files (*.json *.yaml *.yml *.toml);;All files(*.*)'))

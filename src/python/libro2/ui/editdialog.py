@@ -169,15 +169,12 @@ class EditDialog(QDialog, Ui_EditDialog):
             self.setChecked(True, self.checkPublishSeriesIndex, self.textPublishSeriesIndex)
             self.textPublishSeriesIndex.setText(str(list(publishSeriesIndex)[0]))
 
-        if len(self.book_info_list):
+        if len(self.book_info_list) == 1:
             self.btnLoadFromFile.setEnabled(True)
             self.btnSaveToFile.setEnabled(True)
             self.setCoverImage()
         else:
             self.cover.setEnabled(False)
-
-
-        # self.setWindowTitle(_t('edit', 'Edit {0} file(s)'.format(len(self.book_info_list))))
 
     def getData(self):
         for book in self.book_info_list:

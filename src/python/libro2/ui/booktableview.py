@@ -19,7 +19,7 @@ class BookTableView(QTableView):
 
         font = self.font()
         fm = QFontMetrics(font)
-        self.verticalHeader().setDefaultSectionSize(fm.height() + 8)
+        self.verticalHeader().setDefaultSectionSize(fm.height())
 
         self.setWordWrap(False)
         self.setSelectionBehavior(QAbstractItemView.SelectRows)

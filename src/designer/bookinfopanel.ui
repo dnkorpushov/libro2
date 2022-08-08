@@ -83,6 +83,11 @@
        </property>
        <item>
         <widget class="QLabel" name="title">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Book title</string>
          </property>
@@ -114,7 +119,9 @@
         <widget class="QLabel" name="series">
          <property name="font">
           <font>
+           <weight>75</weight>
            <italic>false</italic>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
@@ -205,7 +212,7 @@
           </font>
          </property>
          <property name="text">
-          <string>TAGS</string>
+          <string>Tags</string>
          </property>
         </widget>
        </item>
@@ -247,7 +254,7 @@
           </font>
          </property>
          <property name="text">
-          <string>LANG</string>
+          <string>Lang</string>
          </property>
         </widget>
        </item>
@@ -283,7 +290,7 @@
           </font>
          </property>
          <property name="text">
-          <string>TRANSLATOR</string>
+          <string>Translator</string>
          </property>
         </widget>
        </item>
@@ -317,7 +324,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="labelFile">
+        <widget class="QLabel" name="labelDescription">
          <property name="font">
           <font>
            <weight>75</weight>
@@ -325,14 +332,17 @@
           </font>
          </property>
          <property name="text">
-          <string>FILE</string>
+          <string>Description</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="file">
+        <widget class="QLabel" name="description">
          <property name="text">
-          <string>Book file</string>
+          <string>Book description</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -362,7 +372,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="labelDescription">
+        <widget class="QLabel" name="labelFile">
          <property name="font">
           <font>
            <weight>75</weight>
@@ -370,17 +380,14 @@
           </font>
          </property>
          <property name="text">
-          <string>DESCRIPTION</string>
+          <string>File</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="description">
+        <widget class="QLabel" name="file">
          <property name="text">
-          <string>Book description</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          <string>Book file</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

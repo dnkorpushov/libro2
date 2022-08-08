@@ -6,12 +6,6 @@ from PyQt5.QtCore import QCoreApplication, pyqtSignal
 _t = QCoreApplication.translate
 
 
-class ClickedLabel(QLabel):
-    clicked = pyqtSignal()
-
-    def mousePressEvent(self):
-        self.clicked.emit()
-
 class ButtonLineEdit(QWidget):
     clicked = pyqtSignal()
     textChanged = pyqtSignal()
@@ -25,10 +19,13 @@ class ButtonLineEdit(QWidget):
 
         self.layout = QHBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
-        self.layout.setSpacing(2)
+        self.layout.setSpacing(0)
         self.layout.addWidget(self.line)
         self.layout.addWidget(self.btn)
         self.setLayout(self.layout)
+
+        self.btn.setMaximumHeight(self.line.sizeHint().height() + 2)
+        self.btn.setMaximumWidth(self.line.sizeHint().height() + 2)
 
     def setIcon(self, icon):
         self.btn.setIcon(icon)

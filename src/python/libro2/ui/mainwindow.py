@@ -490,6 +490,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.setUnifiedTitleAndToolBarOnMac(True)
             self.frameFilter.setStyleSheet('#frameFilter {border-top: 1px solid #bfbfbf;}')
             self.splitter.setStyleSheet('QSplitter::handle { background: #bfbfbf; }')
+            self.frameFilter.layout().setContentsMargins(8, 8, 8, 8)
         else:
             # self.toolBar.setStyleSheet('QToolBar { border: 0px }')
             self.toolBar.setStyleSheet('#toolBar { border-bottom: 1px solid #bfbfbf; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;  background-color: #f7f7f7}')

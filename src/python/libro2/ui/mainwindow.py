@@ -74,6 +74,9 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.textFilter.textChanged.connect(self.setFilterOnTextChanged)
         self.textFilter.returnPressed.connect(self.setFilterOnReturnPressed)
 
+       
+        # action = self.textFilter.addAction(QIcon(':/icons/menu_vertical_32px.png'), QLineEdit.TrailingPosition)
+
         self.bookInfo.clear()
 
         self.bookList.setColumnsWidth(settings.ui_columns_width)

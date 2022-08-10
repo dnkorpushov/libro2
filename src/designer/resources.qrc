@@ -1,14 +1,15 @@
 <RCC>
   <qresource prefix="icons">
-    <file>sort_right_24px@2x.png</file>
+    <file>menu_vertical_32px.png</file>
+    <file>expand_arrow_32px.png</file>
+    <file>sort_right_16px.png</file>
     <file>libro2_16px.png</file>
     <file>more_20px@2x.png</file>
-    <file>sort_right_24px.png</file>
     <file>more_20px.png</file>
+    <file>expand_arrow_16px.png</file>
     <file>libro2_32px.png</file>
     <file>libro2_48px.png</file>
   </qresource>
-  <qresource prefix="newPrefix"/>
   <qresource prefix="toolbar">
     <file>rename_22px.png</file>
     <file>rename_22px@2x.png</file>

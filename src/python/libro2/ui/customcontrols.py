@@ -1,7 +1,8 @@
 import os
 from re import L
-from PyQt5.QtWidgets import QWidget,QFileDialog, QPushButton, QHBoxLayout, QLineEdit, QLabel
+from PyQt5.QtWidgets import QWidget,QFileDialog, QPushButton, QHBoxLayout, QLineEdit, QLabel, QAction
 from PyQt5.QtCore import QCoreApplication, pyqtSignal
+from PyQt5.QtGui import QIcon
 
 _t = QCoreApplication.translate
 
@@ -13,19 +14,19 @@ class ButtonLineEdit(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
         self.line = QLineEdit()
-        self.btn = QPushButton()
+        self.btn = QPushButton('Выбор')
         self.btn.clicked.connect(self._onMenuButtonClicked)
         self.line.textChanged.connect(self._onTextChanged)
 
         self.layout = QHBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
-        self.layout.setSpacing(0)
+        self.layout.setSpacing(5)
         self.layout.addWidget(self.line)
         self.layout.addWidget(self.btn)
         self.setLayout(self.layout)
 
-        self.btn.setMaximumHeight(self.line.sizeHint().height() + 2)
-        self.btn.setMaximumWidth(self.line.sizeHint().height() + 2)
+        # self.btn.setMaximumHeight(self.line.sizeHint().height() + 2)
+        # self.btn.setMaximumWidth(self.line.sizeHint().height() + 2)
 
     def setIcon(self, icon):
         self.btn.setIcon(icon)

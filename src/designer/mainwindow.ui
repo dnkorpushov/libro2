@@ -136,12 +136,14 @@
          </item>
          <item>
           <widget class="QPushButton" name="btnFilterMenu">
-           <property name="text">
-            <string/>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/sort_right_24px.png</normaloff>:/icons/sort_right_24px.png</iconset>
+           <property name="text">
+            <string>Выбор</string>
            </property>
           </widget>
          </item>

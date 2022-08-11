@@ -4,7 +4,6 @@ SOURCES =   src/python/libro2/ui/aboutdialog.py  \
             src/python/libro2/ui/bookinfopanel.py \
             src/python/libro2/ui/bookinfopanel_ui.py \
             src/python/libro2/ui/booktableview.py \
-            src/python/libro2/ui/booktreewidget.py \
             src/python/libro2/ui/comboedit.py \
             src/python/libro2/ui/convertdialog.py \
             src/python/libro2/ui/convertdialog_ui.py \

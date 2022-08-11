@@ -21,11 +21,9 @@ class RenameDialog(Ui_RenameDialog, QDialog):
         self._author_format_list = set()
         self._filename_format_list = set()
 
-        # self.textAuthorFormat.setIcon(QIcon(':/icons/sort_right_16px.png'))
         self.textAuthorFormat.clicked.connect(self.onTextAuthorFormatClick)
         self.textAuthorFormat.textChanged.connect(self.generateSample)
 
-        # self.textFilenameFormat.setIcon(QIcon(':/icons/sort_right_16px.png'))
         self.textFilenameFormat.clicked.connect(self.onTextFilenameFormatClick)
         self.textFilenameFormat.textChanged.connect(self.generateSample)
 

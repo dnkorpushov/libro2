@@ -70,12 +70,12 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.isAutoApplyFilter = settings.ui_auto_apply_filter
         
 
-        self.btnFilterMenu.clicked.connect(self.onToolFilterMenu)
+        # self.btnFilterMenu.clicked.connect(self.onToolFilterMenu)
+        self.textFilter.clicked.connect(self.onToolFilterMenu)
         self.textFilter.textChanged.connect(self.setFilterOnTextChanged)
         self.textFilter.returnPressed.connect(self.setFilterOnReturnPressed)
 
        
-        # action = self.textFilter.addAction(QIcon(':/icons/menu_vertical_32px.png'), QLineEdit.TrailingPosition)
 
         self.bookInfo.clear()
 
@@ -451,10 +451,10 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         actionItem.setData('AutoApplyFilter')
         menu.addAction(actionItem)
         
-        menu_x = -1 * menu.sizeHint().width() + self.btnFilterMenu.width()
+        menu_x = -1 * menu.sizeHint().width() + self.textFilter.width()
         menu_y = -1 * menu.sizeHint().height() - 2
         
-        action = menu.exec_(self.btnFilterMenu.mapToGlobal(QPoint(menu_x , menu_y)))
+        action = menu.exec_(self.textFilter.mapToGlobal(QPoint(menu_x , menu_y)))
         if action:
             if action.data() == 'AutoApplyFilter':
                 self.isAutoApplyFilter = not self.isAutoApplyFilter

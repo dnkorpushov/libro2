@@ -108,7 +108,7 @@
         <property name="frameShadow">
          <enum>QFrame::Plain</enum>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
          <property name="spacing">
           <number>5</number>
          </property>
@@ -132,20 +132,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="textFilter"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnFilterMenu">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Выбор</string>
-           </property>
-          </widget>
+          <widget class="ButtonLineEdit" name="textFilter"/>
          </item>
         </layout>
        </widget>
@@ -476,6 +463,11 @@
    <class>MainToolbar</class>
    <extends>QToolBar</extends>
    <header>.maintoolbar.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ButtonLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>.customcontrols.h</header>
   </customwidget>
  </customwidgets>
  <resources>

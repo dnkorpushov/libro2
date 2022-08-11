@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ConvertDialog(object):
     def setupUi(self, ConvertDialog):
         ConvertDialog.setObjectName("ConvertDialog")
-        ConvertDialog.resize(583, 392)
+        ConvertDialog.resize(654, 411)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(ConvertDialog)
         self.verticalLayout_2.setContentsMargins(10, 10, 12, 12)
         self.verticalLayout_2.setSpacing(12)

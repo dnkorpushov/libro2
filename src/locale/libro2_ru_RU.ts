@@ -61,7 +61,7 @@
 <context>
     <name>BookInfoPanel</name>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="164"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="169"/>
         <source>Form</source>
         <translation></translation>
     </message>
@@ -96,14 +96,14 @@
         <translation type="obsolete">Добавить жанр для формата fb2</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="277"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="176"/>
         <source>Lang</source>
-        <translation type="obsolete">Язык</translation>
+        <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="278"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="178"/>
         <source>Translator</source>
-        <translation type="obsolete">Переводчик</translation>
+        <translation>Переводчик</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="288"/>
@@ -141,79 +141,89 @@
         <translation type="obsolete">Обложка</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="292"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="180"/>
         <source>Description</source>
-        <translation type="obsolete">Описание</translation>
+        <translation>Описание</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="165"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="170"/>
         <source>Book title</source>
         <translation>Название книги</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="166"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="171"/>
         <source>Book series</source>
         <translation>Книжная серия</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="167"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="172"/>
         <source>Book author</source>
         <translation>Автор книги</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="168"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="173"/>
         <source>Book cover</source>
         <translation>Книжная обложка</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="169"/>
         <source>TAGS</source>
-        <translation>ТЕГИ</translation>
+        <translation type="obsolete">ТЕГИ</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="170"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="175"/>
         <source>Book tags</source>
         <translation>Теги книги</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="171"/>
         <source>LANG</source>
-        <translation>ЯЗЫК</translation>
+        <translation type="obsolete">ЯЗЫК</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="172"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="177"/>
         <source>Book lang</source>
         <translation>Язык книги</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="173"/>
         <source>TRANSLATOR</source>
-        <translation>ПЕРЕВОД</translation>
+        <translation type="obsolete">ПЕРЕВОД</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="174"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="179"/>
         <source>Book translators</source>
         <translation>Переводчики книги</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="177"/>
         <source>DESCRIPTION</source>
-        <translation>ОПИСАНИЕ</translation>
+        <translation type="obsolete">ОПИСАНИЕ</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="178"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="181"/>
         <source>Book description</source>
         <translation>Описание книги</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="175"/>
         <source>FILE</source>
-        <translation>ФАЙЛ</translation>
+        <translation type="obsolete">ФАЙЛ</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="176"/>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="183"/>
         <source>Book file</source>
         <translation>Файл книги</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="174"/>
+        <source>Tags</source>
+        <translation>Теги (жанры)</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/bookinfopanel_ui.py" line="182"/>
+        <source>File</source>
+        <translation>Файл</translation>
     </message>
 </context>
 <context>
@@ -312,29 +322,29 @@
 <context>
     <name>EditDialog</name>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="189"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="184"/>
         <source>Edit</source>
         <translation>Изменить</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="190"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="185"/>
         <source>NO COVER ART</source>
         <translation>НЕТ ОБЛОЖКИ</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="191"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="186"/>
         <source>Load from file</source>
         <translation>Загрузить из файла</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="192"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="187"/>
         <source>Save to file</source>
         <translation>Сохранить в файл</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="193"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="199"/>
         <source>Add</source>
-        <translation>Добавить</translation>
+        <translation type="obsolete">Добавить</translation>
     </message>
     <message>
         <location filename="../python/libro2/ui/editdialog_ui.py" line="194"/>
@@ -342,62 +352,62 @@
         <translation>Переводчик</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="202"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="196"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="207"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="201"/>
         <source>Series</source>
         <translation>Серия</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="197"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="192"/>
         <source>Tags (genres)</source>
         <translation>Теги (жанры)</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="198"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="189"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="199"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="193"/>
         <source>Lang</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="208"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="202"/>
         <source>Series index</source>
         <translation>Индекс в серии</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="201"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="195"/>
         <source>Basic info</source>
         <translation>Основаная информация</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="203"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="197"/>
         <source>Publisher</source>
         <translation>Издательство</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="204"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="198"/>
         <source>City</source>
         <translation>Город</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="205"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="199"/>
         <source>Year</source>
         <translation>Год издания</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="206"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="200"/>
         <source>ISBN</source>
         <translation>ISBN</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog_ui.py" line="209"/>
+        <location filename="../python/libro2/ui/editdialog_ui.py" line="203"/>
         <source>Publish info</source>
         <translation>Информация об издании</translation>
     </message>
@@ -405,97 +415,97 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="213"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="206"/>
         <source>Libro2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="214"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="207"/>
         <source>Filter:</source>
         <translation>Фильтр:</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="215"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="208"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="250"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="243"/>
         <source>Edit</source>
         <translation>Правка</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="217"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="210"/>
         <source>View</source>
         <translation>Вид</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="247"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="240"/>
         <source>Help</source>
         <translation>Справка</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="244"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="237"/>
         <source>Toolbar</source>
         <translation>Панель инструментов</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="222"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="215"/>
         <source>Add...</source>
         <translation>Добавить...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="223"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="216"/>
         <source>Add files</source>
         <translation>Добавить файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="224"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="217"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="225"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="218"/>
         <source>Add folder...</source>
         <translation>Добавить папку...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="226"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="219"/>
         <source>Ctrl+D</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="227"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="220"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="228"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="221"/>
         <source>Select all</source>
         <translation>Выбрать все</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="229"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="222"/>
         <source>Ctrl+A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="230"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="223"/>
         <source>Remove selected files</source>
         <translation>Убрать выбранные файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="231"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="224"/>
         <source>Del</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="232"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="225"/>
         <source>Info panel</source>
         <translation>Панель информации</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="233"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="226"/>
         <source>Ctrl+I</source>
         <translation></translation>
     </message>
@@ -505,92 +515,92 @@
         <translation type="obsolete">Сохранить</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="234"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="227"/>
         <source>Filter panel</source>
         <translation>Панель фильтра</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="235"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="228"/>
         <source>F3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="236"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="229"/>
         <source>Rename...</source>
         <translation>Переименовать...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="237"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="230"/>
         <source>Rename selected files</source>
         <translation>Переименовать выбранные файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="238"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="231"/>
         <source>Ctrl+R</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="239"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="232"/>
         <source>Convert...</source>
         <translation>Конвертировать...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="240"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="233"/>
         <source>Convert selected files</source>
         <translation>Конвертировать выбранные файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="241"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="234"/>
         <source>Ctrl+T</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="242"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="235"/>
         <source>About...</source>
         <translation>О программе...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="243"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="236"/>
         <source>About Qt...</source>
         <translation>О Qt</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="218"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="211"/>
         <source>Toolbar icon size</source>
         <translation>Размер иконок панели инструментов</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="245"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="238"/>
         <source>Small</source>
         <translation>Маленький</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="246"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="239"/>
         <source>Large</source>
         <translation>Большой</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="248"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="241"/>
         <source>Forum</source>
         <translation>Обсуждение на 4PDA</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="220"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="213"/>
         <source>Tools</source>
         <translation>Инструменты</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="249"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="242"/>
         <source>Edit...</source>
         <translation>Изменить...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="251"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="244"/>
         <source>Edit metadata for selected files</source>
         <translation>Изменить метаданные для выбранных файлов</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow_ui.py" line="252"/>
+        <location filename="../python/libro2/ui/mainwindow_ui.py" line="245"/>
         <source>Ctrl+E</source>
         <translation></translation>
     </message>
@@ -690,19 +700,24 @@
 <context>
     <name>ctl</name>
     <message>
-        <location filename="../python/libro2/ui/customcontrols.py" line="100"/>
+        <location filename="../python/libro2/ui/customcontrols.py" line="108"/>
         <source>Browse...</source>
         <translation>Обзор...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/customcontrols.py" line="109"/>
+        <location filename="../python/libro2/ui/customcontrols.py" line="117"/>
         <source>All files (*.*)</source>
         <translation>Все файлы (*.*)</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/customcontrols.py" line="110"/>
+        <location filename="../python/libro2/ui/customcontrols.py" line="118"/>
         <source>Open file</source>
         <translation>Открыть файл</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/customcontrols.py" line="18"/>
+        <source>Choice</source>
+        <translation>Выбор</translation>
     </message>
 </context>
 <context>
@@ -791,14 +806,19 @@
 <context>
     <name>edit</name>
     <message>
-        <location filename="../python/libro2/ui/editdialog.py" line="245"/>
+        <location filename="../python/libro2/ui/editdialog.py" line="244"/>
         <source>Load cover from file</source>
         <translation>Загрузить обложку из файла</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog.py" line="245"/>
+        <location filename="../python/libro2/ui/editdialog.py" line="244"/>
         <source>Image file (*.jpg *.jpeg *.png)</source>
         <translation>Файлы изображений (*.jpg *.jpeg *.png)</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/editdialog.py" line="64"/>
+        <source>Add</source>
+        <translation>Добавить</translation>
     </message>
 </context>
 <context>
@@ -829,12 +849,12 @@
         <translation type="obsolete">Файлы изображений (*.jpg *.jpeg *.png)</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog.py" line="283"/>
+        <location filename="../python/libro2/ui/editdialog.py" line="282"/>
         <source>Save cover to file</source>
         <translation>Сохранить обложку в файл</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/editdialog.py" line="283"/>
+        <location filename="../python/libro2/ui/editdialog.py" line="282"/>
         <source>Image file (*.jpg)</source>
         <translation>Файлы изображений (*.jpg)</translation>
     </message>
@@ -872,17 +892,17 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="227"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="230"/>
         <source>Add files</source>
         <translation>Добавить файлы</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="227"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="230"/>
         <source>Ebook files (*.fb2 *.fb2.zip *.epub);;All files (*.*)</source>
         <translation>Электронные книги (*.fb2 *.fb2.zip *.epub);;Все файлы (*.*)</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="238"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="241"/>
         <source>Add folder</source>
         <translation>Добавить папку</translation>
     </message>
@@ -892,52 +912,52 @@
         <translation type="obsolete">Сохранить изменения?</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="425"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="428"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="426"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="429"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="427"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="430"/>
         <source>Series</source>
         <translation>Серия</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="428"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="431"/>
         <source>Tags</source>
         <translation>Теги</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="429"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="432"/>
         <source>Lang</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="430"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="433"/>
         <source>Translator</source>
         <translation>Переводчик</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="431"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="434"/>
         <source>Type</source>
         <translation>Тип</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="432"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="435"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="447"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="450"/>
         <source>Auto-apply filter</source>
         <translation>Автоматический фильтр</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/mainwindow.py" line="149"/>
+        <location filename="../python/libro2/ui/mainwindow.py" line="152"/>
         <source>Reload plugins</source>
         <translation>Перезагрузить плагины</translation>
     </message>
@@ -945,42 +965,42 @@
 <context>
     <name>ren</name>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="141"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="139"/>
         <source>First name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="142"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="140"/>
         <source>Middle name</source>
         <translation>Отчество</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="143"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="141"/>
         <source>Last name</source>
         <translation>Фамилия</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="144"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="142"/>
         <source>Fist name initial</source>
         <translation>Инициал имени</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="145"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="143"/>
         <source>Middle name initial</source>
         <translation>Инициал отчества</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="188"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="186"/>
         <source>Save current template to list</source>
         <translation>Сохранить шаблон в списке</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="190"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="188"/>
         <source>Delete current template from list</source>
         <translation>Удалить шаблон из списка</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="181"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="179"/>
         <source>Saved templates</source>
         <translation>Сохраненные шаблоны</translation>
     </message>

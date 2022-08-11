@@ -59,17 +59,9 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.frameFilter)
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
-        self.textFilter = QtWidgets.QLineEdit(self.frameFilter)
+        self.textFilter = ButtonLineEdit(self.frameFilter)
         self.textFilter.setObjectName("textFilter")
         self.horizontalLayout.addWidget(self.textFilter)
-        self.btnFilterMenu = QtWidgets.QPushButton(self.frameFilter)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.btnFilterMenu.sizePolicy().hasHeightForWidth())
-        self.btnFilterMenu.setSizePolicy(sizePolicy)
-        self.btnFilterMenu.setObjectName("btnFilterMenu")
-        self.horizontalLayout.addWidget(self.btnFilterMenu)
         self.verticalLayout.addWidget(self.frameFilter)
         self.verticalLayout.setStretch(0, 1)
         self.verticalLayout_3.addLayout(self.verticalLayout)
@@ -213,7 +205,6 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Libro2"))
         self.label.setText(_translate("MainWindow", "Filter:"))
-        self.btnFilterMenu.setText(_translate("MainWindow", "Выбор"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.menuView.setTitle(_translate("MainWindow", "View"))
@@ -254,5 +245,6 @@ class Ui_MainWindow(object):
         self.actionEdit_metadata.setShortcut(_translate("MainWindow", "Ctrl+E"))
 from .bookinfopanel import BookInfoPanel
 from .booktableview import BookTableView
+from .customcontrols import ButtonLineEdit
 from .maintoolbar import MainToolbar
 from . import resources_rc

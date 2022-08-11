@@ -10,13 +10,15 @@ _t = QCoreApplication.translate
 class ButtonLineEdit(QWidget):
     clicked = pyqtSignal()
     textChanged = pyqtSignal()
+    returnPressed = pyqtSignal()
 
     def __init__(self, parent):
         super().__init__(parent)
         self.line = QLineEdit()
-        self.btn = QPushButton('Выбор')
+        self.btn = QPushButton(_t('ctl','Choice'))
         self.btn.clicked.connect(self._onMenuButtonClicked)
         self.line.textChanged.connect(self._onTextChanged)
+        self.line.returnPressed.connect(self._onReturnPressed)
 
         self.layout = QHBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
@@ -24,9 +26,6 @@ class ButtonLineEdit(QWidget):
         self.layout.addWidget(self.line)
         self.layout.addWidget(self.btn)
         self.setLayout(self.layout)
-
-        # self.btn.setMaximumHeight(self.line.sizeHint().height() + 2)
-        # self.btn.setMaximumWidth(self.line.sizeHint().height() + 2)
 
     def setIcon(self, icon):
         self.btn.setIcon(icon)
@@ -37,15 +36,26 @@ class ButtonLineEdit(QWidget):
     def text(self):
         return self.line.text()
 
+    def clear(self):
+        self.line.clear()
+
+    def setCursorPosition(self, pos):
+        self.line.setCursorPosition(pos)
+
     def _onMenuButtonClicked(self):
         self.clicked.emit()
     
     def _onTextChanged(self):
         self.textChanged.emit()
-        
 
+    def _onReturnPressed(self):
+        self.returnPressed.emit()
+        
     def lineEdit(self):
         return self.line
+
+    def button(self):
+        return self.btn
 
 class FolderPicker(QWidget):
     def __init__(self, parent):

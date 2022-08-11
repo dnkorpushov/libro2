@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_RenameDialog(object):
     def setupUi(self, RenameDialog):
         RenameDialog.setObjectName("RenameDialog")
-        RenameDialog.resize(515, 290)
+        RenameDialog.resize(588, 345)
         RenameDialog.setMinimumSize(QtCore.QSize(500, 220))
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(RenameDialog)
         self.verticalLayout_2.setContentsMargins(12, 12, 12, 12)

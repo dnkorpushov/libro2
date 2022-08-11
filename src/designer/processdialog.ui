@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>404</width>
-    <height>105</height>
+    <width>407</width>
+    <height>124</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <property name="spacing">
-      <number>3</number>
+      <number>6</number>
      </property>
      <item>
       <widget class="QLabel" name="progressLabel">

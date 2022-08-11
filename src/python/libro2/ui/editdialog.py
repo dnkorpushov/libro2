@@ -60,7 +60,8 @@ class EditDialog(QDialog, Ui_EditDialog):
         self.checkPublishSeries.clicked.connect(lambda x: self.onCheckClicked(x, self.textPublishSeries))
         self.checkPublishSeriesIndex.clicked.connect(lambda x: self.onCheckClicked(x, self.textPublishSeriesIndex))
 
-        self.btnAddGenre.clicked.connect(self.onAddGenreClick)
+        self.textTags.clicked.connect(self.onAddGenreClick)
+        self.textTags.button().setText(_t('edit', 'Add'))
 
         self.setData()
         
@@ -238,8 +239,6 @@ class EditDialog(QDialog, Ui_EditDialog):
         if not isChecked:
             textEdit.clear()
 
-        if textEdit.objectName() == 'textTags':
-            self.btnAddGenre.setEnabled(isChecked)
 
     def onBtnLoadClick(self):
         (filename, _) = QFileDialog.getOpenFileName(self, 
@@ -307,7 +306,7 @@ class EditDialog(QDialog, Ui_EditDialog):
             submenus.append(submenu)
             menu.addMenu(submenu)
 
-        action = menu.exec_(self.btnAddGenre.mapToGlobal(QPoint(0, self.btnAddGenre.height())))
+        action = menu.exec_(self.textTags.button().mapToGlobal(QPoint(0, self.textTags.button().height())))
         if action:
             text = self.textTags.text()
             

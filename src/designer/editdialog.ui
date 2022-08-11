@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
-    <height>407</height>
+    <width>862</width>
+    <height>474</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -113,49 +113,7 @@
         <attribute name="title">
          <string>Basic info</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout">
-         <property name="leftMargin">
-          <number>10</number>
-         </property>
-         <property name="topMargin">
-          <number>10</number>
-         </property>
-         <property name="rightMargin">
-          <number>10</number>
-         </property>
-         <property name="bottomMargin">
-          <number>10</number>
-         </property>
-         <property name="spacing">
-          <number>5</number>
-         </property>
-         <item row="4" column="2">
-          <widget class="QPushButton" name="btnAddGenre">
-           <property name="text">
-            <string>Add</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0">
-          <widget class="QCheckBox" name="checkTranslator">
-           <property name="text">
-            <string>Translator</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="1">
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
+        <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0">
           <widget class="QCheckBox" name="checkTitle">
            <property name="text">
@@ -163,25 +121,25 @@
            </property>
           </widget>
          </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="textTitle"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QCheckBox" name="checkAuthor">
+           <property name="text">
+            <string>Author</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="textAuthor"/>
+         </item>
          <item row="2" column="0">
           <widget class="QCheckBox" name="checkSeries">
            <property name="text">
             <string>Series</string>
            </property>
           </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="textSeriesIndex">
-           <property name="maximumSize">
-            <size>
-             <width>50</width>
-             <height>16777215</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QLineEdit" name="textTranslator"/>
          </item>
          <item row="2" column="1">
           <widget class="QLineEdit" name="textSeries">
@@ -199,6 +157,23 @@
            </property>
           </widget>
          </item>
+         <item row="3" column="0">
+          <widget class="QCheckBox" name="checkSeriesIndex">
+           <property name="text">
+            <string>Series index</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="textSeriesIndex">
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
          <item row="4" column="0">
           <widget class="QCheckBox" name="checkTags">
            <property name="text">
@@ -206,15 +181,8 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="textAuthor"/>
-         </item>
-         <item row="1" column="0">
-          <widget class="QCheckBox" name="checkAuthor">
-           <property name="text">
-            <string>Author</string>
-           </property>
-          </widget>
+         <item row="4" column="1">
+          <widget class="ButtonLineEdit" name="textTags"/>
          </item>
          <item row="5" column="0">
           <widget class="QCheckBox" name="checkLang">
@@ -222,9 +190,6 @@
             <string>Lang</string>
            </property>
           </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLineEdit" name="textTags"/>
          </item>
          <item row="5" column="1">
           <widget class="QLineEdit" name="textLang">
@@ -242,15 +207,28 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QCheckBox" name="checkSeriesIndex">
+         <item row="6" column="0">
+          <widget class="QCheckBox" name="checkTranslator">
            <property name="text">
-            <string>Series index</string>
+            <string>Translator</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="textTitle"/>
+         <item row="6" column="1">
+          <widget class="QLineEdit" name="textTranslator"/>
+         </item>
+         <item row="7" column="1">
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -389,6 +367,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ButtonLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>.customcontrols.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

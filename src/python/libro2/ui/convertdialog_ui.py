@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ConvertDialog(object):
     def setupUi(self, ConvertDialog):
         ConvertDialog.setObjectName("ConvertDialog")
-        ConvertDialog.resize(654, 411)
+        ConvertDialog.resize(570, 368)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(ConvertDialog)
         self.verticalLayout_2.setContentsMargins(10, 10, 12, 12)
         self.verticalLayout_2.setSpacing(12)
@@ -24,7 +24,8 @@ class Ui_ConvertDialog(object):
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.tab)
-        self.verticalLayout.setContentsMargins(10, -1, -1, -1)
+        self.verticalLayout.setContentsMargins(10, 10, 10, 10)
+        self.verticalLayout.setSpacing(5)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(self.tab)
         self.label.setObjectName("label")
@@ -63,6 +64,8 @@ class Ui_ConvertDialog(object):
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.tab_2)
+        self.verticalLayout_3.setContentsMargins(10, 10, 10, 10)
+        self.verticalLayout_3.setSpacing(5)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.label_3 = QtWidgets.QLabel(self.tab_2)
         self.label_3.setObjectName("label_3")

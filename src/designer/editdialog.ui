@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>862</width>
-    <height>474</height>
+    <width>819</width>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -113,7 +113,22 @@
         <attribute name="title">
          <string>Basic info</string>
         </attribute>
-        <layout class="QFormLayout" name="formLayout">
+        <layout class="QGridLayout" name="gridLayout">
+         <property name="leftMargin">
+          <number>10</number>
+         </property>
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <property name="rightMargin">
+          <number>10</number>
+         </property>
+         <property name="bottomMargin">
+          <number>10</number>
+         </property>
+         <property name="spacing">
+          <number>5</number>
+         </property>
          <item row="0" column="0">
           <widget class="QCheckBox" name="checkTitle">
            <property name="text">

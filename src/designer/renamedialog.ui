@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>345</height>
+    <width>573</width>
+    <height>308</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -38,7 +38,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <property name="spacing">
-      <number>3</number>
+      <number>5</number>
      </property>
      <item>
       <widget class="QLabel" name="label">
@@ -135,6 +135,9 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+       <property name="spacing">
+        <number>5</number>
+       </property>
        <item>
         <widget class="QPushButton" name="buttonPreview">
          <property name="text">

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>654</width>
-    <height>411</height>
+    <width>570</width>
+    <height>368</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,19 @@
        <string>Convert</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,1,0,0,0">
+       <property name="spacing">
+        <number>5</number>
+       </property>
        <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
         <number>10</number>
        </property>
        <item>
@@ -133,6 +145,21 @@
        <string>fb2c</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>5</number>
+       </property>
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>10</number>
+       </property>
        <item>
         <widget class="QLabel" name="label_3">
          <property name="text">

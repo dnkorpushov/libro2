@@ -38,21 +38,25 @@ class MainToolbar(QToolBar):
         self.addWidget(spacer2)
 
     def setLargeIcons(self):
-        self.savePixmap = QPixmap(':/toolbar/save_28px.png')
-        self.addPixmap = QPixmap(':/toolbar/add_28px.png')
-        self.folderPixmap = QPixmap(':/toolbar/folder_28px.png')
-        self.editPixmap = QPixmap(':/toolbar/edit_28px.png')
-        self.renamePixmap = QPixmap(':/toolbar/rename_28px.png')
-        self.convertPixmap = QPixmap(':/toolbar/convert_28px.png')
+        # self.addPixmap = QPixmap(':/toolbar/add_28px.png')
+        # self.folderPixmap = QPixmap(':/toolbar/folder_28px.png')
+        # self.editPixmap = QPixmap(':/toolbar/edit_28px.png')
+        # self.renamePixmap = QPixmap(':/toolbar/rename_28px.png')
+        # self.convertPixmap = QPixmap(':/toolbar/convert_28px.png')
+
+        self.addPixmap = QPixmap(':/toolbar2/add_22px.png')
+        self.folderPixmap = QPixmap(':/toolbar2/folder_22px.png')
+        self.editPixmap = QPixmap(':/toolbar2/edit_22px.png')
+        self.renamePixmap = QPixmap(':/toolbar2/rename_22px.png')
+        self.convertPixmap = QPixmap(':/toolbar2/export_22px.png')
        
         if sys.platform == 'win32':
-            self.setIconSize(QSize(36, 36))
+            self.setIconSize(QSize(32, 32))
         else:
             self.setIconSize(QSize(28, 28))
         self.setIcons()
 
     def setSmallIcons(self):
-        self.savePixmap = QPixmap(':/toolbar/save_22px.png')
         self.addPixmap = QPixmap(':/toolbar/add_22px.png')
         self.folderPixmap = QPixmap(':/toolbar/folder_22px.png')
         self.editPixmap = QPixmap(':/toolbar/edit_22px.png')

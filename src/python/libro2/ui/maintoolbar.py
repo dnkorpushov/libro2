@@ -47,11 +47,11 @@ class MainToolbar(QToolBar):
         self.addPixmap = QPixmap(':/toolbar2/add_22px.png')
         self.folderPixmap = QPixmap(':/toolbar2/folder_22px.png')
         self.editPixmap = QPixmap(':/toolbar2/edit_22px.png')
-        self.renamePixmap = QPixmap(':/toolbar2/rename_22px.png')
-        self.convertPixmap = QPixmap(':/toolbar2/export_22px.png')
+        self.renamePixmap = QPixmap(':/toolbar2/change_22px.png')
+        self.convertPixmap = QPixmap(':/toolbar2/send_file_22px.png')
        
         if sys.platform == 'win32':
-            self.setIconSize(QSize(32, 32))
+            self.setIconSize(QSize(22, 22))
         else:
             self.setIconSize(QSize(28, 28))
         self.setIcons()

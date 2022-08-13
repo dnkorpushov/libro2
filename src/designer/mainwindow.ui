@@ -274,7 +274,7 @@
   <action name="actionAdd_folder">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/toolbar/folder_22px.png</normaloff>:/toolbar/folder_22px.png</iconset>
+     <normaloff>:/toolbar/add_folder_22px@2x.png</normaloff>:/toolbar/add_folder_22px@2x.png</iconset>
    </property>
    <property name="text">
     <string>Add folder...</string>

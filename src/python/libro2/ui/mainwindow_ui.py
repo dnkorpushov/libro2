@@ -100,7 +100,7 @@ class Ui_MainWindow(object):
         self.actionAdd_file.setObjectName("actionAdd_file")
         self.actionAdd_folder = QtWidgets.QAction(MainWindow)
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/toolbar/folder_22px.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(":/toolbar/add_folder_22px@2x.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionAdd_folder.setIcon(icon1)
         self.actionAdd_folder.setIconVisibleInMenu(False)
         self.actionAdd_folder.setPriority(QtWidgets.QAction.LowPriority)

@@ -82,11 +82,11 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
                 self.spacerTransator.setVisible(True)
                 self.translators.setText(book_info.translators)
        
-            if book_info.file:
-                self.labelFile.setVisible(True)
-                self.file.setVisible(True)
-                self.spacerFile.setVisible(True)
-                self.file.setText(book_info.file)
+            # if book_info.file:
+            #     self.labelFile.setVisible(True)
+            #     self.file.setVisible(True)
+            #     self.spacerFile.setVisible(True)
+            #     self.file.setText(book_info.file)
 
             if book_info.description:
                 self.labelDescription.setVisible(True)
@@ -111,35 +111,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             font.setPointSize(18) 
             self.title.setFont(font)
 
-        # if sys.platform == 'win32':
-        #     font = QFont('Segoe UI', 9)
-        #     font_bold = QFont('Segoe UI', 9)
-        #     font_bold.setBold(True)
-        #     font_caption = QFont('Segoe UI', 14)
-        # else:
-        #     font = self.title.font()
-        #     font_caption = self.title.font()
-        #     font_caption.setPointSize(14)
-        #     font_bold = self.title.font()
-        #     font_bold.setBold(True)
-
-        # self.labelTags.setFont(font_bold)
-        # self.labelLang.setFont(font_bold)
-        # self.labelTranslator.setFont(font_bold)
-        # self.labelDescription.setFont(font_bold)
-        # self.labelFile.setFont(font_bold)
-
-        # self.title.setFont(font_caption)
-        # self.author.setFont(font)
-
-        # self.series.setFont(font_bold)
-
-        # self.tags.setFont(font)
-        # self.lang.setFont(font)
-        # self.translators.setFont(font)
-        # self.description.setFont(font)
-        # self.file.setFont(font)
-
+ 
 
 
  

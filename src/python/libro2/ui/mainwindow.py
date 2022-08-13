@@ -89,12 +89,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.bookList.customContextMenuRequested.connect(self.onBookListContextMenu)
 
-        self.toolBar.visibilityChanged.connect(self.onToobarVisibilityChange)
-        self.toolBar.setVisible(settings.ui_toolbar_visible)
-        if settings.ui_toolbar_icon_size == 'small':
-            self.onToolbarIconSmall()
-        else:
-            self.onToolbarIconLarge()
         self.actionsSetEnabled(False)
 
         self.setPlatformUI()
@@ -323,9 +317,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.splitter.setHandleWidth(0)
             self.splitter.setSizes((0, 1))
 
-    def onViewToolbar(self, checked):
-        self.toolBar.setVisible(checked)
-    
     def onRename(self):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list):
@@ -464,38 +455,42 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 self.textFilter.setText(self.textFilter.text() + ' {}:'.format(action.data()))
             self.textFilter.setFocus(True)
  
-    def onToolbarIconLarge(self):
-        self.toolBar.setLargeIcons()
-        self.actionToolbarIconsLarge.setChecked(True)
-        self.actionToolbarIconSmall.setChecked(False)
-
-    def onToolbarIconSmall(self):
-        self.toolBar.setSmallIcons()
-        self.actionToolbarIconsLarge.setChecked(False)
-        self.actionToolbarIconSmall.setChecked(True)
-
-    def onToobarVisibilityChange(self):
-        self.actionViewToolbar.setChecked(self.toolBar.isVisible())
-
     def setPlatformUI(self):
+        self.frameFilter.setStyleSheet('''
+            #frameFilter {
+                border-top: 1px solid #bfbfbf;
+            }
+        ''')
+        self.splitter.setStyleSheet('''
+            QSplitter::handle { 
+                background: #bfbfbf; 
+            }
+        ''')
         if sys.platform == 'win32':
-            font = QFont('Segoe UI', 9)
-            self.label.setFont(font)
-            self.textFilter.setFont(font)
-            self.toolBar.setStyleSheet('#toolBar { border-bottom: 1px solid #bfbfbf; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;  background-color: #f7f7f7}')
-
-            self.frameFilter.setStyleSheet('#frameFilter {border-top: 1px solid #bfbfbf;}')
-            self.splitter.setStyleSheet('QSplitter::handle { background: #bfbfbf; }')
+            # font = QFont('Segoe UI', 9)
+            # self.label.setFont(font)
+            # self.textFilter.setFont(font)
+            self.toolBar.setStyleSheet('''
+                #toolBar { 
+                    padding:4px; 
+                    border-bottom: 1px solid #bfbfbf; 
+                    border-left: 1px solid #ffffff; 
+                    border-right: 1px solid #ffffff;  
+                    background-color: #f7f7f7
+                } 
+            ''')
+        
         elif sys.platform == 'darwin':
             self.setUnifiedTitleAndToolBarOnMac(True)
-            self.frameFilter.setStyleSheet('#frameFilter {border-top: 1px solid #bfbfbf;}')
-            self.splitter.setStyleSheet('QSplitter::handle { background: #bfbfbf; }')
             self.frameFilter.layout().setContentsMargins(8, 8, 8, 8)
         else:
-            # self.toolBar.setStyleSheet('QToolBar { border: 0px }')
-            self.toolBar.setStyleSheet('#toolBar { border-bottom: 1px solid #bfbfbf; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;  background-color: #f7f7f7}')
-            self.frameFilter.setStyleSheet('#frameFilter {border-top: 1px solid #bfbfbf;}')
-            self.splitter.setStyleSheet('QSplitter::handle { background: #bfbfbf; }')
+            self.toolBar.setStyleSheet('''
+                #toolBar { 
+                    border-bottom: 1px solid #bfbfbf; 
+                    border-left: 1px solid #ffffff; 
+                    border-right: 1px solid #ffffff;  
+                    background-color: #f7f7f7}
+            ''')
             
     def onHelp(self):
         browser = webbrowser.get()
@@ -525,13 +520,11 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         settings.ui_window_height = self.size().height()
         settings.ui_info_panel_visible = self.actionViewInfo_panel.isChecked()
         settings.ui_filter_panel_visible = self.actionFilter_panel.isChecked()
-        settings.ui_toolbar_visible = self.toolBar.isVisible()
         settings.ui_auto_apply_filter = self.isAutoApplyFilter
         settings.ui_columns_order = self.bookList.getColumnsOrder()
         settings.ui_columns_width = self.bookList.getColumnsWidth()
         settings.ui_hidden_columns = self.bookList.getHiddenColumns()
         settings.ui_hidden_columns_width = self.bookList.getHiddenColumnsWidth()
-        settings.ui_toolbar_icon_size = 'small' if self.actionToolbarIconSmall.isChecked() else 'large'
 
         if self.actionViewInfo_panel.isChecked():
             settings.ui_splitter_sizes = self.splitter.sizes()

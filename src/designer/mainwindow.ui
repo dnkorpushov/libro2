@@ -175,18 +175,9 @@
     <property name="title">
      <string>View</string>
     </property>
-    <widget class="QMenu" name="menuToolbar_icon_size">
-     <property name="title">
-      <string>Toolbar icon size</string>
-     </property>
-     <addaction name="actionToolbarIconSmall"/>
-     <addaction name="actionToolbarIconsLarge"/>
-    </widget>
     <addaction name="actionViewInfo_panel"/>
     <addaction name="actionFilter_panel"/>
-    <addaction name="actionViewToolbar"/>
     <addaction name="separator"/>
-    <addaction name="menuToolbar_icon_size"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -209,7 +200,7 @@
    <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="MainToolbar" name="toolBar">
+  <widget class="QToolBar" name="toolBar">
    <property name="minimumSize">
     <size>
      <width>0</width>
@@ -233,8 +224,8 @@
    </property>
    <property name="iconSize">
     <size>
-     <width>12</width>
-     <height>12</height>
+     <width>22</width>
+     <height>22</height>
     </size>
    </property>
    <property name="toolButtonStyle">
@@ -257,6 +248,10 @@
    <addaction name="actionConvert"/>
   </widget>
   <action name="actionAdd_file">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/toolbar/add_22px.png</normaloff>:/toolbar/add_22px.png</iconset>
+   </property>
    <property name="text">
     <string>Add...</string>
    </property>
@@ -277,6 +272,10 @@
    </property>
   </action>
   <action name="actionAdd_folder">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/toolbar/folder_22px.png</normaloff>:/toolbar/folder_22px.png</iconset>
+   </property>
    <property name="text">
     <string>Add folder...</string>
    </property>
@@ -349,6 +348,10 @@
    </property>
   </action>
   <action name="actionRename">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/toolbar/change_22px.png</normaloff>:/toolbar/change_22px.png</iconset>
+   </property>
    <property name="text">
     <string>Rename...</string>
    </property>
@@ -363,6 +366,10 @@
    </property>
   </action>
   <action name="actionConvert">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/toolbar/send_file_22px.png</normaloff>:/toolbar/send_file_22px.png</iconset>
+   </property>
    <property name="text">
     <string>Convert...</string>
    </property>
@@ -386,36 +393,6 @@
     <string>About Qt...</string>
    </property>
   </action>
-  <action name="actionViewToolbar">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Toolbar</string>
-   </property>
-  </action>
-  <action name="actionToolbarIconSmall">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Small</string>
-   </property>
-  </action>
-  <action name="actionToolbarIconsLarge">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Large</string>
-   </property>
-  </action>
   <action name="actionHelp">
    <property name="text">
     <string>Help</string>
@@ -427,6 +404,10 @@
    </property>
   </action>
   <action name="actionEdit_metadata">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/toolbar/edit_22px.png</normaloff>:/toolbar/edit_22px.png</iconset>
+   </property>
    <property name="text">
     <string>Edit...</string>
    </property>
@@ -458,11 +439,6 @@
    <class>BookTableView</class>
    <extends>QTableView</extends>
    <header>.booktableview.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MainToolbar</class>
-   <extends>QToolBar</extends>
-   <header>.maintoolbar.h</header>
   </customwidget>
   <customwidget>
    <class>ButtonLineEdit</class>
@@ -635,22 +611,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionViewToolbar</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onViewToolbar(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>536</x>
-     <y>365</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionConvert</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
@@ -663,38 +623,6 @@
     <hint type="destinationlabel">
      <x>536</x>
      <y>365</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionToolbarIconSmall</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onToolbarIconSmall()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>464</x>
-     <y>242</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionToolbarIconsLarge</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onToolbarIconLarge()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>464</x>
-     <y>242</y>
     </hint>
    </hints>
   </connection>

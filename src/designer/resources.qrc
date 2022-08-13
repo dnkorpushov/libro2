@@ -4,52 +4,11 @@
     <file>libro2_32px.png</file>
     <file>libro2_48px.png</file>
   </qresource>
-  <qresource prefix="toolbar16">
-    <file>edit_16px.png</file>
-    <file>edit_property_16px.png</file>
-    <file>export_16px.png</file>
-    <file>file_16px.png</file>
-    <file>folder_16px.png</file>
-    <file>opened_folder_16px.png</file>
-    <file>rename_16px.png</file>
-    <file>send_file_16px.png</file>
-  </qresource>
-  <qresource prefix="toolbar2">
-    <file>Plus_22px.png</file>
-    <file>duplicate_22px.png</file>
+  <qresource prefix="toolbar">
     <file>add_22px.png</file>
     <file>send_file_22px.png</file>
-    <file>rtf_22px.png</file>
-    <file>edit_file_22px.png</file>
     <file>change_22px.png</file>
     <file>edit_22px.png</file>
-    <file>edit_property_22px.png</file>
-    <file>export_22px.png</file>
-    <file>file_22px.png</file>
     <file>folder_22px.png</file>
-    <file>opened_folder_22px.png</file>
-    <file>rename_22px.png</file>
-  </qresource>
-  <qresource prefix="toolbar">
-    <file>rename_22px.png</file>
-    <file>rename_22px@2x.png</file>
-    <file>rename_28px.png</file>
-    <file>rename_28px@2x.png</file>
-    <file>add_22px.png</file>
-    <file>add_22px@2x.png</file>
-    <file>add_28px.png</file>
-    <file>add_28px@2x.png</file>
-    <file>convert_22px.png</file>
-    <file>convert_22px@2x.png</file>
-    <file>convert_28px.png</file>
-    <file>convert_28px@2x.png</file>
-    <file>edit_22px.png</file>
-    <file>edit_22px@2x.png</file>
-    <file>edit_28px.png</file>
-    <file>edit_28px@2x.png</file>
-    <file>folder_22px.png</file>
-    <file>folder_22px@2x.png</file>
-    <file>folder_28px.png</file>
-    <file>folder_28px@2x.png</file>
   </qresource>
 </RCC>

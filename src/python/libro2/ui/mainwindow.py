@@ -467,9 +467,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             }
         ''')
         if sys.platform == 'win32':
-            # font = QFont('Segoe UI', 9)
-            # self.label.setFont(font)
-            # self.textFilter.setFont(font)
             self.toolBar.setStyleSheet('''
                 #toolBar { 
                     padding:4px; 
@@ -481,6 +478,11 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             ''')
         
         elif sys.platform == 'darwin':
+            self.toolBar.setStyleSheet('''
+                #toolBar {
+                    padding: 4px;
+                }
+            ''')
             self.setUnifiedTitleAndToolBarOnMac(True)
             self.frameFilter.layout().setContentsMargins(8, 8, 8, 8)
         else:

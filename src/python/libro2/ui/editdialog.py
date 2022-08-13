@@ -99,74 +99,74 @@ class EditDialog(QDialog, Ui_EditDialog):
             publishSeries.add(book.publish_series)
             publishSeriesIndex.add(book.publish_series_index)
 
-        
+        book_count = len(self.book_info_list)
         #### Basic info
-        if uniq(title):
+        if uniq(title) or book_count == 1:
             self.setChecked(True, self.checkTitle, self.textTitle)
             self.textTitle.setText(list(title)[0])
             self.textTitle.setCursorPosition(0)
 
-        if uniq(author):
+        if uniq(author) or book_count == 1:
             self.setChecked(True, self.checkAuthor, self.textAuthor)
             self.textAuthor.setText(list(author)[0])
             self.textAuthor.setCursorPosition(0)
 
-        if uniq(series):
+        if uniq(series) or book_count == 1:
             self.setChecked(True, self.checkSeries, self.textSeries)
             self.textSeries.setText(list(series)[0])
             self.textSeries.setCursorPosition(0)
         
-        if uniq(series_index):
+        if uniq(series_index) or book_count == 1:
             self.setChecked(True, self.checkSeriesIndex, self.textSeriesIndex)
             self.textSeriesIndex.setText(str(list(series_index)[0]))
         
-        if uniq(tags):
+        if uniq(tags) or book_count == 1:
             self.setChecked(True, self.checkTags, self.textTags)
             self.textTags.setText(list(tags)[0])
             self.textTags.setCursorPosition(0)
         
-        if uniq(lang):
+        if uniq(lang) or book_count == 1:
             self.setChecked(True, self.checkLang, self.textLang)
             self.textLang.setText(list(lang)[0])
             self.textLang.setCursorPosition(0)
         
-        if uniq(tranlator):
+        if uniq(tranlator) or book_count == 1:
             self.setChecked(True, self.checkTranslator, self.textTranslator)
             self.textTranslator.setText(list(tranlator)[0])
             self.textTranslator.setCursorPosition(0)
 
         ##### Publish info 
-        if uniq(publishTitle):
+        if uniq(publishTitle) or book_count == 1:
             self.setChecked(True, self.checkPublishTitle, self.textPublishTitle)
             self.textPublishTitle.setText(list(publishTitle)[0])
             self.textPublishTitle.setCursorPosition(0)
 
-        if uniq(publishPublisher):
+        if uniq(publishPublisher) or book_count == 1:
             self.setChecked(True, self.checkPublishPublisher, self.textPublishPublisher)
             self.textPublishPublisher.setText(list(publishPublisher)[0])
             self.textPublishPublisher.setCursorPosition(0)
 
-        if uniq(publishCity):
+        if uniq(publishCity) or book_count == 1:
             self.setChecked(True, self.checkPublishCity, self.textPublishCity)
             self.textPublishCity.setText(list(publishCity)[0])
             self.textPublishCity.setCursorPosition(0)
 
-        if uniq(publishYear):
+        if uniq(publishYear) or book_count == 1:
             self.setChecked(True, self.checkPublishYear, self.textPublishYear)
             self.textPublishYear.setText(list(publishYear)[0])
             self.textPublishYear.setCursorPosition(0)
         
-        if uniq(publishISBN):
+        if uniq(publishISBN) or book_count == 1:
             self.setChecked(True, self.checkPublishISBN, self.textPublishISBN)
             self.textPublishISBN.setText(list(publishISBN)[0])
             self.textPublishISBN.setCursorPosition(0)
         
-        if uniq(publishSeries):
+        if uniq(publishSeries) or book_count == 1:
             self.setChecked(True, self.checkPublishSeries, self.textPublishSeries)
             self.textPublishSeries.setText(list(publishSeries)[0])
             self.textPublishSeries.setCursorPosition(0)
         
-        if uniq(publishSeriesIndex):
+        if uniq(publishSeriesIndex) or book_count == 1:
             self.setChecked(True, self.checkPublishSeriesIndex, self.textPublishSeriesIndex)
             self.textPublishSeriesIndex.setText(str(list(publishSeriesIndex)[0]))
 

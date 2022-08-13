@@ -488,6 +488,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         else:
             self.toolBar.setStyleSheet('''
                 #toolBar { 
+                    padding: 4px;
                     border-bottom: 1px solid #bfbfbf; 
                     border-left: 1px solid #ffffff; 
                     border-right: 1px solid #ffffff;  

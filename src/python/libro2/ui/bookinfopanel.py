@@ -17,33 +17,29 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
  
     def clear(self):
         self.title.clear()
-        self.series.clear()
         self.author.clear()
+        self.series.clear()
         self.cover.clear()
         self.tags.clear()
         self.lang.clear()
         self.translators.clear()
-        self.file.clear()
         self.description.clear()
 
+        self.labelTitle.setVisible(False)
+        self.labelAuthor.setVisible(False)
+        self.labelSeries.setVisible(False)
         self.labelTags.setVisible(False)
         self.labelLang.setVisible(False)
         self.labelTranslator.setVisible(False)
-        self.labelFile.setVisible(False)
         self.labelDescription.setVisible(False)
 
-        self.spacerLang.setVisible(False)
-        self.spacerTags.setVisible(False)
-        self.spacerTransator.setVisible(False)
-        self.spacerFile.setVisible(False)
-
+        self.cover.setVisible(False)
         self.title.setText(_t('info', 'No items'))
         self.author.setVisible(False)
         self.series.setVisible(False)
         self.tags.setVisible(False)
         self.lang.setVisible(False)
         self.translators.setVisible(False)
-        self.file.setVisible(False)
         self.description.setVisible(False)
 
     def setData(self, book_info_list):
@@ -51,13 +47,16 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
 
         if len(book_info_list) == 1:
             book_info = book_info_list[0]
+            self.labelTitle.setVisible(True)
             self.title.setText(book_info.title)
 
             if book_info.authors:
+                self.labelAuthor.setVisible(True)
                 self.author.setVisible(True)
                 self.author.setText(book_info.authors)
             
             if book_info.series:
+                self.labelSeries.setVisible(True)
                 self.series.setVisible(True)
                 if book_info.series_index:
                     self.series.setText(f'{book_info.series} ({book_info.series_index})')
@@ -67,27 +66,18 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
             if book_info.tags_description:
                 self.labelTags.setVisible(True)
                 self.tags.setVisible(True)
-                self.spacerTags.setVisible(True)
                 self.tags.setText(book_info.tags_description)
 
             if book_info.lang:
                 self.labelLang.setVisible(True)
                 self.lang.setVisible(True)
-                self.spacerLang.setVisible(True)
                 self.lang.setText(book_info.lang)
 
             if book_info.translators:
                 self.labelTranslator.setVisible(True)
                 self.translators.setVisible(True)
-                self.spacerTransator.setVisible(True)
                 self.translators.setText(book_info.translators)
        
-            # if book_info.file:
-            #     self.labelFile.setVisible(True)
-            #     self.file.setVisible(True)
-            #     self.spacerFile.setVisible(True)
-            #     self.file.setText(book_info.file)
-
             if book_info.description:
                 self.labelDescription.setVisible(True)
                 self.description.setVisible(True)
@@ -105,11 +95,11 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
        
 
     def setPlatformUI(self):
-
-        if sys.platform == 'darwin':
-            font = self.title.font()
-            font.setPointSize(18) 
-            self.title.setFont(font)
+        pass
+        # if sys.platform == 'darwin':
+        #     font = self.title.font()
+        #     font.setPointSize(18) 
+        #     self.title.setFont(font)
 
  
 

@@ -8,7 +8,6 @@ SOURCES =   src/python/libro2/ui/aboutdialog.py  \
             src/python/libro2/ui/convertdialog.py \
             src/python/libro2/ui/convertdialog_ui.py \
             src/python/libro2/ui/convertfilesdialog.py \
-            src/python/libro2/ui/maintoolbar.py \
             src/python/libro2/ui/mainwindow.py \
             src/python/libro2/ui/mainwindow_ui.py \
             src/python/libro2/ui/movefilesdialog.py \

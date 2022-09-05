@@ -33,7 +33,8 @@ locale_src = 'src/locale'
 locale_dest = 'src/python/libro2/locale'
 
 add_data = {
-    'src/python/libro2/locale': 'locale'
+    'src/python/libro2/locale': 'locale',
+    'src/python/libro2/plugins': 'plugins'
 }
 
 main_dir = os.path.dirname(main_module)

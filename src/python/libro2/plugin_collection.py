@@ -1,6 +1,7 @@
 import ebookmeta
 import lxml
 import os
+import os
 import sys
 import importlib
 import inspect
@@ -14,35 +15,48 @@ class DebugException(Exception):
 
 class PluginCollection:
     def __init__(self):
-        self.plugin_path = config.plugins_path
-        if not os.path.exists(self.plugin_path):
-            os.makedirs(self.plugin_path)
-        sys.path.append(self.plugin_path)
+        self.plugins_path = []
+
+        if getattr(sys, 'frozen', False):
+            app_path = os.path.dirname(sys.executable)
+        else:
+            app_path = os.path.dirname(__file__)
+        sys_plugins_path = os.path.join(app_path, 'plugins')
+
+        if not os.path.exists(config.plugins_path):
+            os.makedirs(config.plugins_path)
+
+        sys.path.append(sys_plugins_path)
+        sys.path.append(config.plugins_path)
+
+        self.plugins_path.append(sys_plugins_path)
+        self.plugins_path.append(config.plugins_path)
 
         self.reload_plugins()
 
     def reload_plugins(self):
         self._plugins = []
         self.errors = []
-        for file in os.listdir(self.plugin_path):
-            if file.lower().endswith('.py'):
-                
-                try:
-                    module_name, _ = os.path.splitext(os.path.basename(file))
-                    plugin_module = importlib.__import__(module_name)
-                    importlib.reload(plugin_module)
+        for plugins_path in self.plugins_path:
+            for file in os.listdir(plugins_path):
+                if file.lower().endswith('.py'):
+                    
+                    try:
+                        module_name, _ = os.path.splitext(os.path.basename(file))
+                        plugin_module = importlib.__import__(module_name)
+                        importlib.reload(plugin_module)
 
-                    clsmembers = inspect.getmembers(plugin_module, inspect.isclass)
+                        clsmembers = inspect.getmembers(plugin_module, inspect.isclass)
 
-                    for (_, c) in clsmembers:
-                        if (
-                                (issubclass(c, MetaPlugin) or issubclass(c, FilePlugin)) 
-                                and c is not MetaPlugin and c is not FilePlugin
-                            ):
-                            self._plugins.append(c())
+                        for (_, c) in clsmembers:
+                            if (
+                                    (issubclass(c, MetaPlugin) or issubclass(c, FilePlugin)) 
+                                    and c is not MetaPlugin and c is not FilePlugin
+                                ):
+                                self._plugins.append(c())
 
-                except Exception as e:
-                    self.errors.append({'src': f'Plugin {file}', 'dest': None, 'error': traceback.format_exc()})
+                    except Exception as e:
+                        self.errors.append({'src': f'Plugin {file}', 'dest': None, 'error': traceback.format_exc()})
 
     def plugins(self):
         return self._plugins

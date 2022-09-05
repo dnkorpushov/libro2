@@ -24,6 +24,7 @@ class EditDialog(QDialog, Ui_EditDialog):
         self.setupUi(self)
 
         self.book_info_list = book_info_list
+        self.prev_values = {}
 
         self.setChecked(False, self.checkTitle, self.textTitle)
         self.setChecked(False, self.checkAuthor, self.textAuthor)
@@ -236,9 +237,14 @@ class EditDialog(QDialog, Ui_EditDialog):
 
     def onCheckClicked(self, isChecked, textEdit):
         textEdit.setEnabled(isChecked)
-        if not isChecked:
+        if isChecked:
+            if textEdit.objectName() in self.prev_values.keys():
+                textEdit.setText(self.prev_values[textEdit.objectName()])
+                del self.prev_values[textEdit.objectName()]
+        else:
+            if textEdit.text():
+                self.prev_values[textEdit.objectName()] = textEdit.text()
             textEdit.clear()
-
 
     def onBtnLoadClick(self):
         (filename, _) = QFileDialog.getOpenFileName(self, 

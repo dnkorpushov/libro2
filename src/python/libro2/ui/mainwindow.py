@@ -64,18 +64,13 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 self.prevSplitterSizes = settings.ui_splitter_sizes
                 self.onViewInfoPanel(False)
 
-        
         self.frameFilter.setVisible(settings.ui_filter_panel_visible)
         self.actionFilter_panel.setChecked(settings.ui_filter_panel_visible)
         self.isAutoApplyFilter = settings.ui_auto_apply_filter
         
-
-        # self.btnFilterMenu.clicked.connect(self.onToolFilterMenu)
         self.textFilter.clicked.connect(self.onToolFilterMenu)
         self.textFilter.textChanged.connect(self.setFilterOnTextChanged)
         self.textFilter.returnPressed.connect(self.setFilterOnReturnPressed)
-
-       
 
         self.bookInfo.clear()
 
@@ -98,7 +93,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         # Init plugins
         self.pluginCollection = PluginCollection()
         self.initPluginsMenu()
-
 
     def runPlugin(self, action):
         plugin = action.data()
@@ -155,7 +149,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.pluginCollection.reload_plugins()
         self.initPluginsMenu()
         
-
     def onBookListContextMenu(self, point):
         menu = QMenu()
         menu.addAction(self.actionEdit_metadata)
@@ -297,7 +290,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.actionConvert.setEnabled(enabled)
         self.actionEdit_metadata.setEnabled(enabled)
 
-
     def onViewFilterPanel(self, isVisible):
         self.frameFilter.setVisible(isVisible)
         if not isVisible:
@@ -330,7 +322,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             renameDialog.overwriteExistingFiles = settings.rename_overwrite
             renameDialog.backupBeforeRename = settings.rename_backup
             
-
             if renameDialog.exec_():
                 self.wait()
                 moveFilesDialog = MoveFilesDialog(self, 
@@ -344,7 +335,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 self.bookList.updateRows()
                 self.stopWait()
                         
-                
                 settings.rename_delete_source_files = renameDialog.deleteSourceFiles
                 settings.rename_overwrite = renameDialog.overwriteExistingFiles
                 settings.rename_backup = renameDialog.backupBeforeRename
@@ -537,7 +527,3 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         config.save()
         database.close()
         config.delete_temp_dir()
-
-
-
-

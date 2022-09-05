@@ -103,11 +103,10 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
        
 
     def setPlatformUI(self):
-        pass
-        # if sys.platform == 'darwin':
-        #     font = self.title.font()
-        #     font.setPointSize(18) 
-        #     self.title.setFont(font)
+        if sys.platform == 'darwin':
+            font = self.title.font()
+            font.setPointSize(18) 
+            self.title.setFont(font)
 
  
 

@@ -28,6 +28,8 @@ class RenameDialog(Ui_RenameDialog, QDialog):
         self.textFilenameFormat.textChanged.connect(self.generateSample)
 
         self.checkDeleteSource.stateChanged.connect(self.onDeleteSourceClick)
+        self.radioRenameInSourceFolder.clicked.connect(self.setRenameDestination)
+        self.radioRenameMoveTo.clicked.connect(self.setRenameDestination)
 
     @property
     def authorFormat(self):
@@ -61,6 +63,14 @@ class RenameDialog(Ui_RenameDialog, QDialog):
     def filenameFormatList(self):
         return list(self._filename_format_list)
 
+    @property
+    def renameInSourceFolder(self):
+        return self.radioRenameInSourceFolder.isChecked()
+
+    @property
+    def renameMoveToFolder(self):
+        return self.textMoveToFolder.text()
+    
     @authorFormatList.setter
     def authorFormatList(self, values):
         if values:
@@ -99,6 +109,19 @@ class RenameDialog(Ui_RenameDialog, QDialog):
     def overwriteExistingFiles(self, value):
         self.checkOverwrite.setChecked(value)
 
+    @renameInSourceFolder.setter
+    def renameInSourceFolder(self, value):
+        self.radioRenameInSourceFolder.setChecked(value)
+        self.radioRenameMoveTo.setChecked(not value)
+        self.textMoveToFolder.setEnabled(not value)
+        
+    @renameMoveToFolder.setter
+    def renameMoveToFolder(self, value):
+        self.textMoveToFolder.setText(value)
+
+    def setRenameDestination(self):
+        self.renameInSourceFolder = self.radioRenameInSourceFolder.isChecked()
+
     def onDeleteSourceClick(self):
         if self.checkDeleteSource.isChecked():
             self.checkBackup.setEnabled(True)
@@ -114,11 +137,16 @@ class RenameDialog(Ui_RenameDialog, QDialog):
     def onPreviewClick(self):
         QApplication.setOverrideCursor(Qt.WaitCursor)
         out_str = ''
+        dest_path = ''
         out_file = os.path.join(config.config_path, 'preview.txt')
         for book in self.bookList:
             meta = ebookmeta.get_metadata(book.file)
             new_filename = meta.get_filename_by_pattern(self.filenameFormat, self.authorFormat, 2)
-            new_file = os.path.normpath(os.path.join(os.path.dirname(meta.file), new_filename))
+            if self.renameInSourceFolder:
+                dest_path = os.path.dirname(meta.file)
+            else:
+                dest_path = self.renameMoveToFolder
+            new_file = os.path.normpath(os.path.join(dest_path, new_filename))
             out_str +=  '"{0}" ->\n"{1}"\n\n'.format(os.path.normpath(meta.file), new_file)
         QApplication.restoreOverrideCursor()
 

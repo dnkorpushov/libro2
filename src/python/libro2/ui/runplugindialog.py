@@ -1,10 +1,13 @@
 import traceback
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt
+from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt, QCoreApplication
 from .processdialog_ui import Ui_ProcessDialog
 import database
 import ebookmeta
 import plugin_collection
+
+_t = QCoreApplication.translate
+
 
 class Worker(QObject):
     currentProcess = pyqtSignal(int, int)
@@ -45,7 +48,7 @@ class Worker(QObject):
                     self.errors.append({'src': book.file, 'dest': None, 'error': traceback.format_exc()})
                 self.currentProcess.emit(i, count)
             else:
-                self.errors.append({'src': None, 'dest': None, 'error': 'User interrupt'})
+                self.errors.append({'src': None, 'dest': None, 'error': _t('plugin', 'User interrupt')})
                 break
         self.finished.emit()
 
@@ -79,7 +82,7 @@ class RunPluginDialog(QDialog, Ui_ProcessDialog):
 
 
     def setCurrentProcess(self, index, count):
-        self.progressLabel.setText('Process files... {0} of {1}'.format(index, count))
+        self.progressLabel.setText(_t('plugin', 'Process files... {0} of {1}').format(index, count))
         self.progressBar.setValue(index)
 
 

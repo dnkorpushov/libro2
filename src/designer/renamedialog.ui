@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
-    <height>308</height>
+    <width>618</width>
+    <height>384</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -40,6 +40,23 @@
      <property name="spacing">
       <number>5</number>
      </property>
+     <item>
+      <widget class="QRadioButton" name="radioRenameInSourceFolder">
+       <property name="text">
+        <string>Rename in source folder</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioRenameMoveTo">
+       <property name="text">
+        <string>Move to:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="FolderPicker" name="textMoveToFolder"/>
+     </item>
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
@@ -164,6 +181,11 @@
  <customwidgets>
   <customwidget>
    <class>ButtonLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>.customcontrols.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FolderPicker</class>
    <extends>QLineEdit</extends>
    <header>.customcontrols.h</header>
   </customwidget>

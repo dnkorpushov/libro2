@@ -19,6 +19,7 @@ SOURCES =   src/python/libro2/ui/aboutdialog.py  \
             src/python/libro2/ui/textviewdialog_ui.py \
             src/python/libro2/ui/editdialog.py \
             src/python/libro2/ui/editdialog_ui.py \
-            src/python/libro2/ui/customcontrols.py
+            src/python/libro2/ui/customcontrols.py \
+            src/python/libro2/ui/runplugindialog.py
 
 TRANSLATIONS = src/locale/libro2_ru_RU.ts

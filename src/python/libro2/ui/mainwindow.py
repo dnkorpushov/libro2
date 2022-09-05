@@ -39,6 +39,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
         self.prevSplitterSizes = None
         self.isAutoApplyFilter = True
+        self.actionsEnabled = False
 
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -84,8 +85,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookList.setContextMenuPolicy(Qt.CustomContextMenu)
         self.bookList.customContextMenuRequested.connect(self.onBookListContextMenu)
 
-        self.actionsSetEnabled(False)
-
         self.setPlatformUI()
 
         QTimer.singleShot(1, self.loadFilesFromCommandLine)
@@ -93,6 +92,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         # Init plugins
         self.pluginCollection = PluginCollection()
         self.initPluginsMenu()
+
+        self.actionsSetEnabled()
 
     def runPlugin(self, action):
         plugin = action.data()
@@ -148,6 +149,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.menuTools.clear()
         self.pluginCollection.reload_plugins()
         self.initPluginsMenu()
+        self.actionsSetEnabled()
+
         
     def onBookListContextMenu(self, point):
         menu = QMenu()
@@ -280,15 +283,23 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookInfo.clear()
 
         if len(book_info_list) > 0:
-            self.actionsSetEnabled(True)
+            self.actionsEnabled = True
             self.bookInfo.setData(book_info_list)
         else:
-            self.actionsSetEnabled(False)
+            self.actionsEnabled = False
 
-    def actionsSetEnabled(self, enabled):
-        self.actionRename.setEnabled(enabled)
-        self.actionConvert.setEnabled(enabled)
-        self.actionEdit_metadata.setEnabled(enabled)
+        self.actionsSetEnabled()
+
+    def actionsSetEnabled(self):
+        self.actionRename.setEnabled(self.actionsEnabled)
+        self.actionConvert.setEnabled(self.actionsEnabled)
+        self.actionEdit_metadata.setEnabled(self.actionsEnabled)
+
+        for action in self.menuTools.actions():
+            if action.isSeparator():
+                break
+            else:
+                action.setEnabled(self.actionsEnabled)
 
     def onViewFilterPanel(self, isVisible):
         self.frameFilter.setVisible(isVisible)
@@ -321,6 +332,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             renameDialog.deleteSourceFiles = settings.rename_delete_source_files
             renameDialog.overwriteExistingFiles = settings.rename_overwrite
             renameDialog.backupBeforeRename = settings.rename_backup
+            renameDialog.renameInSourceFolder = settings.rename_in_source_folder
+            renameDialog.renameMoveToFolder = settings.rename_move_to_folder
             
             if renameDialog.exec_():
                 self.wait()
@@ -330,7 +343,9 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                                                   author_format=renameDialog.authorFormat,
                                                   delete_src=renameDialog.deleteSourceFiles,
                                                   backup_src=renameDialog.backupBeforeRename,
-                                                  overwrite_exists=renameDialog.overwriteExistingFiles)
+                                                  overwrite_exists=renameDialog.overwriteExistingFiles,
+                                                  rename_in_source_folder=renameDialog.renameInSourceFolder,
+                                                  move_to_folder=renameDialog.renameMoveToFolder)
                 moveFilesDialog.exec()
                 self.bookList.updateRows()
                 self.stopWait()
@@ -338,6 +353,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 settings.rename_delete_source_files = renameDialog.deleteSourceFiles
                 settings.rename_overwrite = renameDialog.overwriteExistingFiles
                 settings.rename_backup = renameDialog.backupBeforeRename
+                settings.rename_in_source_folder = renameDialog.renameInSourceFolder
+                settings.rename_move_to_folder = renameDialog.renameMoveToFolder
 
                 errors = moveFilesDialog.getErrors()
                 if len(errors) > 0:

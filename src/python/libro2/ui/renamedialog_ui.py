@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_RenameDialog(object):
     def setupUi(self, RenameDialog):
         RenameDialog.setObjectName("RenameDialog")
-        RenameDialog.resize(573, 308)
+        RenameDialog.resize(618, 384)
         RenameDialog.setMinimumSize(QtCore.QSize(500, 220))
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(RenameDialog)
         self.verticalLayout_2.setContentsMargins(12, 12, 12, 12)
@@ -23,6 +23,15 @@ class Ui_RenameDialog(object):
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setSpacing(5)
         self.verticalLayout.setObjectName("verticalLayout")
+        self.radioRenameInSourceFolder = QtWidgets.QRadioButton(RenameDialog)
+        self.radioRenameInSourceFolder.setObjectName("radioRenameInSourceFolder")
+        self.verticalLayout.addWidget(self.radioRenameInSourceFolder)
+        self.radioRenameMoveTo = QtWidgets.QRadioButton(RenameDialog)
+        self.radioRenameMoveTo.setObjectName("radioRenameMoveTo")
+        self.verticalLayout.addWidget(self.radioRenameMoveTo)
+        self.textMoveToFolder = FolderPicker(RenameDialog)
+        self.textMoveToFolder.setObjectName("textMoveToFolder")
+        self.verticalLayout.addWidget(self.textMoveToFolder)
         self.label = QtWidgets.QLabel(RenameDialog)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
@@ -77,6 +86,8 @@ class Ui_RenameDialog(object):
     def retranslateUi(self, RenameDialog):
         _translate = QtCore.QCoreApplication.translate
         RenameDialog.setWindowTitle(_translate("RenameDialog", "Rename"))
+        self.radioRenameInSourceFolder.setText(_translate("RenameDialog", "Rename in source folder"))
+        self.radioRenameMoveTo.setText(_translate("RenameDialog", "Move to:"))
         self.label.setText(_translate("RenameDialog", "Author format:"))
         self.label_3.setText(_translate("RenameDialog", "Filename format:"))
         self.labelSample.setText(_translate("RenameDialog", "TextLabel"))
@@ -84,5 +95,5 @@ class Ui_RenameDialog(object):
         self.checkBackup.setText(_translate("RenameDialog", "Backup files before rename"))
         self.checkOverwrite.setText(_translate("RenameDialog", "Overwrite exsiting files"))
         self.buttonPreview.setText(_translate("RenameDialog", "Preview"))
-from .customcontrols import ButtonLineEdit
+from .customcontrols import ButtonLineEdit, FolderPicker
 from . import resources_rc

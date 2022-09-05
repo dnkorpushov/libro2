@@ -20,12 +20,12 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.author.clear()
         self.series.clear()
         self.cover.clear()
+        self.coverInfo.clear()
         self.tags.clear()
         self.lang.clear()
         self.translators.clear()
         self.description.clear()
 
-        self.labelTitle.setVisible(False)
         self.labelAuthor.setVisible(False)
         self.labelSeries.setVisible(False)
         self.labelTags.setVisible(False)
@@ -34,6 +34,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.labelDescription.setVisible(False)
 
         self.cover.setVisible(False)
+        self.coverInfo.setVisible(False)
         self.title.setText(_t('info', 'No items'))
         self.author.setVisible(False)
         self.series.setVisible(False)
@@ -47,7 +48,6 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
 
         if len(book_info_list) == 1:
             book_info = book_info_list[0]
-            self.labelTitle.setVisible(True)
             self.title.setText(book_info.title)
 
             if book_info.authors:
@@ -85,10 +85,18 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
        
             if book_info.cover_image:
                 self.cover.setVisible(True)
+                self.coverInfo.setVisible(True)
                 pix = QPixmap()
                 pix.loadFromData(book_info.cover_image)
                 scaled_pix = pix.scaled(130, 200, Qt.KeepAspectRatio, Qt.SmoothTransformation)
                 self.cover.setPixmap(scaled_pix)
+
+                cover_type = book_info.cover_media_type
+                cover_width = pix.width()
+                cover_height = pix.height()
+                cover_size = int(len(book_info.cover_image) / 1024)
+                self.coverInfo.setText(f'{cover_type}\n{cover_width}x{cover_height}\n{cover_size} KB')
+
           
         elif len(book_info_list) > 1:
             self.title.setText(_t('info', 'Selected items: {0}').format(len(book_info_list)))

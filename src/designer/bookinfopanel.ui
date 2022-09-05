@@ -65,55 +65,67 @@
         <height>770</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout">
        <property name="spacing">
         <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>12</number>
+        <number>10</number>
        </property>
        <property name="topMargin">
-        <number>12</number>
+        <number>10</number>
        </property>
        <property name="rightMargin">
-        <number>12</number>
+        <number>10</number>
        </property>
        <property name="bottomMargin">
-        <number>6</number>
+        <number>10</number>
        </property>
        <item>
-        <widget class="QLabel" name="cover">
-         <property name="text">
-          <string>Book cover</string>
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+         <property name="spacing">
+          <number>10</number>
          </property>
-        </widget>
+         <item>
+          <widget class="QLabel" name="cover">
+           <property name="text">
+            <string>Book cover</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="coverInfo">
+           <property name="text">
+            <string>Cover Info</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
-        <widget class="QLabel" name="labelTitle">
+        <widget class="QLabel" name="title">
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>30</height>
+           <height>40</height>
           </size>
          </property>
          <property name="font">
           <font>
-           <weight>75</weight>
-           <bold>true</bold>
+           <pointsize>13</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>Title</string>
+          <string>Book title</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="title">
-         <property name="text">
-          <string>Book title</string>
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

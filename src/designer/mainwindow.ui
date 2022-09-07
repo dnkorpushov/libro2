@@ -162,6 +162,8 @@
     <addaction name="actionRename"/>
     <addaction name="actionConvert"/>
     <addaction name="separator"/>
+    <addaction name="actionSettings"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
@@ -246,6 +248,8 @@
    <addaction name="actionEdit_metadata"/>
    <addaction name="actionRename"/>
    <addaction name="actionConvert"/>
+   <addaction name="separator"/>
+   <addaction name="actionSettings"/>
   </widget>
   <action name="actionAdd_file">
    <property name="icon">
@@ -422,6 +426,18 @@
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/toolbar/settings_22px.png</normaloff>:/toolbar/settings_22px.png</iconset>
+   </property>
+   <property name="text">
+    <string>Settings...</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
  </widget>
@@ -674,6 +690,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSettings</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onSettings()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>464</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onAddFiles()</slot>
@@ -697,5 +729,6 @@
   <slot>onHelp()</slot>
   <slot>onForumLink()</slot>
   <slot>onEditMetadata()</slot>
+  <slot>onSettings()</slot>
  </slots>
 </ui>

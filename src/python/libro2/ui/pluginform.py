@@ -1,8 +1,11 @@
 
 from PyQt5.QtWidgets import (QDialog, QDialogButtonBox, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QLineEdit, 
                              QCheckBox, QComboBox)
+from PyQt5.QtCore import QCoreApplication
 from plugin_collection import Param
 from .customcontrols import FolderPicker, FilePicker
+
+_t = QCoreApplication.translate
 
 class PluginForm(QDialog):
     def __init__(self, parent, params, title):
@@ -14,56 +17,60 @@ class PluginForm(QDialog):
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(12, 12, 12, 12)
 
-        for param in self.params:
-            if param.type == Param.Text:
-                label = QLabel(param.title)
-                self.layout.addWidget(label)
+        if len(self.params) == 0:
+            label = QLabel(_t('plugin', 'Run plugin?'))
+            label.setWordWrap(True)
+            self.layout.addWidget(label)
+        else:
+            for param in self.params:
+                if param.type == Param.Text:
+                    label = QLabel(param.title)
+                    self.layout.addWidget(label)
 
-                control = QLineEdit()
-                control.setObjectName(param.name)
-                control.setText(str(param.default_value))
-                self.layout.addWidget(control)
+                    control = QLineEdit()
+                    control.setObjectName(param.name)
+                    control.setText(str(param.default_value))
+                    self.layout.addWidget(control)
 
-            elif param.type == Param.Boolean:
-                control = QCheckBox(self)
-                control.setText(param.title)
-                control.setObjectName(param.name)
-                if param.default_value:
-                    control.setChecked(param.default_value)
-                else:
-                    control.setChecked(False)
-                self.layout.addWidget(control)
+                elif param.type == Param.Boolean:
+                    control = QCheckBox(self)
+                    control.setText(param.title)
+                    control.setObjectName(param.name)
+                    if param.default_value:
+                        control.setChecked(param.default_value)
+                    else:
+                        control.setChecked(False)
+                    self.layout.addWidget(control)
 
-            elif param.type == Param.Choice:
-                label = QLabel(param.title)
-                self.layout.addWidget(label)
-                control = QComboBox(self)
-                control.setObjectName(param.name)
-                for item in param.default_value:
-                    control.addItem(item)
-                control.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-                self.layout.addWidget(control)
+                elif param.type == Param.Choice:
+                    label = QLabel(param.title)
+                    self.layout.addWidget(label)
+                    control = QComboBox(self)
+                    control.setObjectName(param.name)
+                    for item in param.default_value:
+                        control.addItem(item)
+                    control.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+                    self.layout.addWidget(control)
 
-            elif param.type == Param.Folder:
-                label = QLabel(param.title)
-                self.layout.addWidget(label)
+                elif param.type == Param.Folder:
+                    label = QLabel(param.title)
+                    self.layout.addWidget(label)
 
-                control = FolderPicker(self)
-                control.setObjectName(param.name)
-                if param.default_value:
-                    control.setText(param.default_value)
-                self.layout.addWidget(control)
+                    control = FolderPicker(self)
+                    control.setObjectName(param.name)
+                    if param.default_value:
+                        control.setText(param.default_value)
+                    self.layout.addWidget(control)
 
-            elif param.type == Param.File:
-                label = QLabel(param.title)
-                self.layout.addWidget(label)
+                elif param.type == Param.File:
+                    label = QLabel(param.title)
+                    self.layout.addWidget(label)
 
-                control = FilePicker(self)
-                control.setObjectName(param.name)
-                if param.default_value:
-                    control.setText(param.default_value)
-                self.layout.addWidget(control)
-                
+                    control = FilePicker(self)
+                    control.setObjectName(param.name)
+                    if param.default_value:
+                        control.setText(param.default_value)
+                    self.layout.addWidget(control)
                 
         self.spacer = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.layout.addItem(self.spacer)

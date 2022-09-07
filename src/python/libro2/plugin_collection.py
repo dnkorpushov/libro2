@@ -92,6 +92,7 @@ class Param:
 class AbstractPlugin:
     def __init__(self):
         self._params = []
+        self._title = None
         self._description = None
         self._hotkey = None
         self._is_context_menu = False
@@ -99,6 +100,9 @@ class AbstractPlugin:
 
     def init(self):
         pass
+
+    def title(self):
+        return self._title
 
     def description(self):
         return self._description
@@ -114,7 +118,6 @@ class AbstractPlugin:
         self._params.append(param)
     
     def get_param(self, name):
-        
         for param in self._params:
             if param.name == name:
                 return param
@@ -127,9 +130,10 @@ class AbstractPlugin:
     def set_params(self, params):
         self._params = params
 
+
 class MetaPlugin(AbstractPlugin):
     def init(self):
-        self._description = 'Meta Plugin'
+        self._title = 'MetaPlugin Class'
 
     def perform_operation(self, meta):
         raise NotImplementedError('Method "preform_operation" not implemented')
@@ -137,7 +141,7 @@ class MetaPlugin(AbstractPlugin):
 
 class FilePlugin(AbstractPlugin):
     def init(self):
-        self._description = 'File Plugin'
+        self._title = 'FilePlugin Class'
     
     def perform_operation(self, file_list):
         raise NotImplementedError('Method "preform_operation" not implemented')

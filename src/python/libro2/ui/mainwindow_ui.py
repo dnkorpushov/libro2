@@ -148,6 +148,12 @@ class Ui_MainWindow(object):
         self.actionEdit_metadata.setIcon(icon4)
         self.actionEdit_metadata.setIconVisibleInMenu(False)
         self.actionEdit_metadata.setObjectName("actionEdit_metadata")
+        self.actionSettings = QtWidgets.QAction(MainWindow)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/toolbar/settings_22px.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionSettings.setIcon(icon5)
+        self.actionSettings.setMenuRole(QtWidgets.QAction.PreferencesRole)
+        self.actionSettings.setObjectName("actionSettings")
         self.menuFile.addAction(self.actionAdd_file)
         self.menuFile.addAction(self.actionAdd_folder)
         self.menuFile.addSeparator()
@@ -155,6 +161,8 @@ class Ui_MainWindow(object):
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionRename)
         self.menuFile.addAction(self.actionConvert)
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionSettings)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionExit)
         self.menuEdit.addAction(self.actionSelect_all)
@@ -178,6 +186,8 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.actionEdit_metadata)
         self.toolBar.addAction(self.actionRename)
         self.toolBar.addAction(self.actionConvert)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.actionSettings)
 
         self.retranslateUi(MainWindow)
         self.actionAdd_file.triggered.connect(MainWindow.onAddFiles)
@@ -194,6 +204,7 @@ class Ui_MainWindow(object):
         self.actionHelp.triggered.connect(MainWindow.onHelp)
         self.actionForum.triggered.connect(MainWindow.onForumLink)
         self.actionEdit_metadata.triggered.connect(MainWindow.onEditMetadata)
+        self.actionSettings.triggered.connect(MainWindow.onSettings)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -234,6 +245,7 @@ class Ui_MainWindow(object):
         self.actionEdit_metadata.setIconText(_translate("MainWindow", "Edit"))
         self.actionEdit_metadata.setToolTip(_translate("MainWindow", "Edit metadata for selected files"))
         self.actionEdit_metadata.setShortcut(_translate("MainWindow", "Ctrl+E"))
+        self.actionSettings.setText(_translate("MainWindow", "Settings..."))
 from .bookinfopanel import BookInfoPanel
 from .booktableview import BookTableView
 from .customcontrols import ButtonLineEdit

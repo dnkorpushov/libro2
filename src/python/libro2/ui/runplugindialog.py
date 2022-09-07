@@ -61,14 +61,14 @@ class RunPluginDialog(QDialog, Ui_ProcessDialog):
         super(RunPluginDialog, self).__init__(parent)
         self.setupUi(self)
         
-        self.operationName = plugin.description()
+        self.operationName = plugin.title()
 
         self.setWindowTitle(self.operationName)
 
         self.setWindowFlags(Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint)
 
         self.progressBar.setMaximum(len(book_info_list))
-        self.progressBar.setMinimum(0)
+        self.progressBar.setMinimum(0) 
         self.progressLabel.setText('')
 
         self.thread = QThread()

@@ -5,6 +5,8 @@
     <file>libro2_48px.png</file>
   </qresource>
   <qresource prefix="toolbar">
+    <file>settings_22px@2x.png</file>
+    <file>settings_22px.png</file>
     <file>add_22px.png</file>
     <file>add_folder_22px.png</file>
     <file>send_file_22px@2x.png</file>

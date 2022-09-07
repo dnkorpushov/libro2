@@ -8,14 +8,17 @@ import os
 class ZipFb2(FilePlugin):
     def __init__(self):
         super().__init__()
-        self._description = 'Архивировать fb2 в fb2.zip'
+        self._title = 'Архивировать fb2 в fb2.zip'
+        self._description = 'Преобразовывает файлы fb2 в формат fb2.zip. Если указано, после преобразования исходный fb2 удаляется.'
+        self._hotkey = 'Ctrl+Z'
+        self._is_context_menu = True
+
         self.add_param(name='delete_source', 
                        type=Param.Boolean, 
                        title='Удалить исходные файлы после архивации',
                        default_value=False)
 
     def perform_operation(self, file):
-        delete_source = self.get_param('delete_source')
         if file.lower().endswith('.fb2'):
             file_path = os.path.dirname(file)
             file_name = os.path.basename(file)
@@ -27,8 +30,8 @@ class ZipFb2(FilePlugin):
                 zip.write(file_name)
                 zip.close()
                 
-                # if delete_source:
-                #     os.remove(file)
+                if self.get_param('delete_source'):
+                    os.remove(file)
 
                 return zip_name
             else:

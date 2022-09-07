@@ -18,6 +18,7 @@ from .convertdialog import ConvertDialog
 from .convertfilesdialog import ConvertFilesDialog
 from .runplugindialog import RunPluginDialog
 from .editdialog import EditDialog
+from .settingsdialog import SettingsDialog
 
 import config
 import database
@@ -87,7 +88,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
         self.setPlatformUI()
 
-        QTimer.singleShot(1, self.loadFilesFromCommandLine)
+        QTimer.singleShot(1, self.loadFilesOnStartup)
 
         # Init plugins
         self.pluginCollection = PluginCollection()
@@ -101,17 +102,16 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
         book_info_list = self.getSelectedBookList()
         if len(book_info_list):
-            if len(plugin.params()) > 0:
-                try:
-                    pluginForm = PluginForm(self, plugin.params(), title=plugin.description())
-                    if pluginForm.exec_():
-                        plugin_params = pluginForm.getParams()
-                        plugin.set_params(plugin_params)
-                    else:
-                        run_plugin = False
-                except:
-                    errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}])
-                    errorDialog.exec()
+            try:
+                pluginForm = PluginForm(self, plugin.params(), title=plugin.title())
+                if pluginForm.exec_():
+                    plugin_params = pluginForm.getParams()
+                    plugin.set_params(plugin_params)
+                else:
+                    run_plugin = False
+            except:
+                errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}])
+                errorDialog.exec()
 
             if run_plugin:
                 self.wait()
@@ -130,7 +130,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def initPluginsMenu(self):
         for plugin in self.pluginCollection.plugins():
             try:
-                action = self.menuTools.addAction(plugin.description())
+                action = self.menuTools.addAction(plugin.title())
                 action.setData(plugin)
                 if plugin.hotkey():
                     action.setShortcut(QKeySequence(plugin.hotkey()))
@@ -150,7 +150,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.pluginCollection.reload_plugins()
         self.initPluginsMenu()
         self.actionsSetEnabled()
-
         
     def onBookListContextMenu(self, point):
         menu = QMenu()
@@ -162,7 +161,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         for plugin in self.pluginCollection.plugins():
             try:
                 if plugin.is_context_menu():
-                    action = menu.addAction(plugin.description())
+                    action = menu.addAction(plugin.title())
                     action.setData(plugin)
                     if plugin.hotkey():
                         action.setShortcut(QKeySequence(plugin.hotkey()))
@@ -197,13 +196,17 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                         files_to_load.append(os.path.join(root, file))
             elif os.path.isfile(item):
                 files_to_load.append(item)
-
+        
         if len(files_to_load) > 0:
             self.AddFiles(files_to_load)
 
-    def loadFilesFromCommandLine(self):
+    def loadFilesOnStartup(self):
         if len(sys.argv) > 1:
             self.addFilesAndDirs(sys.argv[1:])
+        else:
+            if settings.is_open_folder_on_start:
+                if settings.open_folder_on_start:
+                    self.addFilesAndDirs([settings.open_folder_on_start])
 
     def setFilterOnTextChanged(self):
         if self.isAutoApplyFilter:
@@ -367,14 +370,24 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             settings.rename_filename_template_list = renameDialog.filenameFormatList
 
     def onConvert(self):
+        if (not settings.convert_converter_path or 
+                (settings.convert_converter_path and not os.path.exists(settings.convert_converter_path))):
+            QMessageBox.critical(self, 'Libro2', _t('main', 'Check settings for fb2converter!'))
+            
+            return
+        else:
+            if (not settings.convert_converter_config or 
+                    settings.convert_converter_config and not os.path.exists(settings.convert_converter_config)):
+                QMessageBox.critical(self, 'Libro2', _t('main', 'Check settings for fb2converter config file!'))
+                
+                return
+
         convertDialog = ConvertDialog(self)
         convertDialog.outputFormat = settings.convert_output_format
         convertDialog.outputPath = settings.convert_output_path
         convertDialog.overwrite = settings.convert_overwrite
         convertDialog.stk = settings.convert_stk
-        convertDialog.converterPath = settings.convert_converter_path
-        convertDialog.converterConfig = settings.convert_converter_config
-
+       
         if convertDialog.exec_():
             book_info_list = self.getSelectedBookList()
             convertProgress = ConvertFilesDialog(self, 
@@ -384,8 +397,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                                                  overwrite=convertDialog.overwrite,
                                                  stk = convertDialog.stk,
                                                  debug=convertDialog.debug,
-                                                 converter_path=convertDialog.converterPath,
-                                                 converter_config=convertDialog.converterConfig)
+                                                 converter_path=settings.convert_converter_path,
+                                                 converter_config=settings.convert_converter_config)
             convertProgress.exec()
 
             if len(convertProgress.errors) > 0:
@@ -396,9 +409,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             settings.convert_output_path = convertDialog.outputPath
             settings.convert_overwrite = convertDialog.overwrite 
             settings.convert_stk = convertDialog.stk
-            settings.convert_converter_path = convertDialog.converterPath
-            settings.convert_converter_config = convertDialog.converterConfig
-
+         
     def onEditMetadata(self):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list) > 0:
@@ -502,6 +513,19 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                     background-color: #f7f7f7}
             ''')
             
+    def onSettings(self):
+        settingsDialog = SettingsDialog(self)
+        settingsDialog.isOpenFolderOnStart = settings.is_open_folder_on_start
+        settingsDialog.openFolderOnStart = settings.open_folder_on_start
+        settingsDialog.converterPath = settings.convert_converter_path
+        settingsDialog.converterConfig = settings.convert_converter_config
+
+        if settingsDialog.exec_():
+            settings.is_open_folder_on_start = settingsDialog.isOpenFolderOnStart
+            settings.open_folder_on_start = settingsDialog.openFolderOnStart
+            settings.convert_converter_path = settingsDialog.converterPath
+            settings.convert_converter_config = settingsDialog.converterConfig
+
     def onHelp(self):
         browser = webbrowser.get()
         browser.open_new_tab(HELP_LINK)

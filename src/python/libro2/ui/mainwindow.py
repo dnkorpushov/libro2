@@ -94,7 +94,10 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.pluginCollection = PluginCollection()
         self.initPluginsMenu()
 
-        self.ui_scale = self.screen().logicalDotsPerInchX() / 96
+        if sys.platform == 'darwin':
+            self.ui_scale = self.screen().logicalDotsPerInchX() / 72
+        else:
+            self.ui_scale = self.screen().logicalDotsPerInchX() / 96
         
         self.toolBar.setIconScale(self.ui_scale)
         self.bookInfo.setScaleFactor(self.ui_scale)

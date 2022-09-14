@@ -16,7 +16,7 @@ class SettingsDialog(Ui_SettingsDialog, QDialog):
         super(SettingsDialog, self).__init__(parent)
         self.setupUi(self)
 
-        base_width = 420 
+        base_width = 520 
         base_height = 275 
 
         self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SettingsDialog(object):
     def setupUi(self, SettingsDialog):
         SettingsDialog.setObjectName("SettingsDialog")
-        SettingsDialog.resize(569, 342)
+        SettingsDialog.resize(424, 284)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(SettingsDialog)
         self.verticalLayout_2.setContentsMargins(12, 12, 12, 12)
         self.verticalLayout_2.setSpacing(12)

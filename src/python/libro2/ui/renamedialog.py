@@ -5,17 +5,24 @@ import ebookmeta
 import codecs
 
 from PyQt5.QtWidgets import QDialog, QMenu, QApplication, QLineEdit
-from PyQt5.QtCore import QPoint, Qt, QCoreApplication
-from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QPoint, Qt, QCoreApplication, QSize
 from .renamedialog_ui import Ui_RenameDialog
 import config
 
 _t = QCoreApplication.translate
 
 class RenameDialog(Ui_RenameDialog, QDialog):
-    def __init__(self, parent):
+    def __init__(self, parent, scale_factor=1):
         super(RenameDialog, self).__init__(parent)
         self.setupUi(self)
+
+        base_width = 540 
+        base_height = 350 
+
+        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
+        self.resize(self.minimumSize())
+
+
         self._book_list = []
 
         self._author_format_list = set()

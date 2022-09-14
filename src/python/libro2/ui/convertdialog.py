@@ -1,15 +1,22 @@
 import os
 
 from PyQt5.QtWidgets import QDialog, QMessageBox
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtCore import QCoreApplication, QSize
 from .convertdialog_ui import Ui_ConvertDialog
 
 _t = QCoreApplication.translate
 
 class ConvertDialog(QDialog, Ui_ConvertDialog):
-    def __init__(self, parent):
+    def __init__(self, parent, scale_factor=1):
         super(ConvertDialog, self).__init__(parent)
         self.setupUi(self)
+
+        base_width = 450 
+        base_height = 270 
+
+        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
+        self.resize(self.minimumSize())
+
         self.comboFormat.currentIndexChanged.connect(self.onFormatChanged)
 
     @property

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>929</width>
-    <height>485</height>
+    <width>921</width>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -146,7 +146,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>929</width>
+     <width>921</width>
      <height>26</height>
     </rect>
    </property>
@@ -172,6 +172,8 @@
     </property>
     <addaction name="actionSelect_all"/>
     <addaction name="actionRemove_selected_files"/>
+    <addaction name="separator"/>
+    <addaction name="actionRemove_all"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -179,7 +181,6 @@
     </property>
     <addaction name="actionViewInfo_panel"/>
     <addaction name="actionFilter_panel"/>
-    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -202,7 +203,7 @@
    <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QToolBar" name="toolBar">
+  <widget class="MainToolbar" name="toolBar">
    <property name="minimumSize">
     <size>
      <width>0</width>
@@ -254,7 +255,7 @@
   <action name="actionAdd_file">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/toolbar/add_22px.png</normaloff>:/toolbar/add_22px.png</iconset>
+     <normaloff>:/toolbar/plus-box.svg</normaloff>:/toolbar/plus-box.svg</iconset>
    </property>
    <property name="text">
     <string>Add...</string>
@@ -278,7 +279,7 @@
   <action name="actionAdd_folder">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/toolbar/add_folder_22px@2x.png</normaloff>:/toolbar/add_folder_22px@2x.png</iconset>
+     <normaloff>:/toolbar/folder-plus.svg</normaloff>:/toolbar/folder-plus.svg</iconset>
    </property>
    <property name="text">
     <string>Add folder...</string>
@@ -354,7 +355,7 @@
   <action name="actionRename">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/toolbar/change_22px.png</normaloff>:/toolbar/change_22px.png</iconset>
+     <normaloff>:/toolbar/swap-horizontal-bold.svg</normaloff>:/toolbar/swap-horizontal-bold.svg</iconset>
    </property>
    <property name="text">
     <string>Rename...</string>
@@ -372,7 +373,7 @@
   <action name="actionConvert">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/toolbar/send_file_22px.png</normaloff>:/toolbar/send_file_22px.png</iconset>
+     <normaloff>:/toolbar/file-send.svg</normaloff>:/toolbar/file-send.svg</iconset>
    </property>
    <property name="text">
     <string>Convert...</string>
@@ -410,7 +411,7 @@
   <action name="actionEdit_metadata">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/toolbar/edit_22px.png</normaloff>:/toolbar/edit_22px.png</iconset>
+     <normaloff>:/toolbar/pencil.svg</normaloff>:/toolbar/pencil.svg</iconset>
    </property>
    <property name="text">
     <string>Edit...</string>
@@ -431,7 +432,7 @@
   <action name="actionSettings">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/toolbar/settings_22px.png</normaloff>:/toolbar/settings_22px.png</iconset>
+     <normaloff>:/toolbar/cog.svg</normaloff>:/toolbar/cog.svg</iconset>
    </property>
    <property name="text">
     <string>Settings...</string>
@@ -439,9 +440,25 @@
    <property name="menuRole">
     <enum>QAction::PreferencesRole</enum>
    </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionRemove_all">
+   <property name="text">
+    <string>Remove all</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+Del</string>
+   </property>
   </action>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ButtonLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>.customcontrols.h</header>
+  </customwidget>
   <customwidget>
    <class>BookInfoPanel</class>
    <extends>QWidget</extends>
@@ -457,9 +474,9 @@
    <header>.booktableview.h</header>
   </customwidget>
   <customwidget>
-   <class>ButtonLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>.customcontrols.h</header>
+   <class>MainToolbar</class>
+   <extends>QToolBar</extends>
+   <header>.maintoolbar.h</header>
   </customwidget>
  </customwidgets>
  <resources>
@@ -706,6 +723,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionRemove_all</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onRemoveAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>464</x>
+     <y>242</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onAddFiles()</slot>
@@ -724,11 +757,10 @@
   <slot>onAbout()</slot>
   <slot>onViewToolbar(bool)</slot>
   <slot>onConvert()</slot>
-  <slot>onToolbarIconLarge()</slot>
-  <slot>onToolbarIconSmall()</slot>
   <slot>onHelp()</slot>
   <slot>onForumLink()</slot>
   <slot>onEditMetadata()</slot>
   <slot>onSettings()</slot>
+  <slot>onRemoveAll()</slot>
  </slots>
 </ui>

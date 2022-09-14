@@ -4,7 +4,7 @@ import webbrowser
 import subprocess
 
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtCore import QCoreApplication, QSize
 
 from .settingsdialog_ui import Ui_SettingsDialog
 
@@ -12,9 +12,15 @@ _t = QCoreApplication.translate
 
 
 class SettingsDialog(Ui_SettingsDialog, QDialog):
-    def __init__(self, parent):
+    def __init__(self, parent, scale_factor=1):
         super(SettingsDialog, self).__init__(parent)
         self.setupUi(self)
+
+        base_width = 420 
+        base_height = 275 
+
+        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
+        self.resize(self.minimumSize())
 
         self.checkOpenFolderOnStart.clicked.connect(self.onOpenFolderOnStartClick)
         self.btnEditConfig.clicked.connect(self.onEditConfig)

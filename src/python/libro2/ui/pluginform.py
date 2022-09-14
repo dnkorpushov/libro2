@@ -12,7 +12,7 @@ class PluginForm(QDialog):
         super().__init__(parent)
         self.params = params
         self.setWindowTitle(title)
-        self.setMinimumWidth(450)
+        self.setMinimumWidth(350)
 
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(12, 12, 12, 12)

@@ -5,17 +5,11 @@
     <file>libro2_48px.png</file>
   </qresource>
   <qresource prefix="toolbar">
-    <file>settings_22px@2x.png</file>
-    <file>settings_22px.png</file>
-    <file>add_22px.png</file>
-    <file>add_folder_22px.png</file>
-    <file>send_file_22px@2x.png</file>
-    <file>edit_22px@2x.png</file>
-    <file>change_22px@2x.png</file>
-    <file>add_folder_22px@2x.png</file>
-    <file>add_22px@2x.png</file>
-    <file>send_file_22px.png</file>
-    <file>change_22px.png</file>
-    <file>edit_22px.png</file>
+    <file>folder-plus.svg</file>
+    <file>cog.svg</file>
+    <file>file-send.svg</file>
+    <file>pencil.svg</file>
+    <file>swap-horizontal-bold.svg</file>
+    <file>plus-box.svg</file>
   </qresource>
 </RCC>

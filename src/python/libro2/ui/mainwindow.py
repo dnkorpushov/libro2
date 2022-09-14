@@ -4,9 +4,9 @@ import sys
 import webbrowser
 import traceback
 
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget, QLineEdit, QShortcut
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget
 from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent
-from PyQt5.QtGui import QIcon, QFont, QKeySequence
+from PyQt5.QtGui import QIcon, QKeySequence
 
 from .mainwindow_ui import Ui_MainWindow
 from .addfilesdialog import AddFilesDialog
@@ -94,6 +94,11 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.pluginCollection = PluginCollection()
         self.initPluginsMenu()
 
+        self.ui_scale = self.screen().logicalDotsPerInchX() / 96
+        
+        self.toolBar.setIconScale(self.ui_scale)
+        self.bookInfo.setScaleFactor(self.ui_scale)
+
         self.actionsSetEnabled()
 
     def runPlugin(self, action):
@@ -171,6 +176,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
         menu.addSeparator()
         menu.addAction(self.actionRemove_selected_files)
+        menu.addAction(self.actionRemove_all)
 
         menu.exec(self.bookList.viewport().mapToGlobal(point))
 
@@ -326,7 +332,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def onRename(self):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list):
-            renameDialog = RenameDialog(self)
+            renameDialog = RenameDialog(self, self.ui_scale)
             renameDialog.bookList = book_info_list
             renameDialog.authorFormatList = settings.rename_author_template_list
             renameDialog.filenameFormatList = settings.rename_filename_template_list
@@ -375,14 +381,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             QMessageBox.critical(self, 'Libro2', _t('main', 'Check settings for fb2converter!'))
             
             return
-        else:
-            if (not settings.convert_converter_config or 
-                    settings.convert_converter_config and not os.path.exists(settings.convert_converter_config)):
-                QMessageBox.critical(self, 'Libro2', _t('main', 'Check settings for fb2converter config file!'))
-                
-                return
-
-        convertDialog = ConvertDialog(self)
+       
+        convertDialog = ConvertDialog(self, self.ui_scale)
         convertDialog.outputFormat = settings.convert_output_format
         convertDialog.outputPath = settings.convert_output_path
         convertDialog.overwrite = settings.convert_overwrite
@@ -413,7 +413,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def onEditMetadata(self):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list) > 0:
-            editDialog = EditDialog(self, book_info_list)
+            editDialog = EditDialog(self, book_info_list, self.ui_scale)
+
             if editDialog.exec():
                 self.wait()
                 
@@ -514,7 +515,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             ''')
             
     def onSettings(self):
-        settingsDialog = SettingsDialog(self)
+        settingsDialog = SettingsDialog(self, self.ui_scale)
         settingsDialog.isOpenFolderOnStart = settings.is_open_folder_on_start
         settingsDialog.openFolderOnStart = settings.open_folder_on_start
         settingsDialog.converterPath = settings.convert_converter_path
@@ -525,6 +526,13 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             settings.open_folder_on_start = settingsDialog.openFolderOnStart
             settings.convert_converter_path = settingsDialog.converterPath
             settings.convert_converter_config = settingsDialog.converterConfig
+
+    def onRemoveAll(self):
+        self.wait()
+        self.bookList.removeAll()
+        if self.bookList.model().rowCount() == 0:
+            self.bookInfo.clear()
+        self.stopWait()
 
     def onHelp(self):
         browser = webbrowser.get()

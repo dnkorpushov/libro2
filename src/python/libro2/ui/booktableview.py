@@ -101,6 +101,10 @@ class BookTableView(QTableView):
         database.delete_books(list_id)
         self.updateRows()
 
+    def removeAll(self):
+        database.delete_all_books()
+        self.updateRows()
+
     def updateRows(self):
 
         selectedInexes = []

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_EditDialog(object):
     def setupUi(self, EditDialog):
         EditDialog.setObjectName("EditDialog")
-        EditDialog.resize(819, 448)
+        EditDialog.resize(712, 415)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(EditDialog)
         self.verticalLayout_2.setContentsMargins(12, 12, 12, 12)
         self.verticalLayout_2.setSpacing(6)
@@ -43,6 +43,9 @@ class Ui_EditDialog(object):
         self.btnSaveToFile = QtWidgets.QPushButton(EditDialog)
         self.btnSaveToFile.setObjectName("btnSaveToFile")
         self.verticalLayout.addWidget(self.btnSaveToFile)
+        self.btnDelete = QtWidgets.QPushButton(EditDialog)
+        self.btnDelete.setObjectName("btnDelete")
+        self.verticalLayout.addWidget(self.btnDelete)
         spacerItem = QtWidgets.QSpacerItem(20, 0, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.horizontalLayout.addLayout(self.verticalLayout)
@@ -179,6 +182,7 @@ class Ui_EditDialog(object):
         self.buttonBox.accepted.connect(EditDialog.accept)
         self.btnLoadFromFile.clicked.connect(EditDialog.onBtnLoadClick)
         self.btnSaveToFile.clicked.connect(EditDialog.onBtnSaveClick)
+        self.btnDelete.clicked.connect(EditDialog.onBtnDeleteClick)
         QtCore.QMetaObject.connectSlotsByName(EditDialog)
 
     def retranslateUi(self, EditDialog):
@@ -187,6 +191,7 @@ class Ui_EditDialog(object):
         self.cover.setText(_translate("EditDialog", "NO COVER ART"))
         self.btnLoadFromFile.setText(_translate("EditDialog", "Load from file"))
         self.btnSaveToFile.setText(_translate("EditDialog", "Save to file"))
+        self.btnDelete.setText(_translate("EditDialog", "Delete"))
         self.checkTitle.setText(_translate("EditDialog", "Title"))
         self.checkAuthor.setText(_translate("EditDialog", "Author"))
         self.checkSeries.setText(_translate("EditDialog", "Series"))

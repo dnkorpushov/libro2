@@ -30,7 +30,7 @@ class ZipFb2(FilePlugin):
                 zip.write(file_name)
                 zip.close()
                 
-                if self.get_param('delete_source'):
+                if self.get_param('delete_source').value:
                     os.remove(file)
 
                 return zip_name

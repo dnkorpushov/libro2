@@ -14,6 +14,8 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.setupUi(self)
         self.setPlatformUI()
         self.clear()
+        self._scale_factor = 1
+        self._book_info_list = []
  
     def clear(self):
         self.title.clear()
@@ -44,10 +46,14 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.description.setVisible(False)
 
     def setData(self, book_info_list):
+        self._book_info_list = book_info_list
+        self.displayData()
+
+    def displayData(self):
         self.clear()
 
-        if len(book_info_list) == 1:
-            book_info = book_info_list[0]
+        if len(self._book_info_list) == 1:
+            book_info = self._book_info_list[0]
             self.title.setText(book_info.title)
 
             if book_info.authors:
@@ -88,7 +94,10 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
                 self.coverInfo.setVisible(True)
                 pix = QPixmap()
                 pix.loadFromData(book_info.cover_image)
-                scaled_pix = pix.scaled(130, 200, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                
+                scale_width = 110 * self._scale_factor
+                scale_height = int(scale_width * pix.height() / pix.width())
+                scaled_pix = pix.scaled(scale_width, scale_height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
                 self.cover.setPixmap(scaled_pix)
 
                 cover_type = book_info.cover_media_type
@@ -98,9 +107,14 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
                 self.coverInfo.setText(f'{cover_type}\n{cover_width}x{cover_height}\n{cover_size} KB')
 
           
-        elif len(book_info_list) > 1:
-            self.title.setText(_t('info', 'Selected items: {0}').format(len(book_info_list)))
+        elif len(self._book_info_list) > 1:
+            self.title.setText(_t('info', 'Selected items: {0}').format(len(self._book_info_list)))
        
+
+    def setScaleFactor(self, value):
+        self._scale_factor = value
+        self.displayData()
+
 
     def setPlatformUI(self):
         if sys.platform == 'darwin':

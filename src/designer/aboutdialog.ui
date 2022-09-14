@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>418</width>
-    <height>237</height>
+    <width>410</width>
+    <height>230</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -113,16 +113,6 @@
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="labelIconsCredits">
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Icons by &lt;a href=&quot;https://icons8.com&quot;&gt;icons8.com&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-     <property name="textFormat">
-      <enum>Qt::RichText</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QLabel" name="labelAppIcon">
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;App icon by &lt;a href=&quot;https://icon-icons.com/users/5C4aDHDZ0aEGLnypl9KyW/icon-sets/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Nick Frost and Greg Lapin&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -213,22 +203,6 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>labelIconsCredits</sender>
-   <signal>linkActivated(QString)</signal>
-   <receiver>AboutDialog</receiver>
-   <slot>openLink(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>228</x>
-     <y>67</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>99</y>
     </hint>
    </hints>
   </connection>

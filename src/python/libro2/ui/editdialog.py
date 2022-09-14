@@ -1,8 +1,8 @@
 import os
 from lxml import etree
-from PyQt5.QtWidgets import QDialog, QFileDialog, QMenu
+from PyQt5.QtWidgets import QDialog, QFileDialog, QMenu, QMessageBox
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import Qt, QCoreApplication, QByteArray, QBuffer, QLocale, QPoint
+from PyQt5.QtCore import Qt, QCoreApplication, QByteArray, QBuffer, QLocale, QPoint, QSize
 
 import ebookmeta
 
@@ -19,10 +19,24 @@ def uniq(s):
 
 
 class EditDialog(QDialog, Ui_EditDialog):
-    def __init__(self, parent, book_info_list):
+    def __init__(self, parent, book_info_list, scale_factor=1):
         super(EditDialog, self).__init__(parent)
         self.setupUi(self)
+        
+        base_width = 700
+        base_height = 400
 
+        base_cover_width = 169
+        base_cover_height = 260
+
+        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
+        self.resize(self.minimumSize())
+
+        self.cover.setMinimumWidth(int(base_cover_width * scale_factor))
+        self.cover.setMaximumWidth(int(base_cover_width * scale_factor))
+        self.cover.setMinimumHeight(int(base_cover_height * scale_factor))
+        self.cover.setMaximumHeight(int(base_cover_height * scale_factor))
+        
         self.book_info_list = book_info_list
         self.prev_values = {}
 
@@ -44,6 +58,7 @@ class EditDialog(QDialog, Ui_EditDialog):
 
         self.btnLoadFromFile.setEnabled(False)
         self.btnSaveToFile.setEnabled(False)
+        self.btnDelete.setEnabled(False)
 
         self.checkTitle.clicked.connect(lambda x: self.onCheckClicked(x, self.textTitle))
         self.checkAuthor.clicked.connect(lambda x: self.onCheckClicked(x, self.textAuthor))
@@ -75,6 +90,7 @@ class EditDialog(QDialog, Ui_EditDialog):
         lang = set()
         tranlator = set()
 
+        book_type = set()
         publishTitle = set()
         publishPublisher = set()
         publishCity = set()
@@ -91,6 +107,8 @@ class EditDialog(QDialog, Ui_EditDialog):
             tags.add(book.tags)
             lang.add(book.lang)
             tranlator.add(book.translators)
+
+            book_type.add(book.type)
 
             publishTitle.add(book.publish_title)
             publishPublisher.add(book.publish_publisher)
@@ -171,12 +189,16 @@ class EditDialog(QDialog, Ui_EditDialog):
             self.setChecked(True, self.checkPublishSeriesIndex, self.textPublishSeriesIndex)
             self.textPublishSeriesIndex.setText(str(list(publishSeriesIndex)[0]))
 
+        if uniq(book_type) and str(list(book_type)[0]) == 'fb2':
+            self.tabWidget.setTabEnabled(1, True)
+        else:
+            self.tabWidget.setTabEnabled(1, False)
+
         if len(self.book_info_list) == 1:
-            self.btnLoadFromFile.setEnabled(True)
-            self.btnSaveToFile.setEnabled(True)
             self.setCoverImage()
         else:
             self.cover.setEnabled(False)
+
 
     def getData(self):
         for book in self.book_info_list:
@@ -228,7 +250,6 @@ class EditDialog(QDialog, Ui_EditDialog):
             if self.checkPublishSeriesIndex.isChecked():
                 book.publish_series_index = self.textPublishSeriesIndex.text()
 
-
         return self.book_info_list
 
     def setChecked(self, value, checkBox, textEdit):
@@ -253,6 +274,13 @@ class EditDialog(QDialog, Ui_EditDialog):
         if filename:
             self.loadCoverFromFile(filename)
 
+    def onBtnDeleteClick(self):
+        if QMessageBox.question(self, 'Libro2', _t('edit', 'Delete cover art?')) == QMessageBox.Yes:
+            self.book_info_list[0].cover_image = None
+            self.book_info_list[0].cover_media_type = None
+            self.book_info_list[0].cover_file_name = None
+            self.setCoverImage()
+
     def loadCoverFromFile(self, filename):
         image_format = None
 
@@ -275,7 +303,6 @@ class EditDialog(QDialog, Ui_EditDialog):
                 self.book_info_list[0].cover_image = bytes(buff.buffer())
                 self.setCoverImage()
 
-
     def setCoverImage(self):
         if self.book_info_list[0].cover_image:
             pix = QPixmap()
@@ -283,6 +310,21 @@ class EditDialog(QDialog, Ui_EditDialog):
             scaled_pix = pix.scaled(self.cover.width() - 4, self.cover.height() - 4, Qt.KeepAspectRatio, Qt.SmoothTransformation)
             self.cover.setPixmap(scaled_pix)
 
+            self.btnLoadFromFile.setEnabled(True)
+            self.btnSaveToFile.setEnabled(True)
+            self.btnDelete.setEnabled(True)
+
+            if self.book_info_list[0].type == 'epub':
+                self.btnDelete.setEnabled(False)
+        else:
+            self.cover.clear()
+            self.cover.setText(_t('edit', 'NO COVER ART'))
+            self.btnLoadFromFile.setEnabled(True)
+            self.btnSaveToFile.setEnabled(False)
+            self.btnDelete.setEnabled(False)
+
+            if self.book_info_list[0].type == 'epub':
+                self.btnLoadFromFile.setEnabled(False)
 
     def onBtnSaveClick(self):
         (filename, _) = QFileDialog.getSaveFileName(self, 

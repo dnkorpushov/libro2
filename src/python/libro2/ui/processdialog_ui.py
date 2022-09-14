@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ProcessDialog(object):
     def setupUi(self, ProcessDialog):
         ProcessDialog.setObjectName("ProcessDialog")
-        ProcessDialog.resize(407, 124)
+        ProcessDialog.resize(350, 119)
         ProcessDialog.setModal(True)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(ProcessDialog)
         self.verticalLayout_2.setContentsMargins(12, 12, 12, 12)

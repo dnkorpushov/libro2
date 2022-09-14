@@ -6,7 +6,7 @@ import json
 import tempfile
 
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import Qt, QProcess, QTimer, QCoreApplication
+from PyQt5.QtCore import Qt, QProcess, QTimer, QCoreApplication, QSize
 
 from .processdialog_ui import Ui_ProcessDialog
 
@@ -53,9 +53,16 @@ def parse_converter_error(b):
 
 
 class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
-    def __init__(self, parent, book_info_list, out_format, out_path, overwrite, stk, debug, converter_path, converter_config):
+    def __init__(self, parent, book_info_list, out_format, out_path, overwrite, stk, debug, converter_path, converter_config, scale_factor=1):
         super(ConvertFilesDialog, self).__init__(parent)
         self.setupUi(self)
+
+        base_width = 350 
+        base_height = 120 
+
+        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
+        self.resize(self.minimumSize())
+        self.adjustSize()
         self.setWindowTitle(_t('cv', 'Convert {0} files').format(len(book_info_list)))
 
         self.setWindowFlags(Qt.Dialog | Qt.CustomizeWindowHint | Qt.WindowTitleHint)

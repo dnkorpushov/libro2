@@ -53,7 +53,7 @@ class Ui_BookInfoPanel(object):
         font = QtGui.QFont()
         font.setPointSize(13)
         self.title.setFont(font)
-        self.title.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.title.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
         self.title.setWordWrap(True)
         self.title.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextSelectableByMouse)
         self.title.setObjectName("title")

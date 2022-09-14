@@ -108,7 +108,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list):
             try:
-                pluginForm = PluginForm(self, plugin.params(), title=plugin.title())
+                pluginForm = PluginForm(self, plugin.params(), title=plugin.title(), scale_factor=self.ui_scale)
                 if pluginForm.exec_():
                     plugin_params = pluginForm.getParams()
                     plugin.set_params(plugin_params)
@@ -121,7 +121,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             if run_plugin:
                 self.wait()
         
-                runPluginDialog = RunPluginDialog(self, plugin, book_info_list)
+                runPluginDialog = RunPluginDialog(self, plugin, book_info_list, self.ui_scale)
                 runPluginDialog.exec()
 
                 self.bookList.updateRows()
@@ -252,7 +252,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         # Remove unsupported files from list
         files = [file for file in files if file.lower().endswith(('.fb2', '.fb2.zip', '.epub'))]
         if len(files) > 0:
-            loadFilesDialog = AddFilesDialog(self, files)
+            loadFilesDialog = AddFilesDialog(self, files, self.ui_scale)
             loadFilesDialog.exec()
             self.bookList.updateRows()
             errors = loadFilesDialog.getErrors()
@@ -398,7 +398,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                                                  stk = convertDialog.stk,
                                                  debug=convertDialog.debug,
                                                  converter_path=settings.convert_converter_path,
-                                                 converter_config=settings.convert_converter_config)
+                                                 converter_config=settings.convert_converter_config,
+                                                 scale_factor=self.ui_scale)
             convertProgress.exec()
 
             if len(convertProgress.errors) > 0:

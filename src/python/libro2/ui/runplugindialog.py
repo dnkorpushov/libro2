@@ -1,6 +1,6 @@
 import traceback
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt, QCoreApplication
+from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt, QCoreApplication, QSize
 from .processdialog_ui import Ui_ProcessDialog
 import database
 import ebookmeta
@@ -57,10 +57,17 @@ class Worker(QObject):
 
 
 class RunPluginDialog(QDialog, Ui_ProcessDialog):
-    def __init__(self, parent, plugin, book_info_list):
+    def __init__(self, parent, plugin, book_info_list, scale_factor=1):
         super(RunPluginDialog, self).__init__(parent)
         self.setupUi(self)
         
+        base_width = 350 
+        base_height = 120 
+
+        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
+        self.resize(self.minimumSize())
+        self.adjustSize()
+
         self.operationName = plugin.title()
 
         self.setWindowTitle(self.operationName)

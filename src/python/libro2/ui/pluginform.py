@@ -1,19 +1,23 @@
 
 from PyQt5.QtWidgets import (QDialog, QDialogButtonBox, QVBoxLayout, QLabel, QSpacerItem, QSizePolicy, QLineEdit, 
                              QCheckBox, QComboBox)
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtCore import QCoreApplication, QSize
 from plugin_collection import Param
 from .customcontrols import FolderPicker, FilePicker
 
 _t = QCoreApplication.translate
 
 class PluginForm(QDialog):
-    def __init__(self, parent, params, title):
+    def __init__(self, parent, params, title, scale_factor=1):
         super().__init__(parent)
         self.params = params
         self.setWindowTitle(title)
-        self.setMinimumWidth(350)
+        base_width = 350 
+        base_height = 80 
 
+        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
+        self.resize(self.minimumSize())
+        
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(12, 12, 12, 12)
 
@@ -79,6 +83,7 @@ class PluginForm(QDialog):
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
         self.layout.addWidget(self.buttons)
+        self.adjustSize()
 
     def getParams(self):
         for widget in self.children():

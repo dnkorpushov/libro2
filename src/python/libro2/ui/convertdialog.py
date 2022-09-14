@@ -16,6 +16,7 @@ class ConvertDialog(QDialog, Ui_ConvertDialog):
 
         self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
         self.resize(self.minimumSize())
+        self.adjustSize()
 
         self.comboFormat.currentIndexChanged.connect(self.onFormatChanged)
 

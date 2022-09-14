@@ -21,6 +21,7 @@ class SettingsDialog(Ui_SettingsDialog, QDialog):
 
         self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
         self.resize(self.minimumSize())
+        self.adjustSize()
 
         self.checkOpenFolderOnStart.clicked.connect(self.onOpenFolderOnStartClick)
         self.btnEditConfig.clicked.connect(self.onEditConfig)

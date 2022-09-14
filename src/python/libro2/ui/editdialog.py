@@ -31,11 +31,13 @@ class EditDialog(QDialog, Ui_EditDialog):
 
         self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
         self.resize(self.minimumSize())
-
+        
         self.cover.setMinimumWidth(int(base_cover_width * scale_factor))
         self.cover.setMaximumWidth(int(base_cover_width * scale_factor))
         self.cover.setMinimumHeight(int(base_cover_height * scale_factor))
         self.cover.setMaximumHeight(int(base_cover_height * scale_factor))
+
+        self.adjustSize()
         
         self.book_info_list = book_info_list
         self.prev_values = {}

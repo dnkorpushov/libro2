@@ -95,7 +95,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
                 pix = QPixmap()
                 pix.loadFromData(book_info.cover_image)
                 
-                scale_width = 110 * self._scale_factor
+                scale_width = int(110 * self._scale_factor)
                 scale_height = int(scale_width * pix.height() / pix.width())
                 scaled_pix = pix.scaled(scale_width, scale_height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
                 self.cover.setPixmap(scaled_pix)
@@ -109,7 +109,6 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
           
         elif len(self._book_info_list) > 1:
             self.title.setText(_t('info', 'Selected items: {0}').format(len(self._book_info_list)))
-       
 
     def setScaleFactor(self, value):
         self._scale_factor = value

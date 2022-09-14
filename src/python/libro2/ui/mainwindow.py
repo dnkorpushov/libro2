@@ -115,7 +115,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 else:
                     run_plugin = False
             except:
-                errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}])
+                errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}], self.ui_scale)
                 errorDialog.exec()
 
             if run_plugin:
@@ -129,7 +129,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
                 errors = runPluginDialog.getErrors()
                 if len(errors) > 0:
-                    errorDialog = TextViewDialog(self, errors)
+                    errorDialog = TextViewDialog(self, errors, self.ui_scale)
                     errorDialog.exec()
                         
     def initPluginsMenu(self):
@@ -147,7 +147,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         action.triggered.connect(self.reloadPlugins)
 
         if len(self.pluginCollection.errors) > 0:
-            errorDialog = TextViewDialog(self, self.pluginCollection.errors)
+            errorDialog = TextViewDialog(self, self.pluginCollection.errors, self.ui_scale)
             errorDialog.exec()
 
     def reloadPlugins(self):
@@ -257,7 +257,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             self.bookList.updateRows()
             errors = loadFilesDialog.getErrors()
             if len(errors) > 0:
-                errorDialog = TextViewDialog(self, errors)
+                errorDialog = TextViewDialog(self, errors, self.ui_scale)
                 errorDialog.exec()
 
     def onSelectAll(self):
@@ -367,7 +367,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
                 errors = moveFilesDialog.getErrors()
                 if len(errors) > 0:
-                    errorDialog = TextViewDialog(self, errors)
+                    errorDialog = TextViewDialog(self, errors, self.ui_scale)
                     errorDialog.exec()
 
             settings.rename_author_format = renameDialog.authorFormat
@@ -403,7 +403,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             convertProgress.exec()
 
             if len(convertProgress.errors) > 0:
-                errorDialog = TextViewDialog(self, convertProgress.errors)
+                errorDialog = TextViewDialog(self, convertProgress.errors, self.ui_scale)
                 errorDialog.exec()
             
             settings.convert_output_format = convertDialog.outputFormat
@@ -431,7 +431,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 self.stopWait()
 
                 if len(errors) > 0:
-                    errorDialog = TextViewDialog(self, errors)
+                    errorDialog = TextViewDialog(self, errors, self.ui_scale)
                     errorDialog.exec()
 
     def onToolFilterMenu(self):

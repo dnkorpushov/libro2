@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>618</width>
-    <height>384</height>
+    <width>501</width>
+    <height>348</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -55,7 +55,7 @@
       </widget>
      </item>
      <item>
-      <widget class="FolderPicker" name="textMoveToFolder"/>
+      <widget class="ButtonLineEdit" name="textMoveToFolder"/>
      </item>
      <item>
       <widget class="QLabel" name="label">
@@ -181,11 +181,6 @@
  <customwidgets>
   <customwidget>
    <class>ButtonLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>.customcontrols.h</header>
-  </customwidget>
-  <customwidget>
-   <class>FolderPicker</class>
    <extends>QLineEdit</extends>
    <header>.customcontrols.h</header>
   </customwidget>

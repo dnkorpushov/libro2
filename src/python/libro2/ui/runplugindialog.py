@@ -2,6 +2,7 @@ import traceback
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt, QCoreApplication, QSize
 from .processdialog_ui import Ui_ProcessDialog
+from .smartdialog import SmartDialog
 import database
 import ebookmeta
 import plugin_collection
@@ -56,17 +57,12 @@ class Worker(QObject):
         self.isRunning = False
 
 
-class RunPluginDialog(QDialog, Ui_ProcessDialog):
-    def __init__(self, parent, plugin, book_info_list, scale_factor=1):
+class RunPluginDialog(SmartDialog, Ui_ProcessDialog):
+    def __init__(self, parent, plugin, book_info_list):
         super(RunPluginDialog, self).__init__(parent)
         self.setupUi(self)
-        
-        base_width = 350 
-        base_height = 120 
-
-        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
-        self.resize(self.minimumSize())
-        self.adjustSize()
+       
+        self.restoreSize()
 
         self.operationName = plugin.title()
 
@@ -87,6 +83,8 @@ class RunPluginDialog(QDialog, Ui_ProcessDialog):
         self.thread.started.connect(self.worker.process)
         self.thread.finished.connect(self.close)
 
+    def _save_size(self):
+        return 
 
     def setCurrentProcess(self, index, count):
         self.progressLabel.setText(_t('plugin', 'Process files... {0} of {1}').format(index, count))

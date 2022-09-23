@@ -22,7 +22,7 @@ from .settingsdialog import SettingsDialog
 
 import config
 import database
-from plugin_collection import PluginCollection
+from plugin_collection import PluginCollection, MetaPlugin, FilePlugin
 from .pluginform import PluginForm
 
 settings = config.settings
@@ -94,13 +94,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.pluginCollection = PluginCollection()
         self.initPluginsMenu()
 
-        if sys.platform == 'darwin':
-            self.ui_scale = self.screen().logicalDotsPerInchX() / 72
-        else:
-            self.ui_scale = self.screen().logicalDotsPerInchX() / 96
-        
-        self.toolBar.setIconScale(self.ui_scale)
-        self.bookInfo.setScaleFactor(self.ui_scale)
+        self.toolBar.setIcons()
 
         self.actionsSetEnabled()
 
@@ -111,20 +105,23 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list):
             try:
-                pluginForm = PluginForm(self, plugin.params(), title=plugin.title(), scale_factor=self.ui_scale)
+                plugin.init()
+                pluginForm = PluginForm(self, plugin.params(), title=plugin.title())
                 if pluginForm.exec_():
                     plugin_params = pluginForm.getParams()
                     plugin.set_params(plugin_params)
+                    plugin.validate()
                 else:
                     run_plugin = False
             except:
-                errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}], self.ui_scale)
+                run_plugin = False
+                errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}])
                 errorDialog.exec()
 
             if run_plugin:
                 self.wait()
         
-                runPluginDialog = RunPluginDialog(self, plugin, book_info_list, self.ui_scale)
+                runPluginDialog = RunPluginDialog(self, plugin, book_info_list)
                 runPluginDialog.exec()
 
                 self.bookList.updateRows()
@@ -132,12 +129,13 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
                 errors = runPluginDialog.getErrors()
                 if len(errors) > 0:
-                    errorDialog = TextViewDialog(self, errors, self.ui_scale)
+                    errorDialog = TextViewDialog(self, errors)
                     errorDialog.exec()
                         
     def initPluginsMenu(self):
         for plugin in self.pluginCollection.plugins():
             try:
+                plugin.init()
                 action = self.menuTools.addAction(plugin.title())
                 action.setData(plugin)
                 if plugin.hotkey():
@@ -150,7 +148,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         action.triggered.connect(self.reloadPlugins)
 
         if len(self.pluginCollection.errors) > 0:
-            errorDialog = TextViewDialog(self, self.pluginCollection.errors, self.ui_scale)
+            errorDialog = TextViewDialog(self, self.pluginCollection.errors)
             errorDialog.exec()
 
     def reloadPlugins(self):
@@ -255,12 +253,12 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         # Remove unsupported files from list
         files = [file for file in files if file.lower().endswith(('.fb2', '.fb2.zip', '.epub'))]
         if len(files) > 0:
-            loadFilesDialog = AddFilesDialog(self, files, self.ui_scale)
+            loadFilesDialog = AddFilesDialog(self, files)
             loadFilesDialog.exec()
             self.bookList.updateRows()
             errors = loadFilesDialog.getErrors()
             if len(errors) > 0:
-                errorDialog = TextViewDialog(self, errors, self.ui_scale)
+                errorDialog = TextViewDialog(self, errors)
                 errorDialog.exec()
 
     def onSelectAll(self):
@@ -335,10 +333,11 @@ class MainWindow (QMainWindow, Ui_MainWindow):
     def onRename(self):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list):
-            renameDialog = RenameDialog(self, self.ui_scale)
+            renameDialog = RenameDialog(self)
             renameDialog.bookList = book_info_list
             renameDialog.authorFormatList = settings.rename_author_template_list
             renameDialog.filenameFormatList = settings.rename_filename_template_list
+            renameDialog.renamePathList = settings.rename_path_list
             renameDialog.authorFormat = settings.rename_author_format
             renameDialog.filenameFormat = settings.rename_filename_format
             renameDialog.deleteSourceFiles = settings.rename_delete_source_files
@@ -370,13 +369,14 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
                 errors = moveFilesDialog.getErrors()
                 if len(errors) > 0:
-                    errorDialog = TextViewDialog(self, errors, self.ui_scale)
+                    errorDialog = TextViewDialog(self, errors)
                     errorDialog.exec()
 
             settings.rename_author_format = renameDialog.authorFormat
             settings.rename_filename_format = renameDialog.filenameFormat
             settings.rename_author_template_list = renameDialog.authorFormatList
             settings.rename_filename_template_list = renameDialog.filenameFormatList
+            settings.rename_path_list = renameDialog.renamePathList
 
     def onConvert(self):
         if (not settings.convert_converter_path or 
@@ -385,11 +385,12 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             
             return
        
-        convertDialog = ConvertDialog(self, self.ui_scale)
+        convertDialog = ConvertDialog(self)
         convertDialog.outputFormat = settings.convert_output_format
         convertDialog.outputPath = settings.convert_output_path
         convertDialog.overwrite = settings.convert_overwrite
         convertDialog.stk = settings.convert_stk
+        convertDialog.convertPathList = settings.convert_path_list
        
         if convertDialog.exec_():
             book_info_list = self.getSelectedBookList()
@@ -401,23 +402,23 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                                                  stk = convertDialog.stk,
                                                  debug=convertDialog.debug,
                                                  converter_path=settings.convert_converter_path,
-                                                 converter_config=settings.convert_converter_config,
-                                                 scale_factor=self.ui_scale)
+                                                 converter_config=settings.convert_converter_config)
             convertProgress.exec()
 
             if len(convertProgress.errors) > 0:
-                errorDialog = TextViewDialog(self, convertProgress.errors, self.ui_scale)
+                errorDialog = TextViewDialog(self, convertProgress.errors)
                 errorDialog.exec()
             
             settings.convert_output_format = convertDialog.outputFormat
             settings.convert_output_path = convertDialog.outputPath
             settings.convert_overwrite = convertDialog.overwrite 
             settings.convert_stk = convertDialog.stk
+        settings.convert_path_list = convertDialog.convertPathList
          
     def onEditMetadata(self):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list) > 0:
-            editDialog = EditDialog(self, book_info_list, self.ui_scale)
+            editDialog = EditDialog(self, book_info_list)
 
             if editDialog.exec():
                 self.wait()
@@ -434,7 +435,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 self.stopWait()
 
                 if len(errors) > 0:
-                    errorDialog = TextViewDialog(self, errors, self.ui_scale)
+                    errorDialog = TextViewDialog(self, errors)
                     errorDialog.exec()
 
     def onToolFilterMenu(self):
@@ -519,9 +520,10 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             ''')
             
     def onSettings(self):
-        settingsDialog = SettingsDialog(self, self.ui_scale)
+        settingsDialog = SettingsDialog(self)
         settingsDialog.isOpenFolderOnStart = settings.is_open_folder_on_start
         settingsDialog.openFolderOnStart = settings.open_folder_on_start
+        settingsDialog.coverImageWidth = settings.ui_cover_image_width
         settingsDialog.converterPath = settings.convert_converter_path
         settingsDialog.converterConfig = settings.convert_converter_config
 
@@ -530,6 +532,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             settings.open_folder_on_start = settingsDialog.openFolderOnStart
             settings.convert_converter_path = settingsDialog.converterPath
             settings.convert_converter_config = settingsDialog.converterConfig
+            settings.ui_cover_image_width = settingsDialog.coverImageWidth
+            self.bookInfo.displayData()
 
     def onRemoveAll(self):
         self.wait()

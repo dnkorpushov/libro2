@@ -8,6 +8,7 @@ import inspect
 import traceback
 
 import config
+settings = config.settings
 
 class DebugException(Exception):
     def __init__(self, *args: object):
@@ -96,10 +97,12 @@ class AbstractPlugin:
         self._description = None
         self._hotkey = None
         self._is_context_menu = False
-        self.init()
 
     def init(self):
-        pass
+        return
+
+    def validate(self):
+        return 
 
     def title(self):
         return self._title
@@ -114,8 +117,14 @@ class AbstractPlugin:
         return self._is_context_menu
 
     def add_param(self, name, type, title, default_value=None):
-        param = Param(name=name, type=type, title=title, default_value=default_value)
-        self._params.append(param)
+        not_found = True
+        for param in self._params:
+            if param.name == name:
+                param.default_value = default_value
+                not_found = False
+        if not_found:
+            param = Param(name=name, type=type, title=title, default_value=default_value)
+            self._params.append(param)
     
     def get_param(self, name):
         for param in self._params:
@@ -123,6 +132,15 @@ class AbstractPlugin:
                 return param
 
         raise Exception(f'Parameter "{name}" not found!')
+
+    def load_settings(self, key, default_value=None):
+        if key in settings.plugin_settings.keys():
+            return settings.plugin_settings[key]
+        else:
+            return default_value
+
+    def save_settings(self, key, value):
+        settings.plugin_settings[key] = value
 
     def params(self):
         return self._params
@@ -132,7 +150,7 @@ class AbstractPlugin:
 
 
 class MetaPlugin(AbstractPlugin):
-    def init(self):
+    def init(self, meta):
         self._title = 'MetaPlugin Class'
 
     def perform_operation(self, meta):
@@ -140,8 +158,8 @@ class MetaPlugin(AbstractPlugin):
 
 
 class FilePlugin(AbstractPlugin):
-    def init(self):
+    def init(self, file_list):
         self._title = 'FilePlugin Class'
-    
+ 
     def perform_operation(self, file_list):
         raise NotImplementedError('Method "preform_operation" not implemented')

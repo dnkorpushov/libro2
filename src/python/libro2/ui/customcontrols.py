@@ -1,6 +1,6 @@
 import os
 from re import L
-from PyQt5.QtWidgets import QWidget,QFileDialog, QPushButton, QHBoxLayout, QLineEdit, QLabel, QAction
+from PyQt5.QtWidgets import QWidget,QFileDialog, QPushButton, QHBoxLayout, QLineEdit
 from PyQt5.QtCore import QCoreApplication, pyqtSignal
 from PyQt5.QtGui import QIcon
 

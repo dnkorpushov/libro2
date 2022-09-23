@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>503</width>
-    <height>287</height>
+    <width>415</width>
+    <height>242</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -74,7 +74,7 @@
     </widget>
    </item>
    <item>
-    <widget class="FolderPicker" name="textOutputDir"/>
+    <widget class="ButtonLineEdit" name="textOutputDir"/>
    </item>
    <item>
     <widget class="QCheckBox" name="checkOverwrite">
@@ -127,7 +127,7 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>FolderPicker</class>
+   <class>ButtonLineEdit</class>
    <extends>QLineEdit</extends>
    <header>.customcontrols.h</header>
   </customwidget>

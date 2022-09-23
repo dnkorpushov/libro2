@@ -1,7 +1,7 @@
 import traceback
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt, QCoreApplication, QSize
+from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt, QCoreApplication
 from .processdialog_ui import Ui_ProcessDialog
+from .smartdialog import SmartDialog
 import ebookmeta
 import database
 
@@ -43,17 +43,12 @@ class Worker(QObject):
         self.isRunning = False
 
 
-class AddFilesDialog(QDialog, Ui_ProcessDialog):
-    def __init__(self, parent, files, scale_factor=1):
+class AddFilesDialog(SmartDialog, Ui_ProcessDialog):
+    def __init__(self, parent, files):
         super(AddFilesDialog, self).__init__(parent)
         self.setupUi(self)
 
-        base_width = 350 
-        base_height = 120 
-
-        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
-        self.resize(self.minimumSize())
-        self.adjustSize()
+        self.restoreSize()
 
         self.setWindowTitle(_t('add','Add files'))
 
@@ -84,3 +79,6 @@ class AddFilesDialog(QDialog, Ui_ProcessDialog):
 
     def getErrors(self):
         return self.worker.errors
+
+    def _save_size(self):
+        return

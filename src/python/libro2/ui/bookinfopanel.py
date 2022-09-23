@@ -5,6 +5,9 @@ from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtCore import Qt, QCoreApplication
 
 from .bookinfopanel_ui import Ui_BookInfoPanel
+import config
+
+settings = config.settings
 
 _t = QCoreApplication.translate
 
@@ -14,7 +17,6 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         self.setupUi(self)
         self.setPlatformUI()
         self.clear()
-        self._scale_factor = 1
         self._book_info_list = []
  
     def clear(self):
@@ -95,7 +97,7 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
                 pix = QPixmap()
                 pix.loadFromData(book_info.cover_image)
                 
-                scale_width = int(110 * self._scale_factor)
+                scale_width = int(settings.ui_cover_image_width * self.scale_factor())
                 scale_height = int(scale_width * pix.height() / pix.width())
                 scaled_pix = pix.scaled(scale_width, scale_height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
                 self.cover.setPixmap(scaled_pix)
@@ -110,10 +112,13 @@ class BookInfoPanel(QWidget, Ui_BookInfoPanel):
         elif len(self._book_info_list) > 1:
             self.title.setText(_t('info', 'Selected items: {0}').format(len(self._book_info_list)))
 
-    def setScaleFactor(self, value):
-        self._scale_factor = value
-        self.displayData()
+    def scale_factor(self):
+        if sys.platform == 'darwin':
+            base_dpi = 72
+        else:
+            base_dpi = 96
 
+        return self.screen().logicalDotsPerInchX() / base_dpi
 
     def setPlatformUI(self):
         if sys.platform == 'darwin':

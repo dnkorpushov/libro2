@@ -2,21 +2,17 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QSize
 
 from .textviewdialog_ui import Ui_ViewTextDialog
+from .smartdialog import SmartDialog
 
 
-class TextViewDialog(QDialog, Ui_ViewTextDialog):
+class TextViewDialog(SmartDialog, Ui_ViewTextDialog):
 
-    def __init__(self, parent, errors, scale_factor=1):
+    def __init__(self, parent, errors):
         super(TextViewDialog, self).__init__(parent)
         self.setupUi(self)
         self.setWindowTitle('Libro2')
         
-        base_width = 520 
-        base_height = 300 
-
-        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
-        self.resize(self.minimumSize())
-        self.adjustSize()
+        self.restoreSize()
 
         text = ''
 

@@ -3,20 +3,31 @@
 from plugin_collection import FilePlugin, DebugException, Param
 from ebookmeta.myzipfile import ZipFile, ZIP_DEFLATED
 import os
+from config import locale
 
 
 class ZipFb2(FilePlugin):
-    def __init__(self):
-        super().__init__()
-        self._title = 'Архивировать fb2 в fb2.zip'
-        self._description = 'Преобразовывает файлы fb2 в формат fb2.zip. Если указано, после преобразования исходный fb2 удаляется.'
-        self._hotkey = 'Ctrl+Z'
-        self._is_context_menu = True
+    def init(self):
+        if locale == 'ru_RU':
+            self._title = 'Упаковать fb2 в fb2.zip'
+            self._description = 'Преобразовывает файлы fb2 в формат fb2.zip. Если указано, после преобразования исходный fb2 удаляется.'
+            self._hotkey = 'Ctrl+Z'
+            self._is_context_menu = True
 
-        self.add_param(name='delete_source', 
-                       type=Param.Boolean, 
-                       title='Удалить исходные файлы после архивации',
-                       default_value=False)
+            self.add_param(name='delete_source', 
+                           type=Param.Boolean, 
+                           title='Удалить исходные файлы после архивации',
+                           default_value=False)
+        else:
+            self._title = 'Zip fb2 into fb2.zip'
+            self._description = 'Zip fb2 files into fb2.zip, then delete original fb2, if specified.'
+            self._hotkey = 'Ctrl+Z'
+            self._is_context_menu = True
+
+            self.add_param(name='delete_source', 
+                           type=Param.Boolean, 
+                           title='Delete original fb2 after zipping',
+                           default_value=False)
 
     def perform_operation(self, file):
         if file.lower().endswith('.fb2'):
@@ -35,10 +46,19 @@ class ZipFb2(FilePlugin):
 
                 return zip_name
             else:
-                raise DebugException(f'Файл "{zip_name}" уже существует!')
+                if locale == 'ru_RU':
+                    raise DebugException(f'Файл "{zip_name}" уже существует!')
+                else:
+                    raise DebugException(f'File "{zip_name}" already exist!')
         else:
             if file.lower().endswith('.fb2.zip'):
-                raise DebugException(f'"{file}" уже заархивирован в fb2.zip.')
+                if locale == 'ru_RU':
+                    raise DebugException(f'"{file}" уже упакован в fb2.zip.')
+                else:
+                    raise DebugException(f'"{file}" zipped already.')
             else:
-                raise DebugException(f'"{file}" не является файлом fb2!')
+                if locale == 'ru_RU':
+                    raise DebugException(f'"{file}" не является файлом fb2!')
+                else:
+                    raise DebugException(f'"{file}" not fb2 file!')
 

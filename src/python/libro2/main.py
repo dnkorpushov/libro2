@@ -5,6 +5,7 @@ from PyQt5.QtGui import QFont, QScreen
 from PyQt5.QtCore import Qt, QLocale, QTranslator
 from ui.mainwindow import MainWindow
 
+import config
 
 def main():
     app = QApplication(sys.argv)
@@ -15,6 +16,7 @@ def main():
         app_path = os.path.dirname(__file__)
     
     locale = QLocale.system().name()
+    config.locale = locale
     app_locale = os.path.join(app_path, 'locale/libro2_' + locale + '.qm')
     qt_locale = os.path.join(app_path, 'locale/qtbase_' + locale + '.qm')
     

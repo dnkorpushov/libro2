@@ -7,21 +7,17 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QCoreApplication, QSize
 
 from .settingsdialog_ui import Ui_SettingsDialog
+from .smartdialog import SmartDialog
 
 _t = QCoreApplication.translate
 
 
-class SettingsDialog(Ui_SettingsDialog, QDialog):
-    def __init__(self, parent, scale_factor=1):
+class SettingsDialog(Ui_SettingsDialog, SmartDialog):
+    def __init__(self, parent):
         super(SettingsDialog, self).__init__(parent)
         self.setupUi(self)
 
-        base_width = 470
-        base_height = 275 
-
-        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
-        self.resize(self.minimumSize())
-        self.adjustSize()
+        self.restoreSize()
 
         self.checkOpenFolderOnStart.clicked.connect(self.onOpenFolderOnStartClick)
         self.btnEditConfig.clicked.connect(self.onEditConfig)
@@ -46,6 +42,10 @@ class SettingsDialog(Ui_SettingsDialog, QDialog):
         return self.textOpenFolderOnStart.text()
 
     @property
+    def coverImageWidth(self):
+        return self.slideCoverImageSize.value()
+
+    @property
     def converterPath(self):
         return self.textConverterPath.text()
 
@@ -62,6 +62,10 @@ class SettingsDialog(Ui_SettingsDialog, QDialog):
     def openFolderOnStart(self, value):
         self.textOpenFolderOnStart.setText(value)
     
+    @coverImageWidth.setter
+    def coverImageWidth(self, value):
+        self.slideCoverImageSize.setValue(value)
+
     @converterPath.setter
     def converterPath(self, value):
         self.textConverterPath.setText(value)

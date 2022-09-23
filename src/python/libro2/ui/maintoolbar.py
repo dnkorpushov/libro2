@@ -1,3 +1,4 @@
+import sys
 from PyQt5.QtWidgets import QToolBar
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import QSize
@@ -9,8 +10,18 @@ class MainToolbar(QToolBar):
         super(MainToolbar, self).__init__(parent)
         self._base_size = 22
 
-    def setIconScale(self, scale):
-        size = int(self._base_size * scale)
+        self.setIcons()
+
+    def scale_factor(self):
+        if sys.platform == 'darwin':
+            base_dpi = 72
+        else:
+            base_dpi = 96
+
+        return self.screen().logicalDotsPerInchX() / base_dpi
+
+    def setIcons(self):
+        size = int(self._base_size * self.scale_factor())
         self.setIconSize(QSize(size, size))
         icon_add = QIcon(':/toolbar/plus-box.svg')
         icon_add_folder = QIcon(':/toolbar/folder-plus.svg')

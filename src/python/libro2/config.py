@@ -16,6 +16,7 @@ config_path = os.path.join(os.path.expanduser('~'), config_folder_name)
 config_file = os.path.join(config_path, 'settings.json')
 plugins_path = os.path.join(config_path, 'plugins')
 database_name = os.path.join(temp_dir, 'libro2.db')
+locale = None
 
 
 settings = SimpleNamespace(
@@ -28,11 +29,13 @@ settings = SimpleNamespace(
     ui_info_panel_visible=True,
     ui_filter_panel_visible=True,
     ui_auto_apply_filter=True, 
+    ui_cover_image_width=110,
     ui_splitter_sizes=[], 
     ui_columns_width=[],
     ui_columns_order=[],
     ui_hidden_columns=[],
     ui_hidden_columns_width=[],
+    ui_dialog_size={},
     is_open_folder_on_start = False,
     open_folder_on_start = None,
     rename_in_source_folder = True,
@@ -44,12 +47,15 @@ settings = SimpleNamespace(
     rename_overwrite=False,
     rename_author_template_list = [],
     rename_filename_template_list = [],
+    rename_path_list = [],
+    convert_path_list = [],
     convert_converter_path=None,
     convert_converter_config=None,
     convert_output_format = None,
     convert_output_path=None,
     convert_overwrite=False,
-    convert_stk = False
+    convert_stk = False,
+    plugin_settings = {}
 )
 
 

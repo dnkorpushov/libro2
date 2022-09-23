@@ -7,6 +7,7 @@ from PyQt5.QtCore import Qt, QCoreApplication, QByteArray, QBuffer, QLocale, QPo
 import ebookmeta
 
 from .editdialog_ui import Ui_EditDialog
+from .smartdialog import SmartDialog
 
 _t = QCoreApplication.translate
 
@@ -18,27 +19,21 @@ def uniq(s):
     return False
 
 
-class EditDialog(QDialog, Ui_EditDialog):
-    def __init__(self, parent, book_info_list, scale_factor=1):
+class EditDialog(SmartDialog, Ui_EditDialog):
+    def __init__(self, parent, book_info_list):
         super(EditDialog, self).__init__(parent)
         self.setupUi(self)
         
-        base_width = 700
-        base_height = 400
+        self.restoreSize()
 
         base_cover_width = 169
         base_cover_height = 260
 
-        self.setMinimumSize(QSize(int(base_width * scale_factor), int(base_height * scale_factor)))  
-        self.resize(self.minimumSize())
-        
-        self.cover.setMinimumWidth(int(base_cover_width * scale_factor))
-        self.cover.setMaximumWidth(int(base_cover_width * scale_factor))
-        self.cover.setMinimumHeight(int(base_cover_height * scale_factor))
-        self.cover.setMaximumHeight(int(base_cover_height * scale_factor))
+        self.cover.setMinimumWidth(int(base_cover_width * self.scale_factor()))
+        self.cover.setMaximumWidth(int(base_cover_width * self.scale_factor()))
+        self.cover.setMinimumHeight(int(base_cover_height * self.scale_factor()))
+        self.cover.setMaximumHeight(int(base_cover_height * self.scale_factor()))
 
-        self.adjustSize()
-        
         self.book_info_list = book_info_list
         self.prev_values = {}
 

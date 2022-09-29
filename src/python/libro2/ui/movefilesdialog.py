@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import QObject, QThread, pyqtSignal, Qt, QCoreApplication, QSize
 from .processdialog_ui import Ui_ProcessDialog
 import database
+import format_filename
 
 _t = QCoreApplication.translate
 
@@ -12,12 +13,13 @@ class Worker(QObject):
     currentProcess = pyqtSignal(int, int)
     finished = pyqtSignal()
 
-    def __init__(self, book_info_list, filename_format, author_format, delete_src, backup_src, overwtite_exsits, 
+    def __init__(self, book_info_list, filename_format, author_format, translator_format, delete_src, backup_src, overwtite_exsits, 
                  rename_in_source_folder, move_to_folder, parent=None):
         super(Worker, self).__init__(parent)
         self.book_info_list = book_info_list
         self.filename_format = filename_format
         self.author_format = author_format
+        self.tanslator_format = translator_format
         self.delete_src = delete_src
         self.backup_src = backup_src
         self.overwtite_exists = overwtite_exsits
@@ -38,7 +40,7 @@ class Worker(QObject):
                 try:
                     src = book.file
                     meta = ebookmeta.get_metadata(src)
-                    new_filename = meta.get_filename_by_pattern(self.filename_format, self.author_format)
+                    new_filename = format_filename.filename_by_template(meta, self.filename_format, self.author_format, self.tanslator_format)
                     if self.rename_in_source_folder:
                         dest_folder = os.path.dirname(meta.file)
                     else:
@@ -73,7 +75,7 @@ class Worker(QObject):
 
 
 class MoveFilesDialog(QDialog, Ui_ProcessDialog):
-    def __init__(self, parent, book_info_list, filename_format, author_format, delete_src, backup_src, overwrite_exists,
+    def __init__(self, parent, book_info_list, filename_format, author_format, translator_format, delete_src, backup_src, overwrite_exists,
                 rename_in_source_folder, move_to_folder, scale_factor=1):
         super(MoveFilesDialog, self).__init__(parent)
         self.setupUi(self)
@@ -98,7 +100,7 @@ class MoveFilesDialog(QDialog, Ui_ProcessDialog):
         self.progressLabel.setText('')
 
         self.thread = QThread()
-        self.worker = Worker(book_info_list, filename_format, author_format, delete_src, backup_src, overwrite_exists, 
+        self.worker = Worker(book_info_list, filename_format, author_format, translator_format, delete_src, backup_src, overwrite_exists, 
                              rename_in_source_folder, move_to_folder)
         self.worker.currentProcess.connect(self.setCurrentProcess)
         self.worker.moveToThread(self.thread)

@@ -150,7 +150,7 @@ class AbstractPlugin:
 
 
 class MetaPlugin(AbstractPlugin):
-    def init(self, meta):
+    def init(self):
         self._title = 'MetaPlugin Class'
 
     def perform_operation(self, meta):
@@ -158,7 +158,7 @@ class MetaPlugin(AbstractPlugin):
 
 
 class FilePlugin(AbstractPlugin):
-    def init(self, file_list):
+    def init(self):
         self._title = 'FilePlugin Class'
  
     def perform_operation(self, file_list):

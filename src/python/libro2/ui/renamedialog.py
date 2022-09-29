@@ -1,4 +1,5 @@
 import os
+import webbrowser
 import ebookmeta
 
 from PyQt5.QtWidgets import QDialog, QMenu, QApplication, QFileDialog
@@ -7,8 +8,11 @@ from .renamedialog_ui import Ui_RenameDialog
 from .previewdialog import PreviewDialog
 from .smartdialog import SmartDialog
 
+import format_filename
+
 _t = QCoreApplication.translate
 
+HELP_URL = 'https://github.com/dnkorpushov/libro2/wiki/%D0%A8%D0%B0%D0%B1%D0%BB%D0%BE%D0%BD%D1%8B'
 
 class RenameDialog(Ui_RenameDialog, SmartDialog):
     def __init__(self, parent):
@@ -20,6 +24,7 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
         self._book_list = []
 
         self._author_format_list = set()
+        self._translator_format_list = set()
         self._filename_format_list = set()
         self._path_list = set()
 
@@ -28,6 +33,9 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
         self.textAuthorFormat.clicked.connect(self.onTextAuthorFormatClick)
         self.textAuthorFormat.textChanged.connect(self.generateSample)
 
+        self.textTranslatorFormat.clicked.connect(self.onTextTranslatorFormatClick)
+        self.textTranslatorFormat.textChanged.connect(self.generateSample)
+
         self.textFilenameFormat.clicked.connect(self.onTextFilenameFormatClick)
         self.textFilenameFormat.textChanged.connect(self.generateSample)
 
@@ -35,9 +43,15 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
         self.radioRenameInSourceFolder.clicked.connect(self.setRenameDestination)
         self.radioRenameMoveTo.clicked.connect(self.setRenameDestination)
 
+        self.buttonHelp.clicked.connect(self.onHelpButtonClick)
+
     @property
     def authorFormat(self):
         return self.textAuthorFormat.text()
+
+    @property
+    def translatorFormat(self):
+        return self.textTranslatorFormat.text()
 
     @property
     def filenameFormat(self):
@@ -63,6 +77,10 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
     def authorFormatList(self):
         return list(self._author_format_list)
 
+    @property
+    def translatorFormatList(self):
+        return list(self._translator_format_list)
+
     @property 
     def filenameFormatList(self):
         return list(self._filename_format_list)
@@ -85,6 +103,12 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
             for val in values:
                 self._author_format_list.add(val)
 
+    @translatorFormatList.setter
+    def tranlatorFormatList(self, values):
+        if values:
+            for val in values:
+                self._translator_format_list.add(val)
+
     @filenameFormatList.setter
     def filenameFormatList(self, values):
         if values:
@@ -105,6 +129,10 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
     @authorFormat.setter
     def authorFormat(self, value):
         self.textAuthorFormat.setText(value)
+
+    @translatorFormat.setter
+    def translatorFormat(self, value):
+        self.textTranslatorFormat.setText(value)
 
     @filenameFormat.setter
     def filenameFormat(self, value):
@@ -145,7 +173,10 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
     def generateSample(self):
         for book in self._book_list:
             meta = ebookmeta.get_metadata(book.file)
-            self.labelSample.setText(meta.get_filename_by_pattern(self.filenameFormat, self.authorFormat, 2))
+            try:
+                self.labelSample.setText(format_filename.filename_by_template(meta, self.filenameFormat, self.authorFormat, self.translatorFormat))
+            except Exception as e:
+                self.labelSample.setText(_t('ren', 'Format error'))
             break
 
     def onPreviewClick(self):
@@ -155,13 +186,15 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
         preview_output = []
         for book in self.bookList:
             meta = ebookmeta.get_metadata(book.file)
-            new_filename = meta.get_filename_by_pattern(self.filenameFormat, self.authorFormat, 2)
-            if self.renameInSourceFolder:
-                dest_path = os.path.dirname(meta.file)
-            else:
-                dest_path = self.renameMoveToFolder
-            new_file = os.path.normpath(os.path.join(dest_path, new_filename))
-            out_str +=  '"{0}" ->\n"{1}"\n\n'.format(os.path.normpath(meta.file), new_file)
+            try:
+                new_filename = format_filename.filename_by_template(meta, self.filenameFormat, self.authorFormat, self.translatorFormat)
+                if self.renameInSourceFolder:
+                    dest_path = os.path.dirname(meta.file)
+                else:
+                    dest_path = self.renameMoveToFolder
+                new_file = os.path.normpath(os.path.join(dest_path, new_filename))
+            except:
+                new_file = _t('ren', 'Format error')
             preview_output.append({'src': book.file, 'dest': new_file})
         QApplication.restoreOverrideCursor()
 
@@ -170,31 +203,43 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
 
     def onTextAuthorFormatClick(self):
         elements = {
-            _t('ren', 'First name'): '#f',
-            _t('ren', 'Middle name'): '#m',
-            _t('ren', 'Last name'): '#l',
-            _t('ren', 'Fist name initial'): '#fi',
-            _t('ren', 'Middle name initial'): '#mi'
+            _t('ren', 'First name'): '{firstname}',
+            _t('ren', 'Middle name'): '{middlename}',
+            _t('ren', 'Last name'): '{lastname}',
+            _t('ren', 'Fist name initial'): '{f}',
+            _t('ren', 'Middle name initial'): '{m}'
         }
         self.toolContextMenu(elements=elements, 
                              templateSet=self._author_format_list,
                              control=self.textAuthorFormat, 
                              point=self.textAuthorFormat.mapToGlobal(QPoint(self.textAuthorFormat.width(), 0)))
 
+
+    def onTextTranslatorFormatClick(self):
+        elements = {
+            _t('ren', 'First name'): '{firstname}',
+            _t('ren', 'Middle name'): '{middlename}',
+            _t('ren', 'Last name'): '{lastname}',
+            _t('ren', 'Fist name initial'): '{f}',
+            _t('ren', 'Middle name initial'): '{m}'
+        }
+        self.toolContextMenu(elements=elements, 
+                             templateSet=self._translator_format_list,
+                             control=self.textTranslatorFormat, 
+                             point=self.textTranslatorFormat.mapToGlobal(QPoint(self.textTranslatorFormat.width(), 0)))
+
     def onTextFilenameFormatClick(self):
         elements = {
-            'Title': '#Title',
-            'Series': '#Series',
-            'Abbrseries': '#Abbrseries',
-            'Number': '#Number',
-            'Padnumber(2)': '#Padnumber',
-            'Author': '#Author',
-            'Authors': '#Authors',
-            'Translator': '#Translator',
-            'Atranslator': '#Atranslator',
-            'Atranslators': '#Atranslators',
-            'Bookid': '#Bookid',
-            'Md5':  '#Md5'
+            'title': '{title}',
+            'series': '{series}',
+            'abbrseries': '{abbrseries}',
+            'seriesindex': '{seriesindex}',
+            'author': '{author}',
+            'authors': '{lst(authors)}',
+            'translator': '{translator}',
+            'translators': '{lst(translators)}',
+            'bookid': '{bookid}',
+            'md5':  '{md5}'
         }
         self.toolContextMenu(elements=elements, 
                              templateSet=self._filename_format_list,
@@ -281,3 +326,7 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
                     control.setText(text)
                     control.lineEdit().setCursorPosition(start + len(element[1]))
 
+
+    def onHelpButtonClick(self):
+        browser = webbrowser.get()
+        browser.open_new_tab(HELP_URL)

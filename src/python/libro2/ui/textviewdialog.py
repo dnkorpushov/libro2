@@ -6,7 +6,6 @@ from .smartdialog import SmartDialog
 
 
 class TextViewDialog(SmartDialog, Ui_ViewTextDialog):
-
     def __init__(self, parent, errors):
         super(TextViewDialog, self).__init__(parent)
         self.setupUi(self)

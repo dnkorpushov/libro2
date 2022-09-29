@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>501</width>
-    <height>348</height>
+    <width>655</width>
+    <height>432</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -66,6 +66,16 @@
      </item>
      <item>
       <widget class="ButtonLineEdit" name="textAuthorFormat"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Translator format:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ButtonLineEdit" name="textTranslatorFormat"/>
      </item>
      <item>
       <widget class="QLabel" name="label_3">
@@ -151,7 +161,7 @@
       </spacer>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1,0">
        <property name="spacing">
         <number>5</number>
        </property>
@@ -169,6 +179,13 @@
          </property>
          <property name="standardButtons">
           <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="buttonHelp">
+         <property name="text">
+          <string>Help</string>
          </property>
         </widget>
        </item>

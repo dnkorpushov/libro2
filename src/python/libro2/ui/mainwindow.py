@@ -336,9 +336,11 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             renameDialog = RenameDialog(self)
             renameDialog.bookList = book_info_list
             renameDialog.authorFormatList = settings.rename_author_template_list
+            renameDialog.tranlatorFormatList = settings.rename_translator_template_list
             renameDialog.filenameFormatList = settings.rename_filename_template_list
             renameDialog.renamePathList = settings.rename_path_list
             renameDialog.authorFormat = settings.rename_author_format
+            renameDialog.translatorFormat = settings.rename_translator_format
             renameDialog.filenameFormat = settings.rename_filename_format
             renameDialog.deleteSourceFiles = settings.rename_delete_source_files
             renameDialog.overwriteExistingFiles = settings.rename_overwrite
@@ -352,6 +354,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                                                   book_info_list=book_info_list,
                                                   filename_format=renameDialog.filenameFormat, 
                                                   author_format=renameDialog.authorFormat,
+                                                  translator_format=renameDialog.translatorFormat,
                                                   delete_src=renameDialog.deleteSourceFiles,
                                                   backup_src=renameDialog.backupBeforeRename,
                                                   overwrite_exists=renameDialog.overwriteExistingFiles,
@@ -373,8 +376,10 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                     errorDialog.exec()
 
             settings.rename_author_format = renameDialog.authorFormat
+            settings.rename_translator_format = renameDialog.translatorFormat
             settings.rename_filename_format = renameDialog.filenameFormat
             settings.rename_author_template_list = renameDialog.authorFormatList
+            settings.rename_translator_template_list = renameDialog.tranlatorFormatList
             settings.rename_filename_template_list = renameDialog.filenameFormatList
             settings.rename_path_list = renameDialog.renamePathList
 

@@ -208,8 +208,6 @@ class BookTableModel(QSqlTableModel):
     def data(self, index, role):
         if role == Qt.ToolTipRole:
             return super(BookTableModel, self).data(index, Qt.DisplayRole)
-        if role == Qt.ForegroundRole:
-            return QColor(20, 24, 35)
         
         return super(BookTableModel, self).data(index, role)
 

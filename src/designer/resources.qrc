@@ -5,6 +5,12 @@
     <file>libro2_48px.png</file>
   </qresource>
   <qresource prefix="toolbar">
+    <file>cog_dark.svg</file>
+    <file>file-send_dark.svg</file>
+    <file>folder-plus_dark.svg</file>
+    <file>pencil_dark.svg</file>
+    <file>plus-box_dark.svg</file>
+    <file>swap-horizontal-bold_dark.svg</file>
     <file>folder-plus.svg</file>
     <file>cog.svg</file>
     <file>file-send.svg</file>

@@ -1,6 +1,7 @@
 import os
 import webbrowser
 import ebookmeta
+import traceback
 
 from PyQt5.QtWidgets import QDialog, QMenu, QApplication, QFileDialog
 from PyQt5.QtCore import QPoint, Qt, QCoreApplication, QSize
@@ -194,7 +195,7 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
                     dest_path = self.renameMoveToFolder
                 new_file = os.path.normpath(os.path.join(dest_path, new_filename))
             except:
-                new_file = _t('ren', 'Format error')
+                new_file = _t('ren', 'Format error:' + traceback.format_exc())
             preview_output.append({'src': book.file, 'dest': new_file})
         QApplication.restoreOverrideCursor()
 
@@ -209,7 +210,16 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
             _t('ren', 'Fist name initial'): '{f}',
             _t('ren', 'Middle name initial'): '{m}'
         }
+
+        base_templates = {
+            _t('ren', 'Firstname Lastname'): '{firstname} {lastname}',
+            _t('ren', 'Lastname Firtsname'): '{lastname} {firstname}',
+            _t('ren', 'Lastname F'): '{lastname} {f}',
+            _t('ren', 'Lastname F. M'): '{lastname} {f}{iif(m, ". " + m)}'
+        }
+
         self.toolContextMenu(elements=elements, 
+                             base_templates=base_templates,
                              templateSet=self._author_format_list,
                              control=self.textAuthorFormat, 
                              point=self.textAuthorFormat.mapToGlobal(QPoint(self.textAuthorFormat.width(), 0)))
@@ -223,7 +233,16 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
             _t('ren', 'Fist name initial'): '{f}',
             _t('ren', 'Middle name initial'): '{m}'
         }
+
+        base_templates = {
+            _t('ren', 'Firstname Lastname'): '{firstname} {lastname}',
+            _t('ren', 'Lastname Firtsname'): '{lastname} {firstname}',
+            _t('ren', 'Lastname F'): '{lastname} {f}',
+            _t('ren', 'Lastname F. M'): '{lastname} {f}{iif(m, ". " + m)}'
+        }
+
         self.toolContextMenu(elements=elements, 
+                             base_templates=base_templates,
                              templateSet=self._translator_format_list,
                              control=self.textTranslatorFormat, 
                              point=self.textTranslatorFormat.mapToGlobal(QPoint(self.textTranslatorFormat.width(), 0)))
@@ -241,7 +260,18 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
             'bookid': '{bookid}',
             'md5':  '{md5}'
         }
+        
+        base_templates = {
+            _t('ren', 'Author. Title'): '{author}. {title}',
+            _t('ren', 'Author. Title (tr. Translator)'): '{author}. {title}{iif(translator, " (пер. " + translator + ")")}',
+            _t('ren', 'Author. (Series Index) Title'): '{author}. {iif(series, "("+series)}{iif(seriesindex, " " + seriesindex.zfill(2))}{iif(series, ") ")}{title}',
+            _t('ren', 'Author/Author. Title (tr. Translator)'): '{path(author)}{author}. {title}{iif(translator, " (пер. " + translator + ")")}',
+            _t('ren', 'Author/Author. (Series Index) Title'): '{path(author)}{author}. {iif(series, "("+series)}{iif(seriesindex, " " + seriesindex.zfill(2))}{iif(series, ") ")}{title}',
+            _t('ren', 'Author/Series/Index. Title'): '{path(author, series)}{iif(seriesindex, seriesindex.zfill(2) + ". ")}{title}'
+        }
+        
         self.toolContextMenu(elements=elements, 
+                             base_templates=base_templates,
                              templateSet=self._filename_format_list,
                              control=self.textFilenameFormat, 
                              point=self.textFilenameFormat.mapToGlobal(QPoint(self.textFilenameFormat.width(), 0)))
@@ -279,12 +309,19 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
             elif element[0] == 'delete_action':              
                     self._path_list.discard(os.path.normpath(self.textMoveToFolder.text()))
        
-    def toolContextMenu(self, elements, templateSet, control, point):
+    def toolContextMenu(self, elements, base_templates, templateSet, control, point):
         menu = QMenu()
         for key in elements:
             item = menu.addAction(key)
             item.setData(('template_element', elements[key]))
-        
+
+        menu.addSeparator()
+        baseTemplateMenu = QMenu(_t('ren', 'Base templates'))
+        for key in base_templates:
+            item = baseTemplateMenu.addAction(key)
+            item.setData(('base_template', base_templates[key]))
+        menu.addMenu(baseTemplateMenu)
+            
         templateList = list(templateSet)
         if len(templateList) > 0:
             menu.addSeparator()
@@ -293,7 +330,7 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
                 item = templateMenu.addAction(template)
                 item.setData(('saved_template', template))
             menu.addMenu(templateMenu)
-
+    
         menu.addSeparator()
         item = menu.addAction(_t('ren', 'Save current template to list'))
         item.setData(('save_action', ''))
@@ -310,7 +347,7 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
             elif element[0] == 'delete_action':
                 templateSet.discard(text)
             
-            elif element[0] == 'saved_template':
+            elif element[0] in ('saved_template', 'base_template'):
                 control.setText(element[1])
             
             elif element[0] == 'template_element':

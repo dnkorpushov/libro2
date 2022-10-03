@@ -76,7 +76,16 @@ def get_person_elements(person):
     else:
         lastname = person
     
-    return (firstname, middlename, lastname)
+    return (replace_symbols(firstname), replace_symbols(middlename), replace_symbols(lastname))
+
+def replace_symbols(s):
+    if s:
+        for c in '<>:"/\\|?*':
+            s = s.replace(c, '_')
+    
+        return s
+    else:
+        return ''
 
 def filename_by_template(meta, filename_template, author_template, translator_template):
     title = ''
@@ -89,7 +98,8 @@ def filename_by_template(meta, filename_template, author_template, translator_te
     bookid = ''
     md5 = ''
 
-    title = meta.title
+    if meta.title:
+        title = meta.title
     
     if len(meta.author_list) > 0:
         authors = format_person_list(meta.author_list, author_template)
@@ -98,18 +108,30 @@ def filename_by_template(meta, filename_template, author_template, translator_te
         translators = format_person_list(meta.translator_list, translator_template)
         translator = translators[0]
 
-    series = meta.series
-    abbrseries = ''.join(w[0] for w in series.split())
-    seriesindex = str(meta.series_index)
+    if meta.series:
+        series = meta.series
+    if series:
+        abbrseries = ''.join(w[0] for w in series.split()) 
+    if meta.series_index:
+        seriesindex = str(meta.series_index)
     
-    bookid = meta.identifier
+    if meta.identifier:
+        bookid = meta.identifier
     md5 = ''
     with open(meta.file, 'rb') as f:
         data = f.read()
         md5 = hashlib.md5(data).hexdigest()
 
+    title = replace_symbols(title)
+    author = replace_symbols(author)
+    translator = replace_symbols(translator)
+    series = replace_symbols(series)
+    bookid = replace_symbols(bookid)
+    md5 = replace_symbols(md5)
+    
     result = eval(f"f'{filename_template}'")
     file_ext = split_ext(meta.file)
     result = result.strip() + file_ext
 
     return os.path.normpath(result) 
+

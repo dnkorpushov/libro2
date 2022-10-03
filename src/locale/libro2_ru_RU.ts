@@ -1177,69 +1177,129 @@
 <context>
     <name>ren</name>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="220"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="230"/>
         <source>First name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="221"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="231"/>
         <source>Middle name</source>
         <translation>Отчество</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="222"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="232"/>
         <source>Last name</source>
         <translation>Фамилия</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="223"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="233"/>
         <source>Fist name initial</source>
         <translation>Инициал имени</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="224"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="234"/>
         <source>Middle name initial</source>
         <translation>Инициал отчества</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="298"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="335"/>
         <source>Save current template to list</source>
         <translation>Сохранить шаблон в списке</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="300"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="337"/>
         <source>Delete current template from list</source>
         <translation>Удалить шаблон из списка</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="291"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="328"/>
         <source>Saved templates</source>
         <translation>Сохраненные шаблоны</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="251"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="281"/>
         <source>Browse...</source>
         <translation>Обзор...</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="255"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="285"/>
         <source>Saved path list</source>
         <translation>Сохраненные папки</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="261"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="291"/>
         <source>Save current path in list</source>
         <translation>Сохранить папку в списке</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="263"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="293"/>
         <source>Delete current path from list</source>
         <translation>Удалить папку из списка</translation>
     </message>
     <message>
-        <location filename="../python/libro2/ui/renamedialog.py" line="197"/>
+        <location filename="../python/libro2/ui/renamedialog.py" line="180"/>
         <source>Format error</source>
         <translation>Ошибка в шаблоне</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="238"/>
+        <source>Firstname Lastname</source>
+        <translation>Имя Фамилия</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="239"/>
+        <source>Lastname Firtsname</source>
+        <translation>Фамилия Имя</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="240"/>
+        <source>Lastname F</source>
+        <translation>Фамилия И</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="241"/>
+        <source>Lastname F. M</source>
+        <translation>Фамилия И. О</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="265"/>
+        <source>Author. Title</source>
+        <translation>Автор. Название</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="266"/>
+        <source>Author. Title (tr. Translator)</source>
+        <translation>Автор. Название (пер. Переводчик)</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="268"/>
+        <source>Author/Author. Title</source>
+        <translation type="obsolete">Автор\Автор. Название</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="270"/>
+        <source>Author/Series/Index. Title</source>
+        <translation>Автор\Серия\Индекс. Название</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="319"/>
+        <source>Base templates</source>
+        <translation>Базовые шаблоны</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="267"/>
+        <source>Author. (Series Index) Title</source>
+        <translation>Автор. (Серия Индекс) Название</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="269"/>
+        <source>Author/Author. (Series Index) Title</source>
+        <translation>Автор\Автор (Серия Индекс) Название</translation>
+    </message>
+    <message>
+        <location filename="../python/libro2/ui/renamedialog.py" line="268"/>
+        <source>Author/Author. Title (tr. Translator)</source>
+        <translation>Автор\Автор. Название (пер. Переводчик)</translation>
     </message>
 </context>
 <context>

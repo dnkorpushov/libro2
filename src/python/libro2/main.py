@@ -1,9 +1,10 @@
 import os
 import sys
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtGui import QFont, QScreen
-from PyQt5.QtCore import Qt, QLocale, QTranslator
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import QLocale, QTranslator
 from ui.mainwindow import MainWindow
+
 
 import config
 

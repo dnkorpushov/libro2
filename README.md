@@ -12,7 +12,7 @@ Key features:
 [User manual (in Russian)](https://github.com/dnkorpushov/libro2/wiki).
 
 ## Build Libro2
-Requirements: git, python3.9 and above, python modules: pyqt5 (5.12 and above), lxml, pyinstaller, ebookmeta.
+Requirements: git, python3.9 and above, python modules: pyqt5 (5.12 and above), lxml, pyinstaller, ebookmeta, darkdetect.
 
 Install python and required modules.
 

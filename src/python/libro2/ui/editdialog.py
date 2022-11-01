@@ -29,6 +29,8 @@ class EditDialog(SmartDialog, Ui_EditDialog):
         base_cover_width = 169
         base_cover_height = 260
 
+        self.tag_list = set()
+
         self.cover.setMinimumWidth(int(base_cover_width * self.scale_factor()))
         self.cover.setMaximumWidth(int(base_cover_width * self.scale_factor()))
         self.cover.setMinimumHeight(int(base_cover_height * self.scale_factor()))
@@ -84,6 +86,7 @@ class EditDialog(SmartDialog, Ui_EditDialog):
         series = set()
         series_index = set()
         tags = set()
+        self.tag_list = set()
         lang = set()
         tranlator = set()
 
@@ -102,6 +105,8 @@ class EditDialog(SmartDialog, Ui_EditDialog):
             series.add(book.series)
             series_index.add(book.series_index)
             tags.add(book.tags)
+            for tag in book.tags.split(','):
+                self.tag_list.add(tag.strip())
             lang.add(book.lang)
             tranlator.add(book.translators)
 
@@ -347,22 +352,31 @@ class EditDialog(SmartDialog, Ui_EditDialog):
             submenu = QMenu(item['title'])
             for i in item['submenu']:
                 menuAction = submenu.addAction(i['title'])
-                menuAction.setData(i['value'])
+                menuAction.setData(('add', i['value']))
             submenus.append(submenu)
             menu.addMenu(submenu)
 
+        if len(self.tag_list) > 0:    
+            menu.addSeparator()
+            action = menu.addAction(_t('edit', 'Insert all tags from selected files'))
+            action.setData(('insert', ', '.join(str(x) for x in self.tag_list)))
+
         action = menu.exec_(self.textTags.button().mapToGlobal(QPoint(0, self.textTags.button().height())))
         if action:
+            command, action_data = action.data()
             text = self.textTags.text()
             
-            tags = [x.strip() for x in text.split(',')]
-            if not text:
-                text = action.data()
-            else:
-                if action.data() not in tags:
-                    tags.append(action.data())
-                    text = ', '.join(tags)
-                    
+            if command == 'add':
+                tags = [x.strip() for x in text.split(',')]
+                if not text:
+                    text = action_data
+                else:
+                    if action_data not in tags:
+                        tags.append(action_data)
+                        text = ', '.join(tags)
+            elif command == 'insert':
+                text = action_data
+                        
             self.textTags.setText(text)
 
     def getGenres(self, lang='ru'):

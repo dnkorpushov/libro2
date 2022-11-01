@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>457</width>
-    <height>295</height>
+    <width>530</width>
+    <height>342</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -101,6 +101,26 @@
           <number>10</number>
          </property>
         </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Reader app for fb2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="FilePicker" name="textReaderFb2"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Reader app for epub</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="FilePicker" name="textReaderEpub"/>
        </item>
        <item>
         <spacer name="verticalSpacer">

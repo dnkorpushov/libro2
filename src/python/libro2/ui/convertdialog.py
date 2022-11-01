@@ -18,6 +18,8 @@ class ConvertDialog(SmartDialog, Ui_ConvertDialog):
 
         self.comboFormat.currentIndexChanged.connect(self.onFormatChanged)
 
+        self.radioConvertInSourceFolder.clicked.connect(self.setConvertDestionation)
+        self.radioConvertTo.clicked.connect(self.setConvertDestionation)
         self.textOutputDir.clicked.connect(self.onTextOutputDirClick)
 
     @property
@@ -43,6 +45,16 @@ class ConvertDialog(SmartDialog, Ui_ConvertDialog):
     @property
     def convertPathList(self):
         return list(self._path_list) 
+
+    @property
+    def convertInSourceFolder(self):
+        return self.radioConvertInSourceFolder.isChecked()
+
+    @convertInSourceFolder.setter
+    def convertInSourceFolder(self, value):
+        self.radioConvertInSourceFolder.setChecked(value)
+        self.radioConvertTo.setChecked(not value)
+        self.textOutputDir.setEnabled(not value)
 
     @outputPath.setter
     def outputPath(self, value):
@@ -76,6 +88,8 @@ class ConvertDialog(SmartDialog, Ui_ConvertDialog):
     def onFormatChanged(self):
         self.checkStk.setEnabled(self.comboFormat.currentText() == 'epub')
 
+    def setConvertDestionation(self):
+        self.convertInSourceFolder = self.radioConvertInSourceFolder.isChecked()
 
     def onTextOutputDirClick(self):
         menu = QMenu()

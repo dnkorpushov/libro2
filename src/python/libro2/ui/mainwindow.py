@@ -3,6 +3,7 @@ import os
 import sys
 import webbrowser
 import traceback
+import subprocess
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget
 from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent
@@ -41,6 +42,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.prevSplitterSizes = None
         self.isAutoApplyFilter = True
         self.actionsEnabled = False
+        self.actionOpenEnabled = False
 
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -81,6 +83,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.bookList.setHiddenColumns(settings.ui_hidden_columns)
         self.bookList.setHiddenColumnsWidth(settings.ui_hidden_columns_width)
         self.bookList.selectionModel().selectionChanged.connect(self.onBookListSelectionChanged)
+        self.bookList.doubleClicked.connect(self.onOpenFile)
 
         self.bookList.installEventFilter(self)
         self.bookList.setContextMenuPolicy(Qt.CustomContextMenu)
@@ -298,12 +301,18 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         else:
             self.actionsEnabled = False
 
+        if len(book_info_list) == 1:
+            self.actionOpenEnabled = True
+        else:
+            self.actionOpenEnabled = False
+
         self.actionsSetEnabled()
 
     def actionsSetEnabled(self):
         self.actionRename.setEnabled(self.actionsEnabled)
         self.actionConvert.setEnabled(self.actionsEnabled)
         self.actionEdit_metadata.setEnabled(self.actionsEnabled)
+        self.actionOpen.setEnabled(self.actionOpenEnabled)
 
         for action in self.menuTools.actions():
             if action.isSeparator():
@@ -396,12 +405,14 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         convertDialog.overwrite = settings.convert_overwrite
         convertDialog.stk = settings.convert_stk
         convertDialog.convertPathList = settings.convert_path_list
+        convertDialog.convertInSourceFolder = settings.convert_in_source_folder
        
         if convertDialog.exec_():
             book_info_list = self.getSelectedBookList()
             convertProgress = ConvertFilesDialog(self, 
                                                  book_info_list=book_info_list,
                                                  out_format=convertDialog.outputFormat,
+                                                 convert_in_source = convertDialog.convertInSourceFolder,
                                                  out_path=convertDialog.outputPath,
                                                  overwrite=convertDialog.overwrite,
                                                  stk = convertDialog.stk,
@@ -415,6 +426,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 errorDialog.exec()
             
             settings.convert_output_format = convertDialog.outputFormat
+            settings.convert_in_source_folder = convertDialog.convertInSourceFolder
             settings.convert_output_path = convertDialog.outputPath
             settings.convert_overwrite = convertDialog.overwrite 
             settings.convert_stk = convertDialog.stk
@@ -531,6 +543,8 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         settingsDialog.coverImageWidth = settings.ui_cover_image_width
         settingsDialog.converterPath = settings.convert_converter_path
         settingsDialog.converterConfig = settings.convert_converter_config
+        settingsDialog.readerAppFb2 = settings.reader_app_fb2
+        settingsDialog.readerAppEpub = settings.reader_app_epub
 
         if settingsDialog.exec_():
             settings.is_open_folder_on_start = settingsDialog.isOpenFolderOnStart
@@ -538,7 +552,26 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             settings.convert_converter_path = settingsDialog.converterPath
             settings.convert_converter_config = settingsDialog.converterConfig
             settings.ui_cover_image_width = settingsDialog.coverImageWidth
+            settings.reader_app_fb2 = settingsDialog.readerAppFb2
+            settings.reader_app_epub = settingsDialog.readerAppEpub
             self.bookInfo.displayData()
+
+    def onOpenFile(self):
+        reader_app = ''
+        book_list = self.getSelectedBookList()
+        if len(book_list) == 1:
+            if book_list[0].type == 'fb2':
+                reader_app = settings.reader_app_fb2
+            elif book_list[0].type == 'epub':
+                reader_app = settings.reader_app_epub
+            
+            if reader_app:
+                self.wait()
+                args = []
+                args.append(reader_app)
+                args.append(book_list[0].file)
+                subprocess.Popen(args)
+                self.stopWait()
 
     def onRemoveAll(self):
         self.wait()

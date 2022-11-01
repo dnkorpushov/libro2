@@ -157,6 +157,7 @@
     <addaction name="actionAdd_file"/>
     <addaction name="actionAdd_folder"/>
     <addaction name="separator"/>
+    <addaction name="actionOpen"/>
     <addaction name="actionEdit_metadata"/>
     <addaction name="separator"/>
     <addaction name="actionRename"/>
@@ -452,6 +453,14 @@
     <string>Shift+Del</string>
    </property>
   </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Return</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -739,6 +748,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionOpen</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>onOpenFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>460</x>
+     <y>232</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>onAddFiles()</slot>
@@ -762,5 +787,6 @@
   <slot>onEditMetadata()</slot>
   <slot>onSettings()</slot>
   <slot>onRemoveAll()</slot>
+  <slot>onOpenFile()</slot>
  </slots>
 </ui>

@@ -25,8 +25,12 @@ class SettingsDialog(Ui_SettingsDialog, SmartDialog):
 
         if sys.platform == 'win32':
             self.textConverterPath.setFilter(_t('cv', 'fb2c.exe (fb2c.exe);;All files (*.*)'))
+            self.textReaderFb2.setFilter(_t('cv', 'Executable files (*.exe);;All files (*.*)'))
+            self.textReaderEpub.setFilter(_t('cv', 'Executable files (*.exe);;All files (*.*)'))
         else:
             self.textConverterPath.setFilter(_t('cv', 'fb2c (fb2c);;All files (*)'))
+            self.textReaderFb2.setFilter(_t('cv', 'All files (*)'))
+            self.textReaderEpub.setFilter(_t('cv', 'All files (*)'))
 
         self.textConverterPath.setCaption(_t('cv', 'Select fb2c executable'))
         self.textConverterConfig.setCaption(_t('cv', 'Select fb2c config file'))
@@ -53,6 +57,14 @@ class SettingsDialog(Ui_SettingsDialog, SmartDialog):
     def converterConfig(self):
         return self.textConverterConfig.text()
 
+    @property
+    def readerAppFb2(self):
+        return self.textReaderFb2.text()
+
+    @property
+    def readerAppEpub(self):
+        return self.textReaderEpub.text()
+
     @isOpenFolderOnStart.setter
     def isOpenFolderOnStart(self, value):
         self.checkOpenFolderOnStart.setChecked(value)
@@ -73,6 +85,14 @@ class SettingsDialog(Ui_SettingsDialog, SmartDialog):
     @converterConfig.setter
     def converterConfig(self, value):
         self.textConverterConfig.setText(value)
+
+    @readerAppFb2.setter
+    def readerAppFb2(self, value):
+        self.textReaderFb2.setText(value)
+
+    @readerAppEpub.setter
+    def readerAppEpub(self, value):
+        self.textReaderEpub.setText(value)
 
     def onOpenFolderOnStartClick(self):
         self.textOpenFolderOnStart.setEnabled(self.checkOpenFolderOnStart.isChecked())

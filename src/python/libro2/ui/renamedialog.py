@@ -105,7 +105,7 @@ class RenameDialog(Ui_RenameDialog, SmartDialog):
                 self._author_format_list.add(val)
 
     @translatorFormatList.setter
-    def tranlatorFormatList(self, values):
+    def translatorFormatList(self, values):
         if values:
             for val in values:
                 self._translator_format_list.add(val)

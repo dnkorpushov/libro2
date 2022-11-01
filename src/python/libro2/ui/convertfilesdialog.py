@@ -53,7 +53,7 @@ def parse_converter_error(b):
 
 
 class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
-    def __init__(self, parent, book_info_list, out_format, out_path, overwrite, stk, debug, converter_path, converter_config, scale_factor=1):
+    def __init__(self, parent, book_info_list, out_format, convert_in_source, out_path, overwrite, stk, debug, converter_path, converter_config, scale_factor=1):
         super(ConvertFilesDialog, self).__init__(parent)
         self.setupUi(self)
 
@@ -69,6 +69,7 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
 
         self.book_info_list = book_info_list
         self.converter_config = converter_config
+        self.convert_in_source = convert_in_source
         self.converter_path = converter_path
         self.overwrite = overwrite
         self.stk = stk
@@ -114,8 +115,11 @@ class ConvertFilesDialog(QDialog, Ui_ProcessDialog):
             if self.stk and self.output_format == 'epub':
                 args.append('--stk')
             args.append(self.src)
-            if self.output_path:
-                args.append(self.output_path)
+            if self.convert_in_source:
+                args.append(os.path.dirname(self.src))
+            else:
+                if self.output_path:
+                    args.append(self.output_path)
             
             self.process.setWorkingDirectory(self.output_path)
             self.process.start(self.converter_path, args)

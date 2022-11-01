@@ -136,46 +136,10 @@
          <property name="spacing">
           <number>5</number>
          </property>
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="checkTitle">
-           <property name="text">
-            <string>Title</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="textTitle"/>
-         </item>
          <item row="1" column="0">
           <widget class="QCheckBox" name="checkAuthor">
            <property name="text">
             <string>Author</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="textAuthor"/>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="checkSeries">
-           <property name="text">
-            <string>Series</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="textSeries">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
            </property>
           </widget>
          </item>
@@ -186,16 +150,6 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="textSeriesIndex">
-           <property name="maximumSize">
-            <size>
-             <width>50</width>
-             <height>16777215</height>
-            </size>
-           </property>
-          </widget>
-         </item>
          <item row="4" column="0">
           <widget class="QCheckBox" name="checkTags">
            <property name="text">
@@ -203,13 +157,30 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
-          <widget class="ButtonLineEdit" name="textTags"/>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="textTitle"/>
          </item>
-         <item row="5" column="0">
-          <widget class="QCheckBox" name="checkLang">
+         <item row="6" column="0">
+          <widget class="QCheckBox" name="checkTranslator">
            <property name="text">
-            <string>Lang</string>
+            <string>Translator</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QLineEdit" name="textTranslator"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QCheckBox" name="checkTitle">
+           <property name="text">
+            <string>Title</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="checkSeries">
+           <property name="text">
+            <string>Series</string>
            </property>
           </widget>
          </item>
@@ -229,15 +200,18 @@
            </property>
           </widget>
          </item>
-         <item row="6" column="0">
-          <widget class="QCheckBox" name="checkTranslator">
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="textAuthor"/>
+         </item>
+         <item row="4" column="1">
+          <widget class="ButtonLineEdit" name="textTags"/>
+         </item>
+         <item row="5" column="0">
+          <widget class="QCheckBox" name="checkLang">
            <property name="text">
-            <string>Translator</string>
+            <string>Lang</string>
            </property>
           </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QLineEdit" name="textTranslator"/>
          </item>
          <item row="7" column="1">
           <spacer name="verticalSpacer">
@@ -251,6 +225,32 @@
             </size>
            </property>
           </spacer>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="textSeriesIndex">
+           <property name="maximumSize">
+            <size>
+             <width>50</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="textSeries">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

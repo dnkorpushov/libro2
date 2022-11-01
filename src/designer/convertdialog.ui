@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>415</width>
-    <height>242</height>
+    <width>493</width>
+    <height>290</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -67,9 +67,16 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_2">
+    <widget class="QRadioButton" name="radioConvertInSourceFolder">
      <property name="text">
-      <string>Output folder</string>
+      <string>Convert in source folder</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="radioConvertTo">
+     <property name="text">
+      <string>Convert to:</string>
      </property>
     </widget>
    </item>

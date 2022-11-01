@@ -157,9 +157,12 @@ class Ui_MainWindow(object):
         self.actionSettings.setObjectName("actionSettings")
         self.actionRemove_all = QtWidgets.QAction(MainWindow)
         self.actionRemove_all.setObjectName("actionRemove_all")
+        self.actionOpen = QtWidgets.QAction(MainWindow)
+        self.actionOpen.setObjectName("actionOpen")
         self.menuFile.addAction(self.actionAdd_file)
         self.menuFile.addAction(self.actionAdd_folder)
         self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionEdit_metadata)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionRename)
@@ -210,6 +213,7 @@ class Ui_MainWindow(object):
         self.actionEdit_metadata.triggered.connect(MainWindow.onEditMetadata)
         self.actionSettings.triggered.connect(MainWindow.onSettings)
         self.actionRemove_all.triggered.connect(MainWindow.onRemoveAll)
+        self.actionOpen.triggered.connect(MainWindow.onOpenFile)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -253,6 +257,8 @@ class Ui_MainWindow(object):
         self.actionSettings.setText(_translate("MainWindow", "Settings..."))
         self.actionRemove_all.setText(_translate("MainWindow", "Remove all"))
         self.actionRemove_all.setShortcut(_translate("MainWindow", "Shift+Del"))
+        self.actionOpen.setText(_translate("MainWindow", "Open"))
+        self.actionOpen.setShortcut(_translate("MainWindow", "Ctrl+Return"))
 from .bookinfopanel import BookInfoPanel
 from .booktableview import BookTableView
 from .customcontrols import ButtonLineEdit

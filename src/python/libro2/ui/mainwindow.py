@@ -5,6 +5,8 @@ import webbrowser
 import traceback
 import subprocess
 
+from showinfm import show_in_file_manager
+
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QMenu, QAction, QWidget
 from PyQt5.QtCore import Qt, QPoint, QCoreApplication, QTimer, QEvent
 from PyQt5.QtGui import QIcon, QKeySequence
@@ -160,13 +162,45 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.initPluginsMenu()
         self.actionsSetEnabled()
         
+    def showInFileManager(self):
+        book_info_list = self.getSelectedBookList()
+        if len(book_info_list) == 1:
+            show_in_file_manager(book_info_list[0].file)
+
+
+    def copyToClipboard(self):
+        book_info_list = self.getSelectedBookList()
+        if len(book_info_list) == 1:
+            clipboard = QApplication.clipboard()
+            clipboard.clear(mode=clipboard.Clipboard)
+            clipboard.setText(book_info_list[0].file, mode=clipboard.Clipboard)
+
     def onBookListContextMenu(self, point):
+        book_info_list = self.getSelectedBookList()
+
         menu = QMenu()
         menu.addAction(self.actionEdit_metadata)
         menu.addAction(self.actionRename)
         menu.addAction(self.actionConvert)
-        menu.addSeparator()
 
+        if len(book_info_list) == 1:
+            menu.addSeparator()
+            caption = ''
+            if sys.platform == 'win32':
+                caption = _t('main', 'Show in Windows Explorer')
+            elif sys.platform == 'darwin':
+                caption = _t('main', 'Show in Finder')
+            else:
+                caption = _t('main', 'Show in File Browser')
+
+            action = menu.addAction(caption)
+            action.triggered.connect(self.showInFileManager)
+            action = menu.addAction(_t('main','Copy file path to clipboard'))
+            action.triggered.connect(self.copyToClipboard)
+
+
+        menu.addSeparator()
+                
         for plugin in self.pluginCollection.plugins():
             try:
                 if plugin.is_context_menu():

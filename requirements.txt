@@ -2,3 +2,4 @@ ebookmeta>=1.0.2
 PyQt5==5.15.4
 pyinstaller
 darkdetect
+show-in-file-manager

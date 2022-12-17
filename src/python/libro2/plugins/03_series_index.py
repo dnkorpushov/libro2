@@ -1,54 +1,51 @@
 # Automatic series index creation
-from plugin_collection import MetaPlugin, DebugException, Param
-from config import locale, settings
+from plugin_collection import MetaPlugin, DebugException, TextField
+from config import locale
+
 
 class SeriesIndexer(MetaPlugin):
     def init(self):
         default_title = self.load_settings('SeriesIdx.Title', default_value='')
-        start_index = self.load_settings('SeriesIdx.StartValue', default_value='1')
-        self.start_index = int(start_index)
+        start_index = self.load_settings('SeriesIdx.StartValue',
+                                         default_value='1')
+
+        self.series_title = TextField()
+        self.series_index_start = TextField()
+
+        self.series_title.value = default_title
+        self.series_index_start.value = int(start_index)
 
         if locale == 'ru_RU':
             self._title = 'Автоматическая нумерация серии'
-            self._description = 'Плагин нумерует серию в выбранных книгах согласно сортировке в списке'
-            
-            self.add_param(name='series_title',
-                           title='Название серии (опционально)',
-                           type=Param.Text,
-                           default_value=default_title)
-            self.add_param(name='series_index_start',
-                           title='Начинать индексирование с',
-                           type=Param.Text,
-                           default_value=start_index)
+            self._description = ('Плагин нумерует серию в выбранных книгах '
+                                 'согласно сортировке в списке')
+            self.series_title.label = 'Название серии (опционально)'
+            self.series_index_start.label = 'Начинать индексирование с'
         else:
             self._title = 'Series index generator'
             self._description = 'Generate series index in book sort order'
 
-            self.add_param(name='series_title',
-                           title='Series title (optional)',
-                           type=Param.Text,
-                           default_value='')
-            self.add_param(name='series_index_start',
-                           title='Series index start value',
-                           type=Param.Text,
-                           default_value='1')            
+            self.series_title.label = 'Series title (optional)'
+            self.series_index_start.label = 'Series index start value'
 
-    def validate(self):
-        start_value = self.get_param('series_index_start').value
-        title = self.get_param('series_title').value
-        try:
-            self.start_index = int(start_value)
-            self.save_settings('SeriesIdx.Title', value=title)
-            self.save_settings('SeriesIdx.StartValue', value=start_value)
-        except:
-            if locale == 'ru_RU':
-                raise DebugException('Неверно значение начального индекса!')
-            else:
-                raise DebugException('Wrong series index start value!')
+    def validate(self, source):
+        if source is None:
+            try:
+                self.start_index = int(self.series_index_start.value)
+                self.save_settings('SeriesIdx.Title',
+                                   value=self.series_title.value)
+                self.save_settings('SeriesIdx.StartValue',
+                                   value=self.start_index)
+            except ValueError:
+                if locale == 'ru_RU':
+                    raise DebugException(
+                        'Неверное значение начального индекса!')
+                else:
+                    raise DebugException('Wrong series index start value!')
 
     def perform_operation(self, meta):
-        if self.get_param('series_title').value:
-            meta.series = self.get_param('series_title').value
+        if self.series_title.value:
+            meta.series = self.series_title.value
         meta.series_index = self.start_index
         self.start_index += 1
 

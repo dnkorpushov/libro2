@@ -111,14 +111,10 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         if len(book_info_list):
             try:
                 plugin.init()
-                pluginForm = PluginForm(self, plugin.params(), title=plugin.title())
-                if pluginForm.exec_():
-                    plugin_params = pluginForm.getParams()
-                    plugin.set_params(plugin_params)
-                    plugin.validate()
-                else:
+                pluginForm = PluginForm(self, plugin)
+                if not pluginForm.exec_():
                     run_plugin = False
-            except:
+            except Exception:
                 run_plugin = False
                 errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}])
                 errorDialog.exec()
@@ -146,8 +142,9 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 if plugin.hotkey():
                     action.setShortcut(QKeySequence(plugin.hotkey()))
                 action.triggered.connect(partial(self.runPlugin, action))
-            except Exception as e:
-                print(e)
+            except Exception:
+                errorDialog = TextViewDialog(self, [{ 'src': None, 'dest': None, 'error': traceback.format_exc()}])
+                errorDialog.exec()
         self.menuTools.addSeparator()
         action = self.menuTools.addAction(_t('main', 'Reload plugins'))
         action.triggered.connect(self.reloadPlugins)

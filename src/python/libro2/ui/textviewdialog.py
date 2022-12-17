@@ -1,8 +1,5 @@
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import QSize
-
-from .textviewdialog_ui import Ui_ViewTextDialog
-from .smartdialog import SmartDialog
+from ui.smartdialog import SmartDialog
+from ui.textviewdialog_ui import Ui_ViewTextDialog
 
 
 class TextViewDialog(SmartDialog, Ui_ViewTextDialog):
@@ -25,4 +22,3 @@ class TextViewDialog(SmartDialog, Ui_ViewTextDialog):
 
         self.textEdit.setHtml(text)
 
- 

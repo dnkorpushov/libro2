@@ -1,6 +1,3 @@
-import ebookmeta
-import lxml
-import os
 import os
 import sys
 import importlib
@@ -10,9 +7,42 @@ import traceback
 import config
 settings = config.settings
 
+
+class AbstractField:
+    def __init__(self, value=None, label=None):
+        self.value = value
+        self.label = label
+        self.enabled = True
+        self.visible = True
+
+
+class TextField(AbstractField):
+    pass
+
+
+class BoolField(AbstractField):
+    pass
+
+
+class ChoiceField(AbstractField):
+    def __init__(self, value=None, label=None, items=[]):
+        super().__init__(value=value, label=label)
+        self.items = items
+        self.value = items[0] if len(items) > 0 else None
+
+
+class FolderField(AbstractField):
+    pass
+
+
+class FileField(AbstractField):
+    pass
+
+
 class DebugException(Exception):
     def __init__(self, *args: object):
         super().__init__(*args)
+
 
 class PluginCollection:
     def __init__(self):
@@ -56,43 +86,15 @@ class PluginCollection:
                                 ):
                                 self._plugins.append(c())
 
-                    except Exception as e:
+                    except Exception:
                         self.errors.append({'src': f'Plugin {file}', 'dest': None, 'error': traceback.format_exc()})
 
     def plugins(self):
         return self._plugins
 
 
-class Param:
-    Text = 0
-    Boolean = 1
-    Folder = 2
-    File = 3
-    Choice = 4
-
-    def __init__(self, name, type, title, default_value):
-        if default_value:
-            if type == Param.Boolean and not isinstance(default_value, bool):
-                raise Exception(f'Boolean parameter "{name}" has wrong default value type')
-            elif type == Param.Text and not isinstance(default_value, str):
-                raise Exception(f'Text parameter "{name}" has wrong default value type')
-            elif type == Param.Folder and not isinstance(default_value, str):
-                raise Exception(f'Folder parameter "{name}" has wrong default value type')
-            elif type == Param.File and not isinstance(default_value, str):
-                raise Exception(f'File parameter "{name}" has wrong default value type')
-            elif type == Param.Choice and not isinstance(default_value, list):
-                raise Exception(f'Choice parameter "{name}" has wrong default value type')
-
-        self.name = name
-        self.type = type
-        self.title = title
-        self.default_value = default_value
-        self.value = None
-
-
 class AbstractPlugin:
     def __init__(self):
-        self._params = []
         self._title = None
         self._description = None
         self._hotkey = None
@@ -101,8 +103,8 @@ class AbstractPlugin:
     def init(self):
         return
 
-    def validate(self):
-        return 
+    def validate(self, source=None):
+        return
 
     def title(self):
         return self._title
@@ -116,23 +118,6 @@ class AbstractPlugin:
     def is_context_menu(self):
         return self._is_context_menu
 
-    def add_param(self, name, type, title, default_value=None):
-        not_found = True
-        for param in self._params:
-            if param.name == name:
-                param.default_value = default_value
-                not_found = False
-        if not_found:
-            param = Param(name=name, type=type, title=title, default_value=default_value)
-            self._params.append(param)
-    
-    def get_param(self, name):
-        for param in self._params:
-            if param.name == name:
-                return param
-
-        raise Exception(f'Parameter "{name}" not found!')
-
     def load_settings(self, key, default_value=None):
         if key in settings.plugin_settings.keys():
             return settings.plugin_settings[key]
@@ -141,12 +126,6 @@ class AbstractPlugin:
 
     def save_settings(self, key, value):
         settings.plugin_settings[key] = value
-
-    def params(self):
-        return self._params
-    
-    def set_params(self, params):
-        self._params = params
 
 
 class MetaPlugin(AbstractPlugin):

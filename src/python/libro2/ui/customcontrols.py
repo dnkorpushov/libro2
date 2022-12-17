@@ -1,8 +1,6 @@
 import os
-from re import L
-from PyQt5.QtWidgets import QWidget,QFileDialog, QPushButton, QHBoxLayout, QLineEdit
+from PyQt5.QtWidgets import QWidget, QFileDialog, QPushButton, QHBoxLayout, QLineEdit
 from PyQt5.QtCore import QCoreApplication, pyqtSignal
-from PyQt5.QtGui import QIcon
 
 _t = QCoreApplication.translate
 
@@ -57,16 +55,18 @@ class ButtonLineEdit(QWidget):
     def button(self):
         return self.btn
 
+
 class FolderPicker(QWidget):
+    textChanged = pyqtSignal()
+
     def __init__(self, parent):
         super().__init__(parent)
         self.line = QLineEdit()
         self.btn = QPushButton()
         
         self.btn.setText(_t('ctl', 'Browse...'))
-        
-
         self.btn.clicked.connect(self._selectFolder)
+        self.line.textChanged.connect(self._onTextChanged)
 
         self.layout = QHBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
@@ -74,6 +74,9 @@ class FolderPicker(QWidget):
         self.layout.addWidget(self.line)
         self.layout.addWidget(self.btn)
         self.setLayout(self.layout)
+
+    def _onTextChanged(self):
+        self.textChanged.emit()
 
     def setText(self, text):
         if text:
@@ -100,13 +103,17 @@ class FolderPicker(QWidget):
         if result:
             self.setText(result)
 
+
 class FilePicker(QWidget):
+    textChanged = pyqtSignal()
+
     def __init__(self, parent):
         super().__init__(parent)
         self.line = QLineEdit()
         self.btn = QPushButton()
         self.btn.setText(_t('ctl', 'Browse...'))
         self.btn.clicked.connect(self._selectFile)
+        self.line.textChanged.connect(self._onTextChanged)
 
         self.layout = QHBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
@@ -116,6 +123,9 @@ class FilePicker(QWidget):
         self.setLayout(self.layout)
         self.filter = _t('ctl', 'All files (*.*)')
         self.caption = _t('ctl', 'Open file')
+
+    def _onTextChanged(self):
+        self.textChanged.emit()
 
     def setFilter(self, value):
         self.filter = value

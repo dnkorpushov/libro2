@@ -1,17 +1,23 @@
 # Remove middle name for each author in authors list
-from plugin_collection import MetaPlugin, DebugException
+from plugin_collection import MetaPlugin
 from config import locale
+
 
 class RemoveAuthorMiddleName(MetaPlugin):
     def init(self):
         if locale == 'ru_RU':
             self._title = 'Удалить отчество у автора'
-            self._description = 'Некотрые предпочитают в библиотеке видеть автора в формате "Имя Фамилия" вместо "Иия Отчество Фамилия". ' \
-                                'Например, Виктор Пелевин вместо Виктор Олегович Пелевин. Данный плагин удаляет отчество у автора, если оно присутствует.'
+            self._description = ('Некотрые предпочитают в библиотеке видеть '
+                                 'автора в формате "Имя Фамилия" вместо '
+                                 '"Иия Отчество Фамилия". Например, Виктор '
+                                 'Пелевин вместо Виктор Олегович Пелевин. '
+                                 'Данный плагин удаляет отчество у автора, '
+                                 'если оно присутствует.')
         else:
             self._title = 'Remove author\'s middle name'
-            self._description = 'Remove middle name for each author in authors list'
-   
+            self._description = ('Remove middle name for each author'
+                                 'in authors list')
+
     def perform_operation(self, meta):
         new_authors = []
 

@@ -6,6 +6,7 @@ import config
 
 settings = config.settings
 
+
 class SmartDialog(QDialog):
     def __init__(self, parent):
         super(SmartDialog, self).__init__(parent)

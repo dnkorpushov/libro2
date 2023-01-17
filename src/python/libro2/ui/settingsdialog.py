@@ -3,11 +3,13 @@ import sys
 import webbrowser
 import subprocess
 
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QMessageBox
 from PyQt5.QtCore import QCoreApplication, QSize
 
 from .settingsdialog_ui import Ui_SettingsDialog
 from .smartdialog import SmartDialog
+
+import config
 
 _t = QCoreApplication.translate
 
@@ -95,16 +97,25 @@ class SettingsDialog(Ui_SettingsDialog, SmartDialog):
         self.textReaderEpub.setText(value)
 
     def onOpenFolderOnStartClick(self):
-        self.textOpenFolderOnStart.setEnabled(self.checkOpenFolderOnStart.isChecked())
-    
+        self.textOpenFolderOnStart.setEnabled(
+            self.checkOpenFolderOnStart.isChecked()
+        )
+
     def onEditConfig(self):
-        if self.converterConfig:
+        config_path = config.get_rel_path(self.converterConfig)
+        if os.path.exists(config_path):
             if sys.platform == 'win32':
-                os.startfile(self.converterConfig)
+                os.startfile(config_path)
             elif sys.platform == 'darwin':
-                subprocess.call(('open', self.converterConfig))
+                subprocess.call(('open', config_path))
             else:
-                subprocess.call(('xdg-open', self.converterConfig))
+                subprocess.call(('xdg-open', config_path))
+        else:
+            QMessageBox.critical(
+                self,
+                'Libro2',
+                _t('cv', 'Config file does not exist!')
+            )
 
     def onDownloadConverter(self):
         link = 'https://github.com/rupor-github/fb2converter/releases/'

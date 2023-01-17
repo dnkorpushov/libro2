@@ -35,6 +35,7 @@ _t = QCoreApplication.translate
 HELP_LINK = 'https://github.com/dnkorpushov/libro2/wiki'
 FORUM_LINK = 'https://4pda.to/forum/index.php?showtopic=947577'
 
+
 class MainWindow (QMainWindow, Ui_MainWindow):
     def __init__(self):
         config.init()
@@ -50,7 +51,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.setWindowIcon(QIcon(':/icons/libro2_48px.png'))
-        
+
         self.splitter.setChildrenCollapsible(False)
         self.splitter.setStretchFactor(0, 0)
         self.splitter.setStretchFactor(1, 1)
@@ -121,7 +122,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
 
             if run_plugin:
                 self.wait()
-        
+
                 runPluginDialog = RunPluginDialog(self, plugin, book_info_list)
                 runPluginDialog.exec()
 
@@ -132,7 +133,7 @@ class MainWindow (QMainWindow, Ui_MainWindow):
                 if len(errors) > 0:
                     errorDialog = TextViewDialog(self, errors)
                     errorDialog.exec()
-                        
+
     def initPluginsMenu(self):
         for plugin in self.pluginCollection.plugins():
             try:
@@ -158,12 +159,11 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         self.pluginCollection.reload_plugins()
         self.initPluginsMenu()
         self.actionsSetEnabled()
-        
+
     def showInFileManager(self):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list) == 1:
             show_in_file_manager(book_info_list[0].file)
-
 
     def copyToClipboard(self):
         book_info_list = self.getSelectedBookList()
@@ -194,7 +194,6 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             action.triggered.connect(self.showInFileManager)
             action = menu.addAction(_t('main','Copy file path to clipboard'))
             action.triggered.connect(self.copyToClipboard)
-
 
         menu.addSeparator()
                 
@@ -424,8 +423,9 @@ class MainWindow (QMainWindow, Ui_MainWindow):
             settings.rename_path_list = renameDialog.renamePathList
 
     def onConvert(self):
-        if (not settings.convert_converter_path or 
-                (settings.convert_converter_path and not os.path.exists(settings.convert_converter_path))):
+        converter_path = config.get_rel_path(settings.convert_converter_path)
+        if (not converter_path or 
+                (converter_path and not os.path.exists(converter_path))):
             QMessageBox.critical(self, 'Libro2', _t('main', 'Check settings for fb2converter!'))
             
             return
@@ -437,32 +437,38 @@ class MainWindow (QMainWindow, Ui_MainWindow):
         convertDialog.stk = settings.convert_stk
         convertDialog.convertPathList = settings.convert_path_list
         convertDialog.convertInSourceFolder = settings.convert_in_source_folder
-       
+
         if convertDialog.exec_():
             book_info_list = self.getSelectedBookList()
-            convertProgress = ConvertFilesDialog(self, 
-                                                 book_info_list=book_info_list,
-                                                 out_format=convertDialog.outputFormat,
-                                                 convert_in_source = convertDialog.convertInSourceFolder,
-                                                 out_path=convertDialog.outputPath,
-                                                 overwrite=convertDialog.overwrite,
-                                                 stk = convertDialog.stk,
-                                                 debug=convertDialog.debug,
-                                                 converter_path=settings.convert_converter_path,
-                                                 converter_config=settings.convert_converter_config)
+            convertProgress = ConvertFilesDialog(
+                    self,
+                    book_info_list=book_info_list,
+                    out_format=convertDialog.outputFormat,
+                    convert_in_source=convertDialog.convertInSourceFolder,
+                    out_path=convertDialog.outputPath,
+                    overwrite=convertDialog.overwrite,
+                    stk=convertDialog.stk,
+                    debug=convertDialog.debug,
+                    converter_path=config.get_rel_path(
+                        settings.convert_converter_path
+                    ),
+                    converter_config=config.get_rel_path(
+                        settings.convert_converter_config
+                    )
+            )
             convertProgress.exec()
 
             if len(convertProgress.errors) > 0:
                 errorDialog = TextViewDialog(self, convertProgress.errors)
                 errorDialog.exec()
-            
+
             settings.convert_output_format = convertDialog.outputFormat
             settings.convert_in_source_folder = convertDialog.convertInSourceFolder
             settings.convert_output_path = convertDialog.outputPath
             settings.convert_overwrite = convertDialog.overwrite 
             settings.convert_stk = convertDialog.stk
         settings.convert_path_list = convertDialog.convertPathList
-         
+
     def onEditMetadata(self):
         book_info_list = self.getSelectedBookList()
         if len(book_info_list) > 0:

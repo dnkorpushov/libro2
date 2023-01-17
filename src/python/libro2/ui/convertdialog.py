@@ -1,11 +1,12 @@
 import os
 
-from PyQt5.QtWidgets import QDialog, QMessageBox, QMenu, QFileDialog
-from PyQt5.QtCore import QCoreApplication, QSize, QPoint
+from PyQt5.QtWidgets import QMessageBox, QMenu, QFileDialog
+from PyQt5.QtCore import QCoreApplication, QPoint
 from .convertdialog_ui import Ui_ConvertDialog
 from .smartdialog import SmartDialog
 
 _t = QCoreApplication.translate
+
 
 class ConvertDialog(SmartDialog, Ui_ConvertDialog):
     def __init__(self, parent):

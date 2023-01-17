@@ -130,6 +130,8 @@ class PluginForm(SmartDialog):
             if label:
                 label.setVisible(self.form_attrs[attr_name].visible)
 
+        self.adjustSize()
+
     def setWidgetValue(self, attr_name, value):
         for widget in self.children():
             if widget.objectName() == attr_name:
